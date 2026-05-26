@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uday G — Security Test Engineer | VAPT Analyst | Android Pentester | Bengaluru</title>
+<meta name="description" content="Uday G — Security Test Engineer & VAPT Analyst in Bengaluru. Specialist in Android APK Security, Frida Instrumentation, SSL Pinning Bypass, OWASP Mobile Top 10. 50+ vulnerabilities across 10+ banking apps.">
+<meta name="keywords" content="Security Test Engineer Bengaluru,VAPT Analyst India,Android Security Engineer,Frida Instrumentation,APK Reverse Engineering,Penetration Tester,Mobile Security Engineer,OWASP Mobile Top 10,SSL Pinning Bypass,Uday G cybersecurity">
+<meta name="author" content="Uday G">
+<meta name="robots" content="index,follow">
+<meta property="og:title" content="Uday G — Security Test Engineer & VAPT Analyst">
+<meta property="og:description" content="Specialist in Android APK Security, Frida Instrumentation & OWASP Mobile Top 10. 50+ vulnerabilities in banking domain.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://udayg.netlify.app">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Uday G — Security Test Engineer">
+<meta name="twitter:description" content="Android VAPT Specialist. 50+ vulnerabilities. 10+ banking APKs. Bengaluru.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23faf8f4'/><text x='50' y='62' font-family='Georgia,serif' font-size='38' font-weight='300' fill='%234e1a70' text-anchor='middle'>U</text><rect x='20' y='72' width='60' height='1' fill='%234e1a70'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#fcfaff;--cream2:#f7f2fb;--cream3:#efe9f5;
+  --linen:#e2dbeb;--linen2:#d4cce0;
+  --gold:#7511b3;--gold2:#8000cf;--gold3:hsl(275,81%,23%);
+  --gold-lt:rgba(93,20,142,.33);--gold-lt2:rgba(78,26,112,.20);--gold-lt3:rgba(78,26,112,.07);
+  --ink:#0f0d0a;--ink2:#1c1a15;--ink3:#2a271f;
+  --body:#2e2b24;--muted:#4a4540;--muted2:#6a6258;--muted3:#8a8070;
+  --border:rgba(78,26,112,.18);--border2:rgba(78,26,112,.32);
+  --green:#1e6644;--green-lt:rgba(30,102,68,.12);
+  --red:#8b2020;--red-lt:rgba(139,32,32,.10);
+  --orange:#8f4f10;--orange-lt:rgba(143,79,16,.10);
+  --amber:#856a10;--amber-lt:rgba(133,106,16,.10);
+  --serif:'Cormorant Garamond',serif;--sans:'Jost',sans-serif;--mono:'DM Mono',monospace;
+  --shadow:0 2px 32px rgba(26,22,18,.06);--shadow2:0 8px 48px rgba(26,22,18,.10);
+}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--body);font-family:var(--sans);font-weight:400;overflow-x:hidden;line-height:1.7;cursor:none}
+body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.018;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
+.cdot{position:fixed;width:5px;height:5px;border-radius:50%;background:var(--gold);pointer-events:none;z-index:99999;transform:translate(-50%,-50%)}
+.cring{position:fixed;width:28px;height:28px;border-radius:50%;border:1px solid rgba(78,26,112,.5);pointer-events:none;z-index:99998;transform:translate(-50%,-50%);transition:width .25s,height .25s,border-color .25s}
+@media(hover:none){.cdot,.cring{display:none}body{cursor:auto}}
+::-webkit-scrollbar{width:2px}::-webkit-scrollbar-track{background:var(--cream)}::-webkit-scrollbar-thumb{background:var(--gold3)}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(1rem,4vw,4rem);background:rgba(252,250,255,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:background .3s;box-shadow:0 1px 24px rgba(78,26,112,.04)}
+.nav-mark{font-family:var(--serif);font-size:1.3rem;font-weight:400;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;text-decoration:none}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-family:var(--mono);font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);text-decoration:none;position:relative;padding-bottom:3px;transition:color .3s}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1px;background:var(--gold);transition:width .35s}
+.nav-links a:hover{color:var(--gold)}.nav-links a:hover::after{width:100%}
+.nav-r{display:flex;align-items:center;gap:1.5rem}
+.nav-status{display:flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.sdot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(46,125,90,.4);animation:pulse 2.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.nav-dl{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:.48rem 1.2rem;border:1px solid var(--border2);color:var(--gold);text-decoration:none;transition:all .25s;border-radius:1px}
+.nav-dl:hover{background:var(--gold-lt3);border-color:var(--gold)}
+
+/* RESUME MODAL */
+.rmodal{display:none;position:fixed;inset:0;z-index:9000;background:rgba(15,13,10,.75);backdrop-filter:blur(16px);align-items:center;justify-content:center}
+.rmodal-box{background:var(--cream2);border:1px solid var(--border2);padding:3rem;max-width:460px;width:90%;position:relative;box-shadow:var(--shadow2)}
+.rmodal-close{position:absolute;top:1rem;right:1.5rem;font-family:var(--mono);font-size:.8rem;color:var(--muted);cursor:pointer;transition:color .2s}
+.rmodal-close:hover{color:var(--gold)}
+.rmodal-label{font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold3);margin-bottom:1.2rem}
+.rmodal-title{font-family:var(--serif);font-size:1.8rem;font-weight:400;color:var(--ink);margin-bottom:1rem}
+.rmodal-text{font-size:.9rem;color:var(--muted);font-weight:300;line-height:1.9;margin-bottom:2rem}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:120px clamp(1rem,4vw,4rem) 6rem;text-align:center;background:var(--cream)}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 55% at 50% 0%,rgba(78,26,112,.08) 0%,transparent 70%),radial-gradient(ellipse 60% 40% at 50% 100%,rgba(78,26,112,.05) 0%,transparent 70%)}
+.hero-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(78,26,112,.04) 1px,transparent 1px);background-size:100% 100px;mask-image:linear-gradient(transparent,rgba(0,0,0,.3) 30%,rgba(0,0,0,.3) 70%,transparent)}
+.hero-ey{font-family:var(--mono);font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:1.2rem;margin-bottom:2.5rem}
+.eline{width:36px;height:1px;background:var(--gold);opacity:.45}
+h1.hname{font-family:var(--serif);font-size:clamp(4rem,10vw,9.5rem);font-weight:400;line-height:.9;letter-spacing:.06em;color:var(--ink);margin-bottom:1.2rem;text-transform:uppercase}
+h1.hname em{font-style:italic;color:transparent;-webkit-text-stroke:1.5px var(--gold)}
+.hrule{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:.8rem auto 1.6rem}
+.htitle{font-family:var(--serif);font-size:clamp(.9rem,2vw,1.25rem);font-weight:400;font-style:italic;color:var(--muted);letter-spacing:.08em;margin-bottom:.5rem}
+.hopen{font-family:var(--mono);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:2.5rem;display:flex;align-items:center;justify-content:center;gap:.7rem;font-weight:500}
+.hopen::before,.hopen::after{content:'';width:22px;height:1px;background:var(--green);opacity:.6}
+.hchips{display:flex;gap:.55rem;justify-content:center;flex-wrap:wrap;margin-bottom:3rem}
+.chip{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;padding:.36rem 1rem;border:1px solid var(--border2);color:var(--ink3);border-radius:1px;background:var(--cream2);transition:all .3s}
+.chip:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-lt3)}
+.hstats{display:flex;gap:clamp(1.5rem,4vw,4.5rem);justify-content:center;margin-bottom:3rem;flex-wrap:wrap}
+.hstat{text-align:center}
+.hstat-n{font-family:var(--serif);font-size:clamp(2.5rem,4vw,3.5rem);font-weight:300;color:var(--gold);line-height:1}
+.hstat-l{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:.3rem}
+.hcta{display:flex;gap:.9rem;justify-content:center;flex-wrap:wrap}
+.btn-g{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;padding:.85rem 2rem;background:var(--gold);color:#fff;text-decoration:none;transition:all .3s;display:inline-flex;align-items:center;gap:.55rem;border-radius:1px;border:1px solid var(--gold);box-shadow:0 4px 20px rgba(78,26,112,.2)}
+.btn-g:hover{background:var(--gold2);box-shadow:0 12px 36px rgba(78,26,112,.28);transform:translateY(-2px)}
+.btn-o{font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;padding:.85rem 1.8rem;background:transparent;color:var(--muted);border:1px solid var(--border2);text-decoration:none;transition:all .3s;display:inline-flex;align-items:center;gap:.55rem;border-radius:1px}
+.btn-o:hover{border-color:var(--gold);color:var(--gold);background:var(--gold-lt3)}
+.hscroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.scroll-t{font-family:var(--mono);font-size:.6rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted2)}
+.scroll-l{width:1px;height:44px;background:linear-gradient(var(--gold),transparent);animation:sl 2s ease-in-out infinite}
+@keyframes sl{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* SECTIONS */
+.sec{padding:clamp(4rem,8vw,8rem) clamp(1rem,4vw,4rem);position:relative;background:var(--cream)}
+.sec.alt{background:var(--cream2)}
+.si{max-width:1200px;margin:0 auto}
+.sey{display:flex;align-items:center;gap:1.5rem;margin-bottom:1.2rem}
+.snum{font-family:var(--mono);font-size:.7rem;color:var(--gold);letter-spacing:.2em;font-weight:500}
+.srule{flex:1;height:1px;background:linear-gradient(90deg,var(--border2),transparent);max-width:80px}
+.slbl{font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+h2.st{font-family:var(--serif);font-size:clamp(2rem,5vw,3.8rem);font-weight:300;color:var(--ink);line-height:1;letter-spacing:.03em;margin-bottom:3.5rem}
+h2.st em{font-style:italic;color:var(--gold)}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+@media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:3rem}}
+.atxt{font-size:.97rem;line-height:2;color:var(--body)}
+.atxt p{margin-bottom:1.4rem}.atxt strong{color:var(--gold3);font-weight:600}
+.grule{width:36px;height:1px;background:var(--gold);margin:1.8rem 0;opacity:.7}
+.ci{display:flex;align-items:center;gap:1rem;margin-bottom:.9rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em}
+.cl{color:var(--muted);text-transform:uppercase;letter-spacing:.14em;min-width:80px;font-size:.62rem}
+.cv{color:var(--ink2)}.cv a{color:var(--gold);text-decoration:none;transition:color .2s}.cv a:hover{color:var(--gold2)}
+.kgrid{display:grid;grid-template-columns:1fr 1fr;gap:1.5px;background:var(--border2)}
+.kpi{background:var(--cream2);padding:1.8rem;transition:background .3s}
+.kpi:hover{background:var(--cream3)}
+.kn{font-family:var(--serif);font-size:2.6rem;font-weight:300;color:var(--gold);line-height:1;margin-bottom:.3rem}
+.kl{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.lang-box{margin-top:1.5px;background:var(--border2)}
+.lang-inner{background:var(--cream2);padding:1.8rem}
+.lang-title{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold3);margin-bottom:.9rem}
+.lang-list{font-size:.88rem;color:var(--body);line-height:2.2}
+
+/* SKILLS */
+.sk-cols{display:grid;grid-template-columns:repeat(2,1fr);gap:2.5rem}
+@media(max-width:700px){.sk-cols{grid-template-columns:1fr}}
+.sgt{font-family:var(--serif);font-size:1.2rem;font-style:italic;color:var(--gold3);margin-bottom:1rem;letter-spacing:.04em;font-weight:500}
+.stags{display:flex;flex-wrap:wrap;gap:.45rem}
+.stag{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .82rem;border:1px solid var(--linen);color:var(--ink3);border-radius:1px;background:var(--cream2);transition:all .25s;cursor:default}
+.stag:hover{border-color:var(--gold);color:var(--gold3);background:var(--gold-lt3)}
+.skrule{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:2.5rem 0}
+.tgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--linen)}
+@media(max-width:700px){.tgrid{grid-template-columns:repeat(3,1fr)}}
+.tool{background:var(--cream2);padding:1rem;text-align:center;font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);transition:all .25s}
+.tool:hover{background:var(--gold-lt3);color:var(--gold3)}
+
+/* EXPERIENCE */
+.expitem{display:grid;grid-template-columns:180px 1px 1fr;gap:0 2.5rem}
+@media(max-width:800px){.expitem{display:block}}
+.exleft{padding:2.5rem 0;text-align:right}
+@media(max-width:800px){.exleft{text-align:left;padding:1.5rem 0 .3rem}}
+.exdate{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold3);margin-bottom:.5rem}
+.exco{font-family:var(--serif);font-size:.95rem;color:var(--muted);font-style:italic}
+.exloc{font-family:var(--mono);font-size:.65rem;color:var(--muted);letter-spacing:.1em;margin-top:.3rem}
+.exspine{background:var(--linen);position:relative;display:flex;justify-content:center}
+@media(max-width:800px){.exspine{display:none}}
+.sdot2{position:absolute;top:2.8rem;width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px rgba(109,40,217,.35);border:2px solid var(--cream2)}
+.exright{padding:2.5rem 0}
+@media(max-width:800px){.exright{padding:.5rem 0 2rem}}
+.exbadge{display:inline-block;font-family:var(--mono);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:.22rem .75rem;border:1px solid var(--border2);color:var(--gold3);margin-bottom:.7rem;background:var(--gold-lt3)}
+.exbadge.p{border-color:var(--gold);background:var(--gold-lt2);color:var(--gold3)}
+.exrole{font-family:var(--serif);font-size:1.5rem;font-weight:500;color:var(--ink);margin-bottom:1.1rem;letter-spacing:.02em}
+.exul{list-style:none;display:flex;flex-direction:column;gap:.7rem}
+.exul li{font-size:.9rem;color:var(--body);display:grid;grid-template-columns:10px 1fr;gap:.65rem;line-height:1.8}
+.exul li::before{content:'';width:2px;height:11px;background:var(--gold);margin-top:.35rem;flex-shrink:0;opacity:.7}
+.expills{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.2rem}
+.ep{font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .65rem;background:var(--gold-lt3);border:1px solid var(--border2);color:var(--gold3)}
+
+/* CASE STUDY */
+.cs-card{border:1px solid var(--linen);padding:clamp(1.5rem,3vw,3rem);background:var(--cream);box-shadow:var(--shadow);transition:border-color .3s}
+.cs-card:hover{border-color:var(--linen2)}
+.cs-badge{font-family:var(--mono);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;padding:.22rem .8rem;border:1px solid var(--border2);color:var(--gold3);background:var(--gold-lt3)}
+.cs-domain{font-family:var(--mono);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:.22rem .8rem;border:1px solid var(--linen);color:var(--muted);background:var(--cream2)}
+.cs-title{font-family:var(--serif);font-size:1.7rem;font-weight:400;color:var(--ink);margin-bottom:.8rem;letter-spacing:.02em}
+.cs-sub{font-size:.9rem;color:var(--body);line-height:1.9;margin-bottom:2rem}
+.cs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--linen);margin-bottom:2rem}
+@media(max-width:700px){.cs-grid{grid-template-columns:repeat(2,1fr)}}
+.cs-col{background:var(--cream2);padding:1.4rem}
+.cs-col-title{font-family:var(--mono);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold3);margin-bottom:.8rem;font-weight:500}
+.cs-col ul{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+.cs-col ul li{font-size:.82rem;color:var(--body);display:flex;gap:.5rem;align-items:flex-start}
+.cs-col ul li::before{content:'▸';color:var(--gold);font-size:.65rem;margin-top:.18rem;flex-shrink:0}
+.cs-findings{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--linen)}
+@media(max-width:700px){.cs-findings{grid-template-columns:1fr}}
+.csf{background:var(--cream2);padding:1.5rem;transition:background .25s}
+.csf:hover{background:var(--cream3)}
+.csf-sev{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;padding:.15rem .6rem;margin-bottom:.7rem;display:inline-block;border-radius:1px}
+.sev-c{background:var(--red-lt);color:var(--red);border:1px solid rgba(139,32,32,.25)}
+.sev-h{background:var(--orange-lt);color:var(--orange);border:1px solid rgba(143,79,16,.25)}
+.sev-m{background:var(--amber-lt);color:var(--amber);border:1px solid rgba(133,106,16,.25)}
+.csf-title{font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:.4rem}
+.csf-desc{font-size:.8rem;color:var(--body);line-height:1.75}
+
+/* PROOF OF WORK */
+.pow-intro{font-size:.95rem;color:var(--muted);line-height:1.9;margin-bottom:3rem;max-width:620px}
+.pow-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-bottom:2rem}
+@media(max-width:700px){.pow-grid{grid-template-columns:1fr}}
+.pow-card{border:1px solid var(--linen);background:var(--cream);transition:border-color .3s,transform .3s;overflow:hidden}
+.pow-card:hover{border-color:var(--linen2);transform:translateY(-3px)}
+.pow-screen{height:180px;display:flex;align-items:center;justify-content:center;background:var(--cream3)}
+.pow-screen-inner{display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:1.5rem;text-align:center}
+.pow-tool-badge{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:.2rem .7rem;border:1px solid var(--border2);color:var(--gold3);background:var(--gold-lt3)}
+.pow-upload-hint{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted3);margin-top:.3rem}
+.pow-body{padding:1.2rem 1.5rem}
+.pow-title{font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:.3rem}
+.pow-desc{font-size:.8rem;color:var(--muted);line-height:1.75}
+.pow-note{border:1px solid var(--border2);padding:1.2rem 1.8rem;background:var(--gold-lt3);font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:var(--gold3);display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.pow-note strong{color:var(--gold3)}
+
+/* PROJECTS */
+.pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--linen)}
+@media(max-width:700px){.pgrid{grid-template-columns:1fr}}
+.pcard{background:var(--cream);padding:2.5rem;position:relative;overflow:hidden;transition:background .3s}
+.pcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transform-origin:left;transition:transform .5s}
+.pcard:hover{background:var(--cream2)}
+.pcard:hover::before{transform:scaleX(1)}
+.pi{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted3);margin-bottom:1rem}
+.pdtag{display:inline-block;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;padding:.18rem .65rem;border:1px solid var(--border2);color:var(--gold3);background:var(--gold-lt3);margin-bottom:.9rem}
+.ptitle{font-family:var(--serif);font-size:1.45rem;font-weight:400;color:var(--ink);line-height:1.25;margin-bottom:.8rem;letter-spacing:.02em}
+.pdesc{font-size:.87rem;color:var(--body);line-height:1.85;margin-bottom:1.2rem}
+.prr{border-top:1px solid var(--linen);padding-top:1rem;margin-bottom:1.2rem}
+.prl{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold3);margin-bottom:.6rem}
+.pri{font-size:.82rem;color:var(--body);margin:.28rem 0;display:flex;align-items:flex-start;gap:.55rem}
+.pri::before{content:'—';color:var(--gold3);flex-shrink:0}
+.ptools{display:flex;flex-wrap:wrap;gap:.4rem}
+.ptl{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;padding:.2rem .55rem;background:var(--cream3);border:1px solid var(--linen);color:var(--muted)}
+
+/* ACHIEVEMENTS */
+.ach-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--linen);margin-bottom:3rem}
+@media(max-width:700px){.ach-grid{grid-template-columns:1fr}}
+.ach-card{background:var(--cream2);padding:2rem;transition:background .25s}
+.ach-card:hover{background:var(--cream3)}
+.ach-num{font-family:var(--serif);font-size:2.8rem;font-weight:300;color:var(--gold);line-height:1;margin-bottom:.5rem}
+.ach-label{font-size:.85rem;color:var(--body);line-height:1.7}
+.ach-label strong{color:var(--ink);font-weight:600}
+
+/* CERTS */
+.clayout{display:grid;grid-template-columns:1fr 1fr;gap:0 5rem}
+@media(max-width:900px){.clayout{grid-template-columns:1fr}}
+.cgt{font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold3);padding-bottom:.8rem;margin-bottom:1rem;border-bottom:1px solid var(--linen)}
+.citem{display:flex;align-items:flex-start;gap:1.1rem;padding:1rem 0;border-bottom:1px solid var(--linen);transition:all .25s}
+.citem:last-child{border-bottom:none}
+.citem:hover .cname{color:var(--gold)}
+.citem.feat .cname{color:var(--gold3)}
+.cmark{width:2px;height:28px;background:var(--gold3);flex-shrink:0;margin-top:.18rem;opacity:.5;transition:opacity .25s}
+.citem:hover .cmark,.citem.feat .cmark{opacity:1}
+.cname{font-size:.9rem;color:var(--ink2);margin-bottom:.2rem;transition:color .25s;font-weight:400}
+.cmr{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}
+.cmeta{font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;color:var(--muted)}
+.cverify{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold3);text-decoration:none;border:1px solid var(--border);padding:.1rem .45rem;transition:all .2s}
+.cverify:hover{background:var(--gold-lt3);color:var(--gold)}
+.cip{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;padding:.12rem .5rem;border:1px solid var(--border2);color:var(--gold3);background:var(--gold-lt3)}
+.edu-card{border:1px solid var(--linen);padding:2rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;margin-top:2.5rem;transition:border-color .3s}
+@media(max-width:600px){.edu-card{grid-template-columns:1fr}}
+.edu-card:hover{border-color:var(--linen2)}
+.edeg{font-family:var(--serif);font-size:1.3rem;font-weight:400;color:var(--ink);margin-bottom:.4rem}
+.euni{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:var(--muted);margin-bottom:1.1rem}
+.etags{display:flex;flex-wrap:wrap;gap:.45rem}
+.etag{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .65rem;border:1px solid var(--linen);color:var(--muted);background:var(--cream3)}
+.egpa{font-family:var(--serif);font-size:3rem;font-weight:300;color:var(--gold);line-height:1;text-align:center}
+.egpal{font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;color:var(--muted);margin-top:.4rem;text-align:center}
+
+/* CONTACT */
+.contact-sec{padding:clamp(4rem,8vw,8rem) clamp(1rem,4vw,4rem);text-align:center;position:relative;overflow:hidden;background:var(--cream3)}
+.cbg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(78,26,112,.06) 0%,transparent 70%);pointer-events:none}
+.cin{max-width:660px;margin:0 auto;position:relative;z-index:1}
+.colbl{font-family:var(--mono);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold3);margin-bottom:2rem;display:flex;align-items:center;justify-content:center;gap:1.2rem}
+.colbl::before,.colbl::after{content:'';width:36px;height:1px;background:var(--gold3);opacity:.5}
+.co-h{font-family:var(--serif);font-size:clamp(2.2rem,6vw,4.5rem);font-weight:300;color:var(--ink);line-height:1.1;letter-spacing:.02em;margin-bottom:1.2rem}
+.co-h em{font-style:italic;color:var(--gold)}
+.cotags{display:flex;justify-content:center;gap:.55rem;flex-wrap:wrap;margin-bottom:1.8rem}
+.cotag{font-family:var(--mono);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;padding:.28rem .85rem;border:1px solid rgba(30,102,68,.3);color:var(--green);background:var(--green-lt)}
+.cosub{font-size:.93rem;color:var(--muted);line-height:1.9;margin-bottom:3rem;max-width:520px;margin-left:auto;margin-right:auto}
+.comethods{display:flex;flex-direction:column;gap:1px;background:var(--linen);max-width:460px;margin:0 auto 2.5rem}
+.cm{background:var(--cream2);padding:1.1rem 1.8rem;display:flex;align-items:center;justify-content:space-between;text-decoration:none;transition:background .25s}
+.cm:hover{background:var(--cream3)}
+.cml{font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.cmv{font-size:.88rem;color:var(--ink2)}
+.cmv a{color:var(--gold);text-decoration:none}
+.cmarr{color:var(--gold3);transition:transform .25s}
+.cm:hover .cmarr{transform:translateX(4px);color:var(--gold)}
+.co-cta{display:inline-flex;align-items:center;gap:.7rem;background:var(--gold);color:#fff;font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;padding:.95rem 2.4rem;border-radius:1px;text-decoration:none;transition:all .3s;margin-bottom:1.2rem;box-shadow:0 4px 20px rgba(78,26,112,.2)}
+.co-cta:hover{background:var(--gold2);box-shadow:0 12px 40px rgba(78,26,112,.28);transform:translateY(-2px)}
+.conote{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;color:var(--muted3)}
+
+footer{padding:2rem clamp(1rem,4vw,4rem);border-top:1px solid var(--linen);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;background:var(--cream)}
+.fbrand{font-family:var(--serif);font-size:.95rem;color:var(--muted);letter-spacing:.12em}
+.fbrand span{color:var(--gold)}
+.flinks{display:flex;gap:1.8rem;flex-wrap:wrap}
+.flinks a{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.flinks a:hover{color:var(--gold)}
+
+.rev{opacity:0;transform:translateY(24px);transition:opacity .75s cubic-bezier(.4,0,.2,1),transform .75s cubic-bezier(.4,0,.2,1)}
+.rev.vis{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+@media(max-width:960px){.nav-links{display:none}}
+</style>
+</head>
+<body>
+
+<div class="cdot" id="cdot"></div>
+<div class="cring" id="cring"></div>
+
+<!-- RESUME MODAL -->
+<div class="rmodal" id="rmodal">
+  <div class="rmodal-box">
+    <div class="rmodal-close" onclick="document.getElementById('rmodal').style.display='none'">✕ Close</div>
+    <div class="rmodal-label">Download Resume</div>
+    <div class="rmodal-title">Get My Resume</div>
+    <div class="rmodal-text">Send me a quick email and I will reply with my latest resume within 1 hour. Or connect on LinkedIn where my resume is attached to my profile.</div>
+    <div style="display:flex;flex-direction:column;gap:.8rem">
+      <a href="mailto:udaygopalakrishna@gmail.com?subject=Resume Request — Uday G&body=Hi Uday, I would like to receive your resume." class="btn-g" style="justify-content:center">✉ Email Me for Resume</a>
+      <a href="https://linkedin.com/in/uday-g-" target="_blank" class="btn-o" style="justify-content:center">LinkedIn Profile →</a>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-mark">U·G</a>
+  <ul class="nav-links">
+    <li><a href="#about">Profile</a></li>
+    <li><a href="#skills">Expertise</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#casestudy">Case Study</a></li>
+    <li><a href="#proof">Proof</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#credentials">Credentials</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-r">
+    <div class="nav-status"><div class="sdot"></div>Open to Work</div>
+    <a href="#" class="nav-dl" onclick="showModal();return false;">↓ Resume</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-ey"><span class="eline"></span>Security Test Engineer · Bengaluru, India<span class="eline"></span></div>
+  <h1 class="hname">Uday <em>G</em></h1>
+  <div class="hrule"></div>
+  <p class="htitle">Penetration Tester & Mobile Security Specialist</p>
+  <div class="hopen">Open to Full-Time · Contract · Remote Roles</div>
+  <div class="hchips">
+    <span class="chip">Android VAPT</span><span class="chip">Frida Instrumentation</span>
+    <span class="chip">APK Reverse Engineering</span><span class="chip">OWASP Mobile Top 10</span>
+    <span class="chip">Banking & Finance Domain</span><span class="chip">CTF · Bug Bounty</span>
+  </div>
+  <div class="hstats">
+    <div class="hstat"><div class="hstat-n">50+</div><div class="hstat-l">Vulnerabilities<br>Reported</div></div>
+    <div class="hstat"><div class="hstat-n">20+</div><div class="hstat-l">Production<br>APKs Tested</div></div>
+    <div class="hstat"><div class="hstat-n">8+</div><div class="hstat-l">APKs<br>Bypassed</div></div>
+    <div class="hstat"><div class="hstat-n">30%</div><div class="hstat-l">MTTR<br>Reduction</div></div>
+  </div>
+  <div class="hcta">
+    <a href="mailto:udaygopalakrishna@gmail.com" class="btn-g">✉ Hire Me Now</a>
+    <a href="#" class="btn-o" onclick="showModal();return false;">↓ Download Resume</a>
+    <a href="https://linkedin.com/in/uday-g-" target="_blank" class="btn-o">LinkedIn →</a>
+  </div>
+  <div class="hscroll"><span class="scroll-t">Scroll</span><div class="scroll-l"></div></div>
+</section>
+
+<!-- ABOUT -->
+<section class="sec alt" id="about">
+  <div class="si">
+    <div class="sey"><span class="snum">01</span><div class="srule"></div><span class="slbl">Profile</span></div>
+    <h2 class="st">The Man Behind<br>the <em>Findings</em></h2>
+    <div class="about-grid rev">
+      <div>
+        <div class="atxt">
+          <p>I am a <strong>Security Test Engineer</strong> based in Bengaluru, specialising in Android mobile application security for India's banking and financial sector. With over a year of production experience, I have built a reputation for findings that are clear, actionable, and genuinely understood by the development teams who need to fix them.</p>
+          <p>My core edge is <strong>Frida-based runtime instrumentation</strong> — bypassing SSL pinning, root detection, and certificate validation at runtime using custom JavaScript hooks. This exposes hidden API endpoints and deep authentication vulnerabilities that standard DAST tools would never reach.</p>
+          <p>I was promoted from intern to full-time Security Test Engineer in <strong>six months</strong>. Not because of time served — because of what I found.</p>
+        </div>
+        <div class="grule"></div>
+        <div class="ci"><span class="cl">Email</span><span class="cv"><a href="mailto:udaygopalakrishna@gmail.com">udaygopalakrishna@gmail.com</a></span></div>
+        <div class="ci"><span class="cl">Phone</span><span class="cv"><a href="tel:+917899169395">+91 789-916-9395</a></span></div>
+        <div class="ci"><span class="cl">LinkedIn</span><span class="cv"><a href="https://linkedin.com/in/uday-g-" target="_blank">linkedin.com/in/uday-g-</a></span></div>
+        <div class="ci"><span class="cl">Location</span><span class="cv">Bengaluru, Karnataka, India</span></div>
+        <div class="ci"><span class="cl">Available</span><span class="cv" style="color:var(--green);font-weight:500">Immediately · Bengaluru & Remote</span></div>
+      </div>
+      <div class="rev d2">
+        <div class="kgrid">
+          <div class="kpi"><div class="kn">50+</div><div class="kl">Vulns Reported</div></div>
+          <div class="kpi"><div class="kn">10+</div><div class="kl">APKs Tested</div></div>
+          <div class="kpi"><div class="kn">8+</div><div class="kl">APKs Bypassed</div></div>
+          <div class="kpi"><div class="kn">30%</div><div class="kl">MTTR Reduction</div></div>
+        </div>
+        <div class="lang-box">
+          <div class="lang-inner">
+            <div class="lang-title">Languages</div>
+            <div class="lang-list">English — Professional Working Proficiency<br>Kannada — Native / Full Professional<br>Hindi — Conversational</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="sec" id="skills">
+  <div class="si">
+    <div class="sey"><span class="snum">02</span><div class="srule"></div><span class="slbl">Expertise</span></div>
+    <h2 class="st">Technical <em>Arsenal</em></h2>
+    <div class="sk-cols rev">
+      <div><div class="sgt">Security Testing & VAPT</div><div class="stags"><span class="stag">Penetration Testing</span><span class="stag">VAPT</span><span class="stag">Android APK Security</span><span class="stag">Web App Security</span><span class="stag">API Security</span><span class="stag">Network Security</span><span class="stag">Ethical Hacking</span><span class="stag">CTF Challenges</span><span class="stag">Bug Bounty</span><span class="stag">SAST</span><span class="stag">DAST</span></div></div>
+      <div><div class="sgt">Reverse Engineering</div><div class="stags"><span class="stag">APK Reverse Engineering</span><span class="stag">Static Analysis</span><span class="stag">Dynamic Analysis</span><span class="stag">SSL Pinning Bypass</span><span class="stag">Root Detection Bypass</span><span class="stag">Frida Instrumentation</span><span class="stag">Dynamic Hooking</span><span class="stag">Binary Analysis</span></div></div>
+      <div><div class="sgt">Frameworks & Standards</div><div class="stags"><span class="stag">OWASP Mobile Top 10</span><span class="stag">OWASP Top 10</span><span class="stag">CVSS Scoring</span><span class="stag">CVE Analysis</span><span class="stag">Secure SDLC</span><span class="stag">Threat Modelling</span><span class="stag">DevSecOps</span><span class="stag">Secure Code Review</span></div></div>
+      <div><div class="sgt">Scripting & Platforms</div><div class="stags"><span class="stag">Python</span><span class="stag">Bash Scripting</span><span class="stag">Linux CLI</span><span class="stag">Git</span><span class="stag">Kali Linux</span><span class="stag">Ubuntu</span><span class="stag">Android (Rooted)</span><span class="stag">Genymotion</span><span class="stag">AVD</span></div></div>
+    </div>
+    <div class="skrule rev"></div>
+    <div class="tgrid rev">
+      <div class="tool">Burp Suite</div><div class="tool">MobSF</div><div class="tool">JADX</div>
+      <div class="tool">Apktool</div><div class="tool">Frida</div><div class="tool">OWASP ZAP</div>
+      <div class="tool">Nmap</div><div class="tool">Wireshark</div><div class="tool">ADB</div>
+      <div class="tool">Android Studio</div><div class="tool">Metasploit</div><div class="tool">Genymotion</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="sec alt" id="experience">
+  <div class="si">
+    <div class="sey"><span class="snum">03</span><div class="srule"></div><span class="slbl">Experience</span></div>
+    <h2 class="st">Where I Have <em>Delivered</em></h2>
+
+    <div class="expitem rev">
+      <div class="exleft"><div class="exdate">Jan 2026 — Present</div><div class="exco">Wizzybox Pvt. Ltd.<br>· Finacus Solutions</div><div class="exloc">Bengaluru · Full-Time</div></div>
+      <div class="exspine"><div class="sdot2"></div></div>
+      <div class="exright">
+        <div class="exbadge p">🏅 Promoted · Full-Time in 6 Months</div>
+        <div class="exrole">Security Test Engineer</div>
+        <ul class="exul">
+          <li>Engineered end-to-end Android APK security assessments for 20+ production banking and financial applications in the BFSI domain — full vulnerability lifecycle from discovery through developer remediation and formal closure validation.</li>
+          <li>Designed and deployed custom Frida JavaScript instrumentation scripts to bypass SSL pinning, root detection, and certificate validation in 8+ production APKs — enabling complete HTTPS traffic interception and deep runtime vulnerability analysis invisible to standard DAST tools.</li>
+          <li>Executed APK reverse engineering using JADX and Apktool, systematically uncovering hardcoded API keys, insecure SharedPreferences, improper certificate validation, and critical business logic flaws across banking-grade applications.</li>
+          <li>Performed comprehensive MobSF static analysis on 20+ applications detecting exposed Android components, unprotected broadcast receivers, insecure permission configurations, and improper data-at-rest storage patterns.</li>
+          <li>Conducted advanced dynamic analysis via Burp Suite — discovering authentication bypasses, BOLA (Broken Object Level Authorization), IDOR, and injection vulnerabilities in REST APIs serving banking clients.</li>
+          <li>Delivered full OWASP Mobile Top 10 (M1–M10) assessments across all applications covering insecure data storage, insecure communication, improper authentication, insufficient cryptography, and code tampering.</li>
+          <li>Authored 50+ CVSS-rated vulnerability reports with PoC demonstrations, business impact analysis, and step-by-step remediation — reducing developer MTTR by 30% across 5+ development teams.</li>
+        </ul>
+        <div class="expills"><span class="ep">50+ Vulns Reported</span><span class="ep">10+ Frida Bypasses</span><span class="ep">30% MTTR ↓</span><span class="ep">20+ Banking APKs</span><span class="ep">5+ Dev Teams</span></div>
+      </div>
+    </div>
+
+    <div class="expitem rev" style="margin-top:0">
+      <div class="exleft"><div class="exdate">Apr – Aug 2025</div><div class="exco">Wizzybox Pvt. Ltd.</div><div class="exloc">Bengaluru · Internship</div></div>
+      <div class="exspine"><div class="sdot2" style="background:rgba(78,26,112,.55)"></div></div>
+      <div class="exright">
+        <div class="exbadge">Internship → Promoted</div>
+        <div class="exrole">Security Test Engineer — Intern</div>
+        <ul class="exul">
+          <li>Executed Android APK security testing on 5+ mobile applications using MobSF, JADX, and Apktool, building hands-on proficiency in static and dynamic analysis under senior engineer mentorship.</li>
+          <li>Identified insecure data storage, hardcoded credentials, and misconfigured Android components; produced 20+ documented vulnerabilities with structured findings reports and step-by-step remediation recommendations.</li>
+          <li>Supported dynamic analysis by intercepting API traffic via Burp Suite and correlating runtime behaviour with static findings — contributing directly to the team's delivery quality.</li>
+          <li>Promoted to full-time Security Test Engineer within 6 months based on accuracy, report quality, and demonstrated technical growth.</li>
+        </ul>
+        <div class="expills"><span class="ep">20+ Vulns Found</span><span class="ep">5+ APKs Tested</span><span class="ep">Promoted in 6 Months</span></div>
+      </div>
+    </div>
+
+    <div class="expitem rev" style="margin-top:0">
+      <div class="exleft"><div class="exdate">Apr – May 2025</div><div class="exco">InternzLearn</div><div class="exloc">Remote · Internship</div></div>
+      <div class="exspine"><div class="sdot2" style="background:rgba(78,26,112,.3)"></div></div>
+      <div class="exright">
+        <div class="exbadge">Internship</div>
+        <div class="exrole">Cybersecurity Intern</div>
+        <ul class="exul">
+          <li>Executed 5-phase ethical hacking simulation (reconnaissance, scanning, exploitation via SQLi and XSS, post-exploitation, and reporting) — mastering end-to-end penetration testing methodology.</li>
+          <li>Discovered 30+ open ports and insecure services using Nmap; detected unencrypted HTTP, DNS, and FTP transmissions via Wireshark across enterprise lab networks.</li>
+          <li>Documented 20+ findings with CVSS severity ratings mapped to OWASP Top 10 — developing professional-grade vulnerability report writing skills.</li>
+        </ul>
+        <div class="expills"><span class="ep">5-Phase Pentest</span><span class="ep">20+ Findings</span><span class="ep">OWASP Mapped</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section class="sec" id="achievements">
+  <div class="si">
+    <div class="sey"><span class="snum">04</span><div class="srule"></div><span class="slbl">Achievements</span></div>
+    <h2 class="st">Numbers That <em>Matter</em></h2>
+    <div class="ach-grid rev">
+      <div class="ach-card"><div class="ach-num">50+</div><div class="ach-label"><strong>Security vulnerabilities</strong> reported across 10+ production banking and financial Android applications with CVSS ratings and PoC demonstrations.</div></div>
+      <div class="ach-card"><div class="ach-num">10+</div><div class="ach-label"><strong>Production APKs bypassed</strong> using custom Frida JavaScript instrumentation — SSL pinning, root detection, and certificate validation all defeated at runtime.</div></div>
+      <div class="ach-card"><div class="ach-num">30%</div><div class="ach-label"><strong>Reduction in developer MTTR</strong> achieved through structured, PoC-backed vulnerability reports that eliminated back-and-forth clarification cycles.</div></div>
+      <div class="ach-card"><div class="ach-num">6</div><div class="ach-label"><strong>Months from intern to full-time</strong> at Wizzybox Private Limited — promoted based on technical delivery and measurable client impact.</div></div>
+      <div class="ach-card"><div class="ach-num">1000+</div><div class="ach-label"><strong>Network packets captured</strong> and analysed using Wireshark, detecting unencrypted data leaks across HTTP, DNS, and FTP protocols.</div></div>
+      <div class="ach-card"><div class="ach-num">3</div><div class="ach-label"><strong>Industry simulations completed</strong> — Mastercard, Deloitte Australia, and Tata cybersecurity job simulations via Forage with verified credentials.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDY -->
+<section class="sec alt" id="casestudy">
+  <div class="si">
+    <div class="sey"><span class="snum">05</span><div class="srule"></div><span class="slbl">Case Study</span></div>
+    <h2 class="st">Real-World <em>Assessment</em></h2>
+    <div class="cs-card rev">
+      <div style="display:flex;gap:.6rem;margin-bottom:1.5rem;flex-wrap:wrap">
+        <span class="cs-badge">Featured Case Study</span>
+        <span class="cs-domain">Banking Domain · Android</span>
+        <span class="cs-domain" style="border-color:rgba(30,102,68,.2);color:var(--green);background:var(--green-lt)">Confidential — Details Redacted</span>
+      </div>
+      <div class="cs-title">Android Banking APK — Full Security Assessment</div>
+      <div class="cs-sub">A comprehensive end-to-end Android security assessment of a production mobile banking application used by thousands of customers. The engagement covered static analysis, dynamic analysis, API security, runtime bypass, and full OWASP Mobile Top 10 evaluation. All sensitive data and client information redacted per NDA and responsible disclosure obligations.</div>
+      <div class="cs-grid">
+        <div class="cs-col"><div class="cs-col-title">Objective</div><ul><li>Identify pre-release vulnerabilities</li><li>Test all OWASP Mobile Top 10 categories</li><li>Validate SSL pinning and root detection</li><li>Assess API security and authentication</li></ul></div>
+        <div class="cs-col"><div class="cs-col-title">Methodology</div><ul><li>APK decompilation with JADX & Apktool</li><li>MobSF automated static analysis</li><li>Frida runtime instrumentation & hooking</li><li>Burp Suite API traffic interception</li></ul></div>
+        <div class="cs-col"><div class="cs-col-title">Tools Used</div><ul><li>Frida — SSL & root bypass</li><li>JADX — code decompilation</li><li>MobSF — static analysis</li><li>Burp Suite — API testing</li></ul></div>
+        <div class="cs-col"><div class="cs-col-title">Impact</div><ul><li>15+ critical findings remediated</li><li>API keys removed from codebase</li><li>Certificate pinning implemented</li><li>MTTR reduced by 30%</li></ul></div>
+      </div>
+      <div style="font-family:var(--mono);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold3);margin-bottom:.9rem">Key Findings Discovered</div>
+      <div class="cs-findings">
+        <div class="csf"><span class="csf-sev sev-c">Critical</span><div class="csf-title">Hardcoded API Keys in Source</div><div class="csf-desc">Live production API keys embedded directly in APK source code — accessible to any attacker with basic reverse engineering skills.</div></div>
+        <div class="csf"><span class="csf-sev sev-c">Critical</span><div class="csf-title">SSL Pinning Bypass</div><div class="csf-desc">Custom Frida scripts bypassed certificate pinning, enabling full MITM interception of all encrypted banking API traffic.</div></div>
+        <div class="csf"><span class="csf-sev sev-h">High</span><div class="csf-title">Insecure Data Storage</div><div class="csf-desc">Sensitive tokens and session credentials stored in unencrypted SharedPreferences — fully readable on any rooted device.</div></div>
+        <div class="csf"><span class="csf-sev sev-h">High</span><div class="csf-title">BOLA in Transaction API</div><div class="csf-desc">Broken Object Level Authorization in transaction endpoints allowed access to other users' financial data by manipulating account IDs.</div></div>
+        <div class="csf"><span class="csf-sev sev-h">High</span><div class="csf-title">Root Detection Bypass</div><div class="csf-desc">Application root detection bypassed via Frida hooks, exposing security-critical functionality to attackers on rooted devices.</div></div>
+        <div class="csf"><span class="csf-sev sev-m">Medium</span><div class="csf-title">Exported Activity Exposure</div><div class="csf-desc">Multiple Android activities exported without intent filters or permissions — accessible by any third-party application installed on the device.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF OF WORK -->
+<section class="sec" id="proof">
+  <div class="si">
+    <div class="sey"><span class="snum">06</span><div class="srule"></div><span class="slbl">Proof of Work</span></div>
+    <h2 class="st">Real Tool <em>Screenshots</em></h2>
+    <p class="pow-intro rev">Screenshots from actual security testing engagements. All sensitive data, application names, and client information have been redacted in line with responsible disclosure and NDA obligations.</p>
+    <div class="pow-grid rev">
+      <div class="pow-card">
+        <div class="pow-screen"><div class="pow-screen-inner"><div class="pow-tool-badge">Burp Suite Pro</div><div style="font-family:var(--mono);font-size:.7rem;color:var(--gold3);letter-spacing:.08em">API Traffic Intercept</div><div style="font-size:.78rem;color:var(--muted);text-align:center;padding:0 1.5rem;line-height:1.7">Intercepted & modified banking API requests revealing BOLA vulnerability in transaction endpoints</div><div class="pow-upload-hint">📸 Upload screenshot to activate</div></div></div>
+        <div class="pow-body"><div class="pow-title">Burp Suite — API Intercept & BOLA Discovery</div><div class="pow-desc">Banking API traffic captured and replayed with modified parameters revealing Broken Object Level Authorization across customer account endpoints.</div></div>
+      </div>
+      <div class="pow-card">
+        <div class="pow-screen"><div class="pow-screen-inner"><div class="pow-tool-badge">MobSF</div><div style="font-family:var(--mono);font-size:.7rem;color:var(--gold3);letter-spacing:.08em">Static Analysis Report</div><div style="font-size:.78rem;color:var(--muted);text-align:center;padding:0 1.5rem;line-height:1.7">MobSF scan showing security score and vulnerability breakdown across OWASP Mobile Top 10 categories</div><div class="pow-upload-hint">📸 Upload screenshot to activate</div></div></div>
+        <div class="pow-body"><div class="pow-title">MobSF — Banking APK Static Analysis</div><div class="pow-desc">Automated static analysis revealing exposed components, insecure permissions, hardcoded secrets, and dangerous API usage patterns in production APK.</div></div>
+      </div>
+      <div class="pow-card">
+        <div class="pow-screen"><div class="pow-screen-inner"><div class="pow-tool-badge">Frida + Terminal</div><div style="font-family:var(--mono);font-size:.7rem;color:var(--gold3);letter-spacing:.08em">SSL Pinning Bypass</div><div style="font-size:.78rem;color:var(--muted);text-align:center;padding:0 1.5rem;line-height:1.7">Custom Frida script output showing successful bypass of certificate pinning at runtime in banking application</div><div class="pow-upload-hint">📸 Upload screenshot to activate</div></div></div>
+        <div class="pow-body"><div class="pow-title">Frida Terminal — SSL Pinning Bypass Output</div><div class="pow-desc">Custom Frida JavaScript hooks executing on device runtime, overriding OkHttp certificate validation and enabling full HTTPS traffic interception.</div></div>
+      </div>
+      <div class="pow-card">
+        <div class="pow-screen"><div class="pow-screen-inner"><div class="pow-tool-badge">JADX Decompiler</div><div style="font-family:var(--mono);font-size:.7rem;color:var(--gold3);letter-spacing:.08em">APK Source Code</div><div style="font-size:.78rem;color:var(--muted);text-align:center;padding:0 1.5rem;line-height:1.7">Decompiled Java source showing hardcoded API key exposed in production banking APK</div><div class="pow-upload-hint">📸 Upload screenshot to activate</div></div></div>
+        <div class="pow-body"><div class="pow-title">JADX — Hardcoded Secrets Discovery</div><div class="pow-desc">APK decompiled to Java source revealing production API keys, internal endpoints, and authentication tokens hardcoded directly in the application binary.</div></div>
+      </div>
+    </div>
+    <div class="pow-note rev">📸 <span><strong>To activate:</strong> Upload your Burp Suite, MobSF, Frida terminal, and JADX screenshots here — I'll embed them into these exact cards instantly.</span>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="sec alt" id="projects">
+  <div class="si">
+    <div class="sey"><span class="snum">07</span><div class="srule"></div><span class="slbl">Projects</span></div>
+    <h2 class="st">Work That <em>Proves It</em></h2>
+    <div class="pgrid">
+      <div class="pcard rev"><div class="pi">Project 01 · Featured</div><div class="pdtag">Banking Domain</div><div class="ptitle">APK Security Testing & Runtime Bypass</div><div class="pdesc">Full-scope security assessment of 5+ production banking APKs. Custom Frida JavaScript hooks deployed to bypass SSL pinning and root detection at runtime, revealing hidden API endpoints and deep authentication vulnerabilities across the data and transport layers.</div><div class="prr"><div class="prl">Key Results</div><div class="pri">10+ hidden API endpoints exposed via Frida bypass</div><div class="pri">15+ OWASP Mobile Top 10 vulnerabilities documented with CVSS ratings</div><div class="pri">Hardcoded API keys & insecure SharedPreferences discovered</div></div><div class="ptools"><span class="ptl">Frida</span><span class="ptl">JADX</span><span class="ptl">Apktool</span><span class="ptl">Burp Suite</span><span class="ptl">MobSF</span></div></div>
+
+      <div class="pcard rev d1"><div class="pi">Project 02</div><div class="pdtag">Web Security</div><div class="ptitle">5-Phase Ethical Hacking Simulation</div><div class="pdesc">End-to-end penetration testing engagement covering all five phases: reconnaissance, scanning, exploitation (SQL injection, XSS), post-exploitation lateral movement, and professional findings reporting. Delivered full CVSS-rated report mapped to OWASP Top 10.</div><div class="prr"><div class="prl">Key Results</div><div class="pri">20+ vulnerabilities mapped to OWASP Top 10</div><div class="pri">SQLi & XSS exploits with working PoC demonstrations</div></div><div class="ptools"><span class="ptl">Nmap</span><span class="ptl">Burp Suite</span><span class="ptl">OWASP ZAP</span><span class="ptl">Wireshark</span><span class="ptl">Metasploit</span></div></div>
+
+      <div class="pcard rev d2"><div class="pi">Project 03</div><div class="pdtag">Network Security</div><div class="ptitle">Network Traffic Analysis & Vulnerability Scanning</div><div class="pdesc">Deep network analysis capturing 1,000+ live packets across HTTP, DNS, and FTP protocols to identify unencrypted data leaks and sensitive data exposure. Enterprise lab scanning enumerating live hosts with prioritised remediation report.</div><div class="prr"><div class="prl">Key Results</div><div class="pri">1,000+ packets analysed for sensitive data exposure</div><div class="pri">50+ live hosts · 30+ insecure configurations identified</div></div><div class="ptools"><span class="ptl">Wireshark</span><span class="ptl">Nmap</span><span class="ptl">Linux CLI</span><span class="ptl">Bash Scripting</span></div></div>
+
+      <div class="pcard rev d3"><div class="pi">Project 04 · Capstone</div><div class="pdtag">Machine Learning · AI</div><div class="ptitle">Real-Time Emotion Detection System</div><div class="pdesc">Final year engineering capstone — a Flask web application integrating TensorFlow deep learning models and OpenCV for multi-modal real-time emotion recognition via webcam, text, and audio inputs. Demonstrates full-stack software engineering depth beyond security.</div><div class="prr"><div class="prl">Key Results</div><div class="pri">85%+ classification accuracy across 7 emotion categories</div><div class="pri">3 input modalities: webcam, text, and audio</div></div><div class="ptools"><span class="ptl">Python</span><span class="ptl">Flask</span><span class="ptl">TensorFlow</span><span class="ptl">OpenCV</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<section class="sec" id="credentials">
+  <div class="si">
+    <div class="sey"><span class="snum">08</span><div class="srule"></div><span class="slbl">Credentials</span></div>
+    <h2 class="st">Certifications &amp; <em>Education</em></h2>
+    <div class="clayout rev">
+      <div>
+        <div class="cgt">Security & Penetration Testing</div>
+        <div class="citem feat"><div class="cmark"></div><div><div class="cname">Penetration Testing and Ethical Hacking</div><div class="cmr"><span class="cmeta">LinkedIn Learning · Apr 2026</span><a href="https://www.linkedin.com/learning/certificates/71f6c2b346476f7f82865eb2484655d2f0b5304e65034a515dea488e15971a3a" target="_blank" class="cverify">Verify ↗</a></div></div></div>
+        <div class="citem feat"><div class="cmark"></div><div><div class="cname">Ethical Hacking & Cyber Security with CTF</div><div class="cmr"><span class="cmeta">IIT (ISM) Dhanbad · Mar 2024 · ID: TB-CHES-L2-EH-082</span></div></div></div>
+        <div class="citem"><div class="cmark"></div><div><div class="cname">Cybersecurity Fundamentals</div><div class="cmr"><span class="cmeta">IBM · Aug 2025</span><a href="https://www.credly.com/badges/5bfc7043-8519-4f90-b1bf-26dd957315f2/linked_in_profile" target="_blank" class="cverify">Verify ↗</a></div></div></div>
+        <div class="citem"><div class="cmark"></div><div><div class="cname">Cybersecurity Awareness: Terminology</div><div class="cmr"><span class="cmeta">LinkedIn Learning · Apr 2026</span><a href="https://www.linkedin.com/learning/certificates/3ee34677ea8cef46b1dcad8f24d04c1296073ce9e461316820b44e4dad99fc5a" target="_blank" class="cverify">Verify ↗</a></div></div></div>
+        <div style="margin-top:2rem">
+          <div class="cgt">Foundations</div>
+          <div class="citem"><div class="cmark"></div><div><div class="cname">Introduction to Cybersecurity</div><div class="cmr"><span class="cmeta">Cisco Networking Academy · Feb 2025</span><a href="https://www.credly.com/badges/1142c994-0d25-40a9-ae5c-15c689139c3d/linked_in_profile" target="_blank" class="cverify">Verify ↗</a></div></div></div>
+          <div class="citem"><div class="cmark"></div><div><div class="cname">Computer Hardware Basics</div><div class="cmr"><span class="cmeta">Cisco Networking Academy · Sep 2025</span><a href="https://www.credly.com/badges/e3b068dc-3edf-4628-8136-ad04e740a0d5" target="_blank" class="cverify">Verify ↗</a></div></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="cgt">Industry Simulations</div>
+        <div class="citem"><div class="cmark"></div><div><div class="cname">Mastercard Cybersecurity Job Simulation</div><div class="cmr"><span class="cmeta">Forage · Oct 2025 · ID: E8YAngngxrY8ZByKX</span><a href="https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/mfxGwGDp6WkQmtmTf/vcKAB5yYAgvemepGQ_mfxGwGDp6WkQmtmTf_gasBiRieDiYGTiNG8_1760512367359_completion_certificate.pdf" target="_blank" class="cverify">Verify ↗</a></div></div></div>
+        <div class="citem"><div class="cmark"></div><div><div class="cname">Deloitte Australia — Cyber Job Simulation</div><div class="cmr"><span class="cmeta">Forage · Sep 2025 · ID: RhtFZ7k4jPqjrBgpT</span><a href="https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/9PBTqmSxAf6zZTseP/E9pA6qsdbeyEkp3ti_9PBTqmSxAf6zZTseP_gasBiRieDiYGTiNG8_1756895640350_completion_certificate.pdf" target="_blank" class="cverify">Verify ↗</a></div></div></div>
+        <div class="citem"><div class="cmark"></div><div><div class="cname">Tata — Cybersecurity Analyst Simulation</div><div class="cmr"><span class="cmeta">Forage · Aug 2025 · ID: nPcRLe3HA9j2F5cen</span><a href="https://forage-uploads-prod.s3.amazonaws.com/completion-certificates/ifobHAoMjQs9s6bKS/gmf3ypEXBj2wvfQWC_ifobHAoMjQs9s6bKS_gasBiRieDiYGTiNG8_1755601707742_completion_certificate.pdf" target="_blank" class="cverify">Verify ↗</a></div></div></div>
+        <div class="edu-card rev">
+          <div>
+            <div class="edeg">Bachelor of Engineering<br>Computer Science Engineering</div>
+            <div class="euni">Maharaja Institute of Technology, Mysuru · VTU · 2021–2025</div>
+            <div class="etags"><span class="etag">Network Security</span><span class="etag">Cryptography</span><span class="etag">OS</span><span class="etag">DSA</span><span class="etag">DBMS</span><span class="etag">Software Engineering</span></div>
+          </div>
+          <div><div class="egpa">7.2</div><div class="egpal">CGPA / 10</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-sec" id="contact">
+  <div class="cbg"></div>
+  <div class="cin rev">
+    <div class="colbl">Available for Opportunities</div>
+    <h2 class="co-h">Let's Secure<br>Your <em>Applications</em></h2>
+    <div class="cotags">
+      <span class="cotag">Open to Full-Time</span>
+      <span class="cotag">Open to Remote</span>
+      <span class="cotag">Bengaluru Based</span>
+      <span class="cotag">Available Immediately</span>
+    </div>
+    <p class="cosub">I bring hands-on banking domain experience, rare Frida expertise, and 50+ verified vulnerability findings. My reports cut developer MTTR by 30%. I am ready to join your security team immediately.</p>
+    <div class="comethods">
+      <a href="mailto:udaygopalakrishna@gmail.com" class="cm"><div><div class="cml">Email — Fastest Response</div><div class="cmv">udaygopalakrishna@gmail.com</div></div><div class="cmarr">→</div></a>
+      <a href="tel:+917899169395" class="cm"><div><div class="cml">Phone — Direct Call</div><div class="cmv">+91 789-916-9395</div></div><div class="cmarr">→</div></a>
+      <a href="https://linkedin.com/in/uday-g-" target="_blank" class="cm"><div><div class="cml">LinkedIn</div><div class="cmv">linkedin.com/in/uday-g-</div></div><div class="cmarr">→</div></a>
+    </div>
+    <a href="mailto:udaygopalakrishna@gmail.com" class="co-cta">✉ Send Me a Message Now</a>
+    <div class="conote">Bengaluru · Available Immediately · Responds within 1 hour</div>
+  </div>
+</section>
+
+<footer>
+  <div class="fbrand">Uday <span>G</span> — Security Test Engineer · 2026</div>
+  <div class="flinks">
+    <a href="mailto:udaygopalakrishna@gmail.com">Email</a>
+    <a href="tel:+917899169395">Phone</a>
+    <a href="https://linkedin.com/in/uday-g-" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+const dot=document.getElementById('cdot'),ring=document.getElementById('cring');
+let mx=0,my=0,rx=0,ry=0;
+if(window.matchMedia('(hover:hover)').matches){
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
+  (function L(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(L)})();
+  document.querySelectorAll('a,button,.chip,.stag,.tool,.kpi,.pcard,.citem,.csf,.pow-card,.cm,.ach-card').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ring.style.width='40px';ring.style.height='40px';ring.style.borderColor='rgba(78,26,112,.7)'});
+    el.addEventListener('mouseleave',()=>{ring.style.width='28px';ring.style.height='28px';ring.style.borderColor='rgba(78,26,112,.5)'});
+  });
+}
+const io=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('vis');io.unobserve(x.target)}})},{threshold:.08});
+document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').style.background=window.scrollY>60?'rgba(252,250,255,.98)':'rgba(252,250,255,.92)';
+});
+function showModal(){document.getElementById('rmodal').style.display='flex'}
+document.getElementById('rmodal').addEventListener('click',function(e){if(e.target===this)this.style.display='none'});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('rmodal').style.display='none'});
+</script>
+</body>
+</html>
