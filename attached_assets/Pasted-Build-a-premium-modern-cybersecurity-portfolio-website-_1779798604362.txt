@@ -1,0 +1,310 @@
+Build a premium modern cybersecurity portfolio website for me based completely on my updated resume and professional profile.
+
+# Personal Information
+
+Name: Uday G
+
+Location:
+Bengaluru, Karnataka, India
+
+Role:
+Security Test Engineer
+
+Professional Titles:
+
+* Mobile Application Security Engineer
+* Web Application Security Engineer
+* VAPT Analyst
+* API Security Tester
+* Application Security Engineer
+
+Experience:
+1+ year professional experience
+
+Industry Experience:
+Banking & Financial Domain Security Testing
+
+# Portfolio Objective
+
+The portfolio should position me as a:
+
+* Mobile Security Engineer
+* Application Security Engineer
+* VAPT Engineer
+* API Security Engineer
+
+The website must feel:
+
+* premium
+* modern
+* professional
+* technical
+* recruiter-focused
+* startup/product-company ready
+
+Avoid:
+
+* beginner portfolio look
+* cheap hacker themes
+* excessive green matrix effects
+* childish animations
+
+# Design Theme
+
+Use:
+
+* dark navy blue
+* black
+* electric blue accents
+* glassmorphism
+* smooth animations
+* premium spacing
+* modern UI
+
+The overall feeling should be:
+“modern offensive security engineer portfolio”
+
+# Tech Stack Preferred
+
+Frontend:
+
+* React.js or Next.js
+* Tailwind CSS
+* Framer Motion
+
+Optional:
+
+* Three.js subtle background effects
+
+# Hero Section
+
+Display:
+Name:
+Uday G
+
+Headline:
+Security Test Engineer | Mobile & Web Application Security | VAPT | API Security
+
+Professional Tagline:
+“Securing Mobile Applications, APIs, and Modern Web Platforms Through Practical Offensive Security Testing.”
+
+Buttons:
+
+* Resume Download
+* Contact Me
+* GitHub
+* LinkedIn
+
+Add:
+
+* modern cybersecurity illustration
+* mobile security visual
+* smooth animations
+* premium futuristic feel
+
+# About Section
+
+Professional summary:
+
+Security Test Engineer with hands-on experience in Mobile Application Security, Web Application Penetration Testing, API Security, and Vulnerability Assessment & Penetration Testing (VAPT) for banking and financial applications.
+
+Experienced in Android APK reverse engineering, static & dynamic analysis, Frida-based runtime instrumentation, SSL pinning bypass, root detection bypass, certificate validation bypass, and OWASP-aligned security assessments on production applications.
+
+Performed security assessments across 20+ production banking applications covering Android security testing, API security analysis, web application penetration testing, authentication testing, session management testing, and vulnerability remediation validation.
+
+Reported 50+ vulnerabilities with CVSS-based risk classification and contributed to reducing remediation turnaround time by 30% through structured reporting and remediation collaboration.
+
+# Skills Section
+
+## Mobile Application Security
+
+* Android APK Security Testing
+* APK Reverse Engineering
+* Static Analysis
+* Dynamic Analysis
+* SSL Pinning Bypass
+* Root Detection Bypass
+* Frida Instrumentation
+* Runtime Instrumentation
+* MobSF
+* JADX
+* Apktool
+* Android Studio
+* ADB
+
+## Web Application Security
+
+* Web Application Penetration Testing
+* OWASP Top 10
+* SQL Injection Testing
+* Cross-Site Scripting (XSS)
+* CSRF Testing
+* Broken Access Control Testing
+* Authentication Testing
+* Session Management Testing
+* IDOR Testing
+
+## API Security
+
+* REST API Security
+* API Penetration Testing
+* Authentication & Authorization Testing
+* BOLA Testing
+* API Traffic Analysis
+* Burp Suite
+* OWASP ZAP
+
+## Security Tools & Platforms
+
+* Burp Suite
+* Frida
+* MobSF
+* JADX
+* Apktool
+* OWASP ZAP
+* Nmap
+* Wireshark
+* Kali Linux
+* Ubuntu
+* Linux CLI
+* Bash Scripting
+* Python
+* Git
+
+# Professional Experience
+
+## WizzyBox Private Limited
+
+Security Test Engineer
+January 2026 – Present
+
+Responsibilities:
+
+* Performed Android mobile application security testing across 20+ banking APKs
+* Conducted static analysis, reverse engineering, dynamic testing, API security assessment, and remediation validation
+* Developed custom Frida scripts for SSL pinning bypass, root detection bypass, and certificate validation bypass
+* Performed APK reverse engineering using JADX and Apktool
+* Identified hardcoded API keys, insecure storage, and business logic flaws
+* Conducted MobSF static analysis
+* Performed dynamic analysis using Burp Suite
+* Identified BOLA, IDOR, authentication bypass, and injection vulnerabilities
+* Delivered OWASP Mobile Top 10 security assessments
+* Authored 50+ CVSS-rated vulnerability reports
+* Contributed to 30% MTTR reduction
+* Worked directly with developers for remediation validation
+
+## WizzyBox Private Limited
+
+Security Test Engineer Intern
+April 2025 – August 2025
+
+Responsibilities:
+
+* Android APK security testing on 5+ applications
+* Static & dynamic analysis
+* Burp Suite traffic interception
+* Vulnerability documentation
+* API security testing support
+* Promoted to full-time within six months
+
+# Projects Section
+
+## Android Banking APK Security Assessment Lab
+
+Tools:
+
+* Frida
+* MobSF
+* JADX
+* Apktool
+* Burp Suite
+
+Highlights:
+
+* SSL pinning bypass
+* root detection bypass
+* API traffic interception
+* OWASP Mobile Top 10 testing
+* hidden API endpoint discovery
+* insecure storage identification
+
+## Web Application Penetration Testing Lab
+
+Tools:
+
+* Burp Suite
+* OWASP ZAP
+* SQLMap
+* DVWA
+* WebGoat
+
+Highlights:
+
+* SQL Injection
+* XSS
+* CSRF
+* Broken Authentication
+* Session Management Testing
+* Privilege Escalation
+* Request Manipulation
+
+## Network Security Traffic Analysis
+
+Tools:
+
+* Nmap
+* Wireshark
+* Linux CLI
+
+Highlights:
+
+* Network Scanning
+* Packet Analysis
+* Insecure Service Discovery
+* Traffic Monitoring
+
+# Certifications
+
+* Learning the OWASP Top 10 — LinkedIn Learning
+* OWASP API Security Top 10 — LinkedIn Learning
+* Penetration Testing and Ethical Hacking — LinkedIn Learning
+* Ethical Hacking & Cyber Security with CTF — IIT (ISM) Dhanbad
+* Cybersecurity Fundamentals — IBM
+* Mastercard Cybersecurity Simulation — Forage
+* Deloitte Cybersecurity Simulation — Forage
+* Tata Cybersecurity Simulation — Forage
+* Introduction to Cybersecurity — Cisco Networking Academy
+
+# Contact Information
+
+Location:
+Bengaluru, India
+
+Email:
+[udaygopalakrishna@gmail.com](mailto:udaygopalakrishna@gmail.com)
+
+LinkedIn:
+linkedin.com/in/uday-g
+
+Portfolio:
+udayg.netlify.app
+
+# Additional Requirements
+
+* Fully responsive
+* Mobile optimized
+* SEO optimized
+* Smooth animations
+* Sticky navbar
+* Premium hover effects
+* Fast loading
+* ATS-friendly
+* Recruiter-focused layout
+* Modern section transitions
+* Glassmorphism cards
+* Professional dark theme
+* Clean typography
+* GitHub integration
+* Resume preview & download section
+
+The portfolio should look like a premium modern cybersecurity engineer portfolio suitable for product companies, startups, and application security roles.
