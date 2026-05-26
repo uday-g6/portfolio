@@ -1,157 +1,90 @@
 import { motion } from "framer-motion";
-import AnimatedBackground from "@/components/animated-background";
 import { Button } from "@/components/ui/button";
-import { SiGithub } from "react-icons/si";
-import { Download, Mail, Linkedin, Phone } from "lucide-react";
+import { Download, Mail } from "lucide-react";
+import SkillGraph from "./skill-graph";
 
 export default function Hero() {
-  const badges = [
-    "OWASP Mobile Top 10",
-    "Frida Instrumentation",
-    "Burp Suite",
-    "APK Reverse Engineering",
-    "SSL Pinning Bypass",
-    "VAPT",
-    "API Security",
-    "CVSS Scoring",
-  ];
-
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <AnimatedBackground />
-
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          className="max-w-5xl"
-        >
-          <div className="flex flex-wrap justify-center gap-2 mb-10">
-            {badges.map((badge, idx) => (
-              <motion.span
-                key={idx}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.15 + idx * 0.07 }}
-                className="px-3 py-1.5 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20 backdrop-blur-sm shadow-[0_0_12px_rgba(14,165,233,0.12)]"
-              >
-                {badge}
-              </motion.span>
-            ))}
-          </div>
-
-          <motion.h1
-            className="text-5xl md:text-7xl font-bold tracking-tight mb-4 text-white glow-text"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-          >
-            Uday G
-          </motion.h1>
-
-          <motion.h2
-            className="text-lg md:text-2xl font-medium text-primary mb-5"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
-            Security Test Engineer &nbsp;|&nbsp; Mobile &amp; Web Application Security &nbsp;|&nbsp; VAPT &nbsp;|&nbsp; API Security
-          </motion.h2>
-
-          <motion.p
-            className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto mb-4 leading-relaxed"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-          >
-            Securing Mobile Applications, APIs, and Modern Web Platforms Through Practical Offensive Security Testing.
-          </motion.p>
-
+    <section id="hero" className="relative min-h-[100dvh] flex flex-col justify-center subtle-grid">
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 mt-20">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+          
+          {/* Left Content */}
           <motion.div
-            className="flex flex-wrap justify-center gap-3 mb-3 text-sm text-muted-foreground"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, staggerChildren: 0.1 }}
+            className="w-full lg:w-[60%] flex flex-col"
+          >
+            <motion.h1 
+              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white mb-6 uppercase"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              UDAY G
+            </motion.h1>
+
+            <motion.div className="space-y-1 mb-8">
+              <h2 className="text-xl md:text-2xl font-semibold text-primary">Security Test Engineer</h2>
+              <p className="text-lg text-muted-foreground">Mobile &amp; Web Application Security</p>
+              <p className="text-lg text-muted-foreground">VAPT &amp; API Security</p>
+            </motion.div>
+
+            <motion.p className="text-lg md:text-xl text-white/80 max-w-xl mb-8 leading-[1.75]">
+              Securing Mobile Applications, APIs, and Modern Web Platforms Through Practical Offensive Security Testing.
+            </motion.p>
+
+            <motion.div className="flex flex-wrap items-center gap-4 mb-10 text-sm mono text-muted-foreground">
+              <a href="tel:+917899169395" className="hover:text-primary transition-colors">+91 78991-69395</a>
+              <span className="text-white/20">|</span>
+              <a href="mailto:udaygopalakrishna@gmail.com" className="hover:text-primary transition-colors">udaygopalakrishna@gmail.com</a>
+            </motion.div>
+
+            <motion.div className="flex flex-wrap gap-4">
+              <Button size="lg" className="rounded bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8" asChild>
+                <a href="#contact">Contact Me</a>
+              </Button>
+              <Button size="lg" variant="outline" className="rounded border-white/20 hover:border-white text-white hover:bg-transparent px-8" asChild>
+                <a href="mailto:udaygopalakrishna@gmail.com?subject=Resume%20Request">
+                  <Download className="mr-2 h-4 w-4" /> Download CV
+                </a>
+              </Button>
+            </motion.div>
+          </motion.div>
+
+          {/* Right Visual */}
+          <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.35 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="w-full lg:w-[40%] h-[400px] lg:h-[600px] border border-white/5 bg-black/50 hidden md:block"
           >
-            <a
-              href="tel:+917899169395"
-              className="flex items-center gap-1.5 hover:text-primary transition-colors"
-              data-testid="link-phone-hero"
-            >
-              <Phone className="h-4 w-4 text-primary" />
-              +91 78991-69395
-            </a>
-            <span className="text-white/20">·</span>
-            <a
-              href="mailto:udaygopalakrishna@gmail.com"
-              className="flex items-center gap-1.5 hover:text-primary transition-colors"
-              data-testid="link-email-hero"
-            >
-              <Mail className="h-4 w-4 text-primary" />
-              udaygopalakrishna@gmail.com
-            </a>
+            <SkillGraph />
           </motion.div>
-
-          <motion.div
-            className="flex flex-wrap justify-center gap-4 mt-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.45 }}
-          >
-            <Button
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium shadow-[0_0_20px_rgba(14,165,233,0.4)] hover:shadow-[0_0_30px_rgba(14,165,233,0.6)] transition-all"
-              data-testid="button-resume-download"
-              asChild
-            >
-              <a href="mailto:udaygopalakrishna@gmail.com?subject=Resume%20Request">
-                <Download className="mr-2 h-4 w-4" />
-                Resume Download
-              </a>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-primary/50 text-primary hover:bg-primary/10"
-              asChild
-              data-testid="button-contact-me"
-            >
-              <a href="#contact">
-                <Mail className="mr-2 h-4 w-4" />
-                Contact Me
-              </a>
-            </Button>
-            <Button
-              size="icon"
-              variant="outline"
-              className="border-primary/50 text-primary hover:bg-primary/10 h-11 w-11"
-              asChild
-              data-testid="button-github"
-            >
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                <SiGithub className="h-5 w-5" />
-              </a>
-            </Button>
-            <Button
-              size="icon"
-              variant="outline"
-              className="border-primary/50 text-primary hover:bg-primary/10 h-11 w-11"
-              asChild
-              data-testid="button-linkedin"
-            >
-              <a href="https://linkedin.com/in/uday-g-" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                <Linkedin className="h-5 w-5" />
-              </a>
-            </Button>
-          </motion.div>
-        </motion.div>
-      </div>
-
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
-        <div className="w-[30px] h-[50px] rounded-full border-2 border-primary flex justify-center p-2">
-          <div className="w-1 h-3 bg-primary rounded-full" />
         </div>
+
+        {/* Impact Stats */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mt-20 border-y border-white/10 py-6 flex flex-col sm:flex-row items-center justify-between gap-8 md:gap-4 max-w-4xl"
+        >
+          <div className="flex flex-col items-center sm:items-start">
+            <span className="text-3xl font-bold text-white mb-1">20+</span>
+            <span className="text-sm mono text-primary">Banking APKs</span>
+          </div>
+          <div className="hidden sm:block w-px h-12 bg-white/10" />
+          <div className="flex flex-col items-center sm:items-start">
+            <span className="text-3xl font-bold text-white mb-1">50+</span>
+            <span className="text-sm mono text-primary">Vulnerabilities</span>
+          </div>
+          <div className="hidden sm:block w-px h-12 bg-white/10" />
+          <div className="flex flex-col items-center sm:items-start">
+            <span className="text-3xl font-bold text-white mb-1">30%</span>
+            <span className="text-sm mono text-primary">MTTR Reduction</span>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

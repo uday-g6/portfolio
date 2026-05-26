@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Mail, ExternalLink, Send, Linkedin, Phone } from "lucide-react";
+import { Linkedin, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { SiGithub } from "react-icons/si";
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,164 +21,163 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 bg-background/95 relative overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
-
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="contact" className="py-24 bg-background border-t border-white/5">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12 text-center max-w-2xl mx-auto"
+          className="mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="text-primary mr-2">06.</span> Get In Touch
+          <h2 className="text-3xl md:text-4xl font-bold text-white">
+            <span className="mono text-primary text-lg mr-4">// 06</span>
+            Contact
           </h2>
-          <div className="w-20 h-1 bg-primary rounded-full shadow-[0_0_10px_rgba(14,165,233,0.5)] mx-auto mb-6" />
-          <p className="text-muted-foreground text-lg">
-            Currently open to new security engineering opportunities — feel free to reach out directly.
+          <p className="text-white/50 mt-4 text-base">
+            Open to security engineering roles. Reach out directly — fastest response by phone or email.
           </p>
         </motion.div>
 
-        {/* Direct contact strip — recruiter-first */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="max-w-3xl mx-auto mb-12"
-        >
-          <div className="grid sm:grid-cols-2 gap-4">
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          {/* Left — Direct contact */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-col gap-0"
+          >
+            {/* Phone */}
             <a
               href="tel:+917899169395"
-              className="flex items-center gap-4 glass-card p-5 rounded-xl border border-primary/30 hover:border-primary/70 hover:bg-primary/5 transition-all group"
+              className="group flex flex-col gap-1 py-7 border-b border-white/8 hover:border-primary/40 transition-colors"
               data-testid="link-phone"
             >
-              <div className="p-3 bg-primary/15 rounded-lg group-hover:bg-primary/25 transition-colors flex-shrink-0">
-                <Phone className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <p className="text-xs font-medium text-primary mb-0.5 tracking-wider uppercase">Phone / WhatsApp</p>
-                <p className="text-white font-semibold text-lg">+91 78991-69395</p>
-                <p className="text-xs text-muted-foreground mt-0.5">Tap to call</p>
-              </div>
+              <span className="mono text-xs text-white/30 tracking-widest uppercase">Phone / WhatsApp</span>
+              <span className="text-3xl md:text-4xl font-bold text-white group-hover:text-primary transition-colors tracking-tight">
+                +91 78991-69395
+              </span>
             </a>
 
+            {/* Email */}
             <a
               href="mailto:udaygopalakrishna@gmail.com"
-              className="flex items-center gap-4 glass-card p-5 rounded-xl border border-primary/30 hover:border-primary/70 hover:bg-primary/5 transition-all group"
+              className="group flex flex-col gap-1 py-7 border-b border-white/8 hover:border-primary/40 transition-colors"
               data-testid="link-email"
             >
-              <div className="p-3 bg-primary/15 rounded-lg group-hover:bg-primary/25 transition-colors flex-shrink-0">
-                <Mail className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <p className="text-xs font-medium text-primary mb-0.5 tracking-wider uppercase">Email</p>
-                <p className="text-white font-semibold text-base break-all">udaygopalakrishna@gmail.com</p>
-                <p className="text-xs text-muted-foreground mt-0.5">Tap to email</p>
-              </div>
-            </a>
-          </div>
-
-          <div className="grid grid-cols-3 gap-4 mt-4">
-            <a
-              href="https://linkedin.com/in/uday-g-"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="glass-card p-4 rounded-xl border border-white/5 flex flex-col items-center justify-center gap-2 hover:border-primary/50 hover:bg-primary/5 transition-all group"
-              data-testid="link-linkedin"
-            >
-              <Linkedin className="h-6 w-6 text-primary group-hover:scale-110 transition-transform" />
-              <span className="text-xs font-medium text-muted-foreground group-hover:text-white transition-colors">LinkedIn</span>
+              <span className="mono text-xs text-white/30 tracking-widest uppercase">Email</span>
+              <span className="text-xl md:text-2xl font-bold text-white group-hover:text-primary transition-colors tracking-tight break-all">
+                udaygopalakrishna@gmail.com
+              </span>
             </a>
 
-            <a
-              href="https://udayg.netlify.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="glass-card p-4 rounded-xl border border-white/5 flex flex-col items-center justify-center gap-2 hover:border-primary/50 hover:bg-primary/5 transition-all group"
-              data-testid="link-portfolio"
-            >
-              <ExternalLink className="h-6 w-6 text-primary group-hover:scale-110 transition-transform" />
-              <span className="text-xs font-medium text-muted-foreground group-hover:text-white transition-colors">Portfolio</span>
-            </a>
-
-            <div className="glass-card p-4 rounded-xl border border-white/5 flex flex-col items-center justify-center gap-2">
-              <MapPin className="h-6 w-6 text-primary" />
-              <span className="text-xs font-medium text-muted-foreground text-center leading-tight">Bengaluru, India</span>
+            {/* Location */}
+            <div className="flex flex-col gap-1 py-7 border-b border-white/8">
+              <span className="mono text-xs text-white/30 tracking-widest uppercase">Location</span>
+              <span className="text-xl font-bold text-white/80">Bengaluru, India</span>
             </div>
-          </div>
-        </motion.div>
 
-        {/* Contact form */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="max-w-2xl mx-auto"
-        >
-          <form onSubmit={handleSubmit} className="glass-card p-8 rounded-xl border border-white/5 flex flex-col gap-5">
-            <p className="text-sm text-muted-foreground text-center mb-2">Or send a message directly:</p>
+            {/* Social links */}
+            <div className="pt-7 flex items-center gap-6">
+              <a
+                href="https://linkedin.com/in/uday-g-"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-white/50 hover:text-primary transition-colors mono text-sm"
+                data-testid="link-linkedin"
+              >
+                <Linkedin className="h-4 w-4" />
+                LinkedIn
+              </a>
+              <a
+                href="https://github.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-white/50 hover:text-primary transition-colors mono text-sm"
+                data-testid="link-github"
+              >
+                <SiGithub className="h-4 w-4" />
+                GitHub
+              </a>
+              <a
+                href="https://udayg.netlify.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/50 hover:text-primary transition-colors mono text-sm"
+                data-testid="link-portfolio"
+              >
+                udayg.netlify.app
+              </a>
+            </div>
+          </motion.div>
 
-            {submitted ? (
-              <div className="py-10 flex flex-col items-center justify-center text-center">
-                <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-4 text-primary">
-                  <Send className="h-8 w-8" />
+          {/* Right — Form */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15 }}
+          >
+            <form onSubmit={handleSubmit} className="border border-white/8 p-8 flex flex-col gap-5">
+              {submitted ? (
+                <div className="py-12 flex flex-col items-center text-center gap-4">
+                  <div className="w-12 h-12 border border-primary flex items-center justify-center">
+                    <Send className="h-5 w-5 text-primary" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-white">Sent.</h3>
+                    <p className="text-white/50 text-sm mt-1">I will get back to you shortly.</p>
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-2">Message Sent!</h3>
-                <p className="text-muted-foreground">Thank you for reaching out. I will get back to you shortly.</p>
-              </div>
-            ) : (
-              <>
-                <div className="grid sm:grid-cols-2 gap-5">
-                  <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-medium text-white/80">Name</label>
-                    <Input
-                      id="name"
+              ) : (
+                <>
+                  <div className="grid sm:grid-cols-2 gap-5">
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="name" className="mono text-xs text-white/40 tracking-widest uppercase">Name</label>
+                      <Input
+                        id="name"
+                        required
+                        placeholder="Jane Smith"
+                        className="rounded bg-white/3 border-white/10 focus-visible:ring-primary focus-visible:border-primary text-white placeholder:text-white/20"
+                        data-testid="input-name"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="email" className="mono text-xs text-white/40 tracking-widest uppercase">Email</label>
+                      <Input
+                        id="email"
+                        type="email"
+                        required
+                        placeholder="jane@company.com"
+                        className="rounded bg-white/3 border-white/10 focus-visible:ring-primary focus-visible:border-primary text-white placeholder:text-white/20"
+                        data-testid="input-email"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="message" className="mono text-xs text-white/40 tracking-widest uppercase">Message</label>
+                    <Textarea
+                      id="message"
                       required
-                      placeholder="John Doe"
-                      className="bg-secondary/50 border-white/10 focus-visible:ring-primary"
-                      data-testid="input-name"
+                      placeholder="Hi Uday, I'm reaching out about a security engineering role..."
+                      className="min-h-[140px] rounded bg-white/3 border-white/10 focus-visible:ring-primary focus-visible:border-primary text-white placeholder:text-white/20 resize-none"
+                      data-testid="input-message"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium text-white/80">Email</label>
-                    <Input
-                      id="email"
-                      type="email"
-                      required
-                      placeholder="john@company.com"
-                      className="bg-secondary/50 border-white/10 focus-visible:ring-primary"
-                      data-testid="input-email"
-                    />
-                  </div>
-                </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium text-white/80">Message</label>
-                  <Textarea
-                    id="message"
-                    required
-                    placeholder="Hello Uday, I'd like to discuss a security engineering opportunity..."
-                    className="min-h-[120px] bg-secondary/50 border-white/10 focus-visible:ring-primary resize-none"
-                    data-testid="input-message"
-                  />
-                </div>
-
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium shadow-[0_0_15px_rgba(14,165,233,0.3)] hover:shadow-[0_0_25px_rgba(14,165,233,0.5)] transition-all"
-                  data-testid="button-send-message"
-                >
-                  {isSubmitting ? "Sending..." : "Send Message"}
-                </Button>
-              </>
-            )}
-          </form>
-        </motion.div>
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="rounded bg-primary hover:bg-primary/90 text-black font-semibold transition-colors"
+                    data-testid="button-send"
+                  >
+                    {isSubmitting ? "Sending..." : "Send Message"}
+                  </Button>
+                </>
+              )}
+            </form>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
