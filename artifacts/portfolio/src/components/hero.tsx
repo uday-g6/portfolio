@@ -1,91 +1,107 @@
 import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Download, Mail } from "lucide-react";
-import SkillGraph from "./skill-graph";
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative min-h-[100dvh] flex flex-col justify-center subtle-grid">
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8 mt-20">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-          
-          {/* Left Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, staggerChildren: 0.1 }}
-            className="w-full lg:w-[60%] flex flex-col"
-          >
-            <motion.h1 
-              className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white mb-6 uppercase"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+    <section
+      id="hero"
+      className="min-h-[100dvh] flex flex-col justify-end pb-16 md:pb-24 pt-24 px-6 md:px-12 max-w-7xl mx-auto"
+    >
+      {/* Top label */}
+      <motion.p
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-xs tracking-[0.2em] uppercase text-[#C4973A] mb-8 font-medium"
+      >
+        Security Test Engineer — Bengaluru, India
+      </motion.p>
+
+      {/* Name */}
+      <motion.h1
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.1 }}
+        className="serif font-light text-[clamp(4rem,12vw,11rem)] leading-[0.92] tracking-[-0.03em] text-[#111] mb-10"
+      >
+        Uday
+        <br />
+        <span className="italic text-[#C4973A]">Gopal</span>
+        <br />
+        akrishna
+      </motion.h1>
+
+      {/* Divider */}
+      <motion.div
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+        style={{ transformOrigin: "left" }}
+        className="w-full h-px bg-[#C4973A]/30 mb-10"
+      />
+
+      {/* Bottom row */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.6 }}
+        className="flex flex-col md:flex-row md:items-end justify-between gap-8"
+      >
+        <p className="text-[#111]/55 text-base md:text-lg leading-relaxed max-w-lg font-light">
+          Securing mobile applications, APIs, and web platforms through
+          offensive security testing — Android APK analysis, Frida
+          instrumentation, OWASP-aligned VAPT.
+        </p>
+
+        <div className="flex flex-col gap-3 items-start md:items-end shrink-0">
+          <div className="flex flex-wrap gap-4 md:justify-end">
+            <a
+              href="#contact"
+              className="text-xs tracking-[0.15em] uppercase bg-[#111] text-white px-8 py-3.5 hover:bg-[#C4973A] transition-colors font-medium"
             >
-              UDAY G
-            </motion.h1>
+              Get in Touch
+            </a>
+            <a
+              href="#experience"
+              className="text-xs tracking-[0.15em] uppercase border border-[#111]/20 text-[#111]/60 px-8 py-3.5 hover:border-[#C4973A] hover:text-[#C4973A] transition-colors font-medium"
+            >
+              View Work
+            </a>
+          </div>
 
-            <motion.div className="space-y-1 mb-8">
-              <h2 className="text-xl md:text-2xl font-semibold text-primary">Security Test Engineer</h2>
-              <p className="text-lg text-muted-foreground">Mobile &amp; Web Application Security</p>
-              <p className="text-lg text-muted-foreground">VAPT &amp; API Security</p>
-            </motion.div>
-
-            <motion.p className="text-lg md:text-xl text-white/80 max-w-xl mb-8 leading-[1.75]">
-              Securing Mobile Applications, APIs, and Modern Web Platforms Through Practical Offensive Security Testing.
-            </motion.p>
-
-            <motion.div className="flex flex-wrap items-center gap-4 mb-10 text-sm mono text-muted-foreground">
-              <a href="tel:+917899169395" className="hover:text-primary transition-colors">+91 78991-69395</a>
-              <span className="text-white/20">|</span>
-              <a href="mailto:udaygopalakrishna@gmail.com" className="hover:text-primary transition-colors">udaygopalakrishna@gmail.com</a>
-            </motion.div>
-
-            <motion.div className="flex flex-wrap gap-4">
-              <Button size="lg" className="rounded bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8" asChild>
-                <a href="#contact">Contact Me</a>
-              </Button>
-              <Button size="lg" variant="outline" className="rounded border-white/20 hover:border-white text-white hover:bg-transparent px-8" asChild>
-                <a href="mailto:udaygopalakrishna@gmail.com?subject=Resume%20Request">
-                  <Download className="mr-2 h-4 w-4" /> Download CV
-                </a>
-              </Button>
-            </motion.div>
-          </motion.div>
-
-          {/* Right Visual */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.4 }}
-            className="w-full lg:w-[40%] h-[400px] lg:h-[600px] border border-white/5 bg-black/50 hidden md:block"
-          >
-            <SkillGraph />
-          </motion.div>
+          <div className="flex gap-6 text-xs text-[#111]/35 tracking-widest uppercase mt-1">
+            <a href="tel:+917899169395" className="hover:text-[#C4973A] transition-colors">
+              +91 78991-69395
+            </a>
+            <span className="opacity-30">·</span>
+            <a href="mailto:udaygopalakrishna@gmail.com" className="hover:text-[#C4973A] transition-colors">
+              udaygopalakrishna@gmail.com
+            </a>
+          </div>
         </div>
+      </motion.div>
 
-        {/* Impact Stats */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-20 border-y border-white/10 py-6 flex flex-col sm:flex-row items-center justify-between gap-8 md:gap-4 max-w-4xl"
-        >
-          <div className="flex flex-col items-center sm:items-start">
-            <span className="text-3xl font-bold text-white mb-1">20+</span>
-            <span className="text-sm mono text-primary">Banking APKs</span>
+      {/* Stats strip */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.8 }}
+        className="mt-16 grid grid-cols-3 border-t border-black/8 pt-8 gap-4"
+      >
+        {[
+          { num: "20+", label: "Banking APKs Tested" },
+          { num: "50+", label: "Vulnerabilities Found" },
+          { num: "30%", label: "MTTR Reduction" },
+        ].map((s) => (
+          <div key={s.num} className="flex flex-col gap-1">
+            <span className="serif text-3xl md:text-4xl font-light text-[#111] leading-none">
+              {s.num}
+            </span>
+            <span className="text-[10px] tracking-[0.15em] uppercase text-[#C4973A] font-medium">
+              {s.label}
+            </span>
           </div>
-          <div className="hidden sm:block w-px h-12 bg-white/10" />
-          <div className="flex flex-col items-center sm:items-start">
-            <span className="text-3xl font-bold text-white mb-1">50+</span>
-            <span className="text-sm mono text-primary">Vulnerabilities</span>
-          </div>
-          <div className="hidden sm:block w-px h-12 bg-white/10" />
-          <div className="flex flex-col items-center sm:items-start">
-            <span className="text-3xl font-bold text-white mb-1">30%</span>
-            <span className="text-sm mono text-primary">MTTR Reduction</span>
-          </div>
-        </motion.div>
-      </div>
+        ))}
+      </motion.div>
     </section>
   );
 }

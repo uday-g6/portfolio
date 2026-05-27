@@ -1,100 +1,90 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Download } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { AnimatePresence, motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 30);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const navLinks = [
-    { name: "about", href: "#about" },
-    { name: "skills", href: "#skills" },
-    { name: "experience", href: "#experience" },
-    { name: "projects", href: "#projects" },
-    { name: "contact", href: "#contact" },
+  const links = [
+    { name: "About", href: "#about" },
+    { name: "Skills", href: "#skills" },
+    { name: "Experience", href: "#experience" },
+    { name: "Projects", href: "#projects" },
+    { name: "Contact", href: "#contact" },
   ];
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 h-[54px] flex items-center transition-all duration-200 ${
-        scrolled ? "bg-black/90 backdrop-blur-md border-b border-white/10" : "bg-transparent"
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-[#FAFAF8]/95 backdrop-blur-sm border-b border-black/8" : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 w-full flex items-center justify-between">
-        <a href="#hero" className="mono font-bold text-white tracking-tight hover:text-primary transition-colors">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
+        <a href="#hero" className="serif text-xl font-medium text-[#111] tracking-tight hover:text-[#C4973A] transition-colors">
           Uday G
         </a>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href}
-              className="text-sm text-muted-foreground hover:text-white transition-colors lowercase"
+        <nav className="hidden md:flex items-center gap-8">
+          {links.map((l) => (
+            <a
+              key={l.name}
+              href={l.href}
+              className="text-xs tracking-[0.12em] uppercase text-[#111]/50 hover:text-[#C4973A] transition-colors font-medium"
             >
-              {link.name}
+              {l.name}
             </a>
           ))}
         </nav>
 
-        {/* Right Nav */}
-        <div className="hidden md:flex items-center gap-4">
-          <div className="flex items-center gap-2 text-xs font-medium mono text-white">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+        <div className="hidden md:flex items-center gap-6">
+          <div className="flex items-center gap-2 text-xs tracking-widest uppercase text-[#111]/40">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             Open to Work
           </div>
-          <Button variant="outline" size="sm" className="h-8 text-xs mono rounded border-white/20 hover:border-primary hover:text-primary hover:bg-transparent" asChild>
-            <a href="mailto:udaygopalakrishna@gmail.com?subject=Resume%20Request">
-              <Download className="mr-2 h-3 w-3" /> CV
-            </a>
-          </Button>
+          <a
+            href="mailto:udaygopalakrishna@gmail.com?subject=Resume%20Request"
+            className="text-xs tracking-[0.12em] uppercase border border-[#C4973A] text-[#C4973A] px-5 py-2 hover:bg-[#C4973A] hover:text-white transition-colors font-medium"
+          >
+            Download CV
+          </a>
         </div>
 
-        {/* Mobile Menu Toggle */}
-        <button 
-          className="md:hidden text-muted-foreground hover:text-white p-1"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        <button
+          className="md:hidden text-[#111]/60 hover:text-[#111]"
+          onClick={() => setMobileOpen(!mobileOpen)}
         >
-          {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
       </div>
 
-      {/* Mobile Nav */}
       <AnimatePresence>
-        {mobileMenuOpen && (
+        {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="absolute top-[54px] left-0 w-full bg-black/95 backdrop-blur-lg border-b border-white/10 overflow-hidden md:hidden"
+            exit={{ opacity: 0, y: -8 }}
+            className="md:hidden bg-[#FAFAF8] border-b border-black/8 px-6 py-6 flex flex-col gap-5"
           >
-            <div className="px-4 py-4 flex flex-col gap-2">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="text-sm text-muted-foreground hover:text-white block py-2 lowercase"
-                >
-                  {link.name}
-                </a>
-              ))}
-              <div className="flex items-center justify-between pt-4 border-t border-white/10 mt-2">
-                <div className="flex items-center gap-2 text-xs font-medium mono text-white">
-                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  Open to Work
-                </div>
-              </div>
+            {links.map((l) => (
+              <a
+                key={l.name}
+                href={l.href}
+                onClick={() => setMobileOpen(false)}
+                className="text-sm tracking-widest uppercase text-[#111]/50 hover:text-[#C4973A] transition-colors"
+              >
+                {l.name}
+              </a>
+            ))}
+            <div className="pt-4 border-t border-black/8 flex items-center gap-2 text-xs text-[#111]/40 uppercase tracking-widest">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              Open to Work
             </div>
           </motion.div>
         )}

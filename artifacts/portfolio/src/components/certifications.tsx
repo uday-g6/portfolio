@@ -14,48 +14,43 @@ const CERTS = [
 
 export default function Certifications() {
   return (
-    <section id="certifications" className="py-24 bg-background border-t border-white/5">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-white">
-            <span className="mono text-primary text-lg mr-4">// 05</span>
-            Certifications
-          </h2>
-        </motion.div>
+    <section id="certifications" className="py-24 md:py-36 px-6 md:px-12 max-w-7xl mx-auto border-t border-black/8">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="flex items-center gap-4 mb-16"
+      >
+        <span className="text-[10px] tracking-[0.25em] uppercase text-[#C4973A] font-medium">05 / Certifications</span>
+        <div className="h-px flex-1 bg-[#C4973A]/20" />
+      </motion.div>
 
-        <div className="border border-white/8">
-          {/* Header row */}
-          <div className="grid grid-cols-[1fr_auto_auto] gap-4 px-6 py-3 border-b border-white/8 bg-white/2">
-            <span className="mono text-xs text-white/30 uppercase tracking-widest">Certificate</span>
-            <span className="mono text-xs text-white/30 uppercase tracking-widest hidden sm:block">Issuer</span>
-            <span className="mono text-xs text-white/30 uppercase tracking-widest">Year</span>
-          </div>
-
-          {CERTS.map((cert, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, x: -12 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: idx * 0.04 }}
-              className="grid grid-cols-[1fr_auto_auto] gap-4 items-center px-6 py-4 border-b border-white/5 last:border-0 hover:bg-white/2 transition-colors group"
-              data-testid={`row-cert-${idx}`}
-            >
-              <p className="text-white/80 text-sm font-medium leading-snug group-hover:text-white transition-colors">
-                {cert.title}
-              </p>
-              <p className="mono text-xs text-white/40 hidden sm:block shrink-0 group-hover:text-primary transition-colors">
-                {cert.issuer}
-              </p>
-              <p className="mono text-xs text-white/30 shrink-0">{cert.year}</p>
-            </motion.div>
-          ))}
+      <div>
+        {/* Header */}
+        <div className="grid grid-cols-[1fr_auto_auto] gap-6 pb-3 border-b border-black/8 mb-0">
+          <span className="text-[10px] tracking-[0.2em] uppercase text-[#111]/25 font-medium">Certificate</span>
+          <span className="text-[10px] tracking-[0.2em] uppercase text-[#111]/25 font-medium hidden sm:block w-40 text-right">Issuer</span>
+          <span className="text-[10px] tracking-[0.2em] uppercase text-[#111]/25 font-medium w-10 text-right">Year</span>
         </div>
+
+        {CERTS.map((cert, idx) => (
+          <motion.div
+            key={idx}
+            initial={{ opacity: 0, x: -10 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.3, delay: idx * 0.04 }}
+            className="grid grid-cols-[1fr_auto_auto] gap-6 items-center py-5 border-b border-black/6 last:border-0 group hover:bg-[#F5F0E8] -mx-4 px-4 transition-colors"
+          >
+            <p className="text-sm text-[#111]/75 font-light group-hover:text-[#111] transition-colors leading-snug">
+              {cert.title}
+            </p>
+            <p className="text-xs text-[#111]/35 font-light hidden sm:block w-40 text-right group-hover:text-[#C4973A] transition-colors">
+              {cert.issuer}
+            </p>
+            <p className="text-xs text-[#111]/30 font-light w-10 text-right">{cert.year}</p>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
