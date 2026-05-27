@@ -9,10 +9,12 @@ import Certifications from "@/components/certifications";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
 import BackToTop from "@/components/back-to-top";
+import ProgressBar from "@/components/progress-bar";
 
 export default function Home() {
   return (
     <div className="min-h-[100dvh] text-foreground font-sans" style={{ backgroundColor: "#F8F5EF" }}>
+      <ProgressBar />
       <Navbar />
       <main>
         <Hero />
