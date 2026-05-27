@@ -5,91 +5,118 @@ const CATEGORIES = [
   {
     id: "mobile",
     label: "Mobile Security",
+    count: 14,
     skills: ["Android APK Security Testing", "APK Reverse Engineering", "Static Analysis", "Dynamic Analysis", "SSL Pinning Bypass", "Root Detection Bypass", "Certificate Validation Bypass", "Frida Instrumentation", "Runtime Instrumentation", "MobSF", "JADX", "Apktool", "ADB", "Android Studio"],
   },
   {
     id: "web",
     label: "Web & API",
+    count: 14,
     skills: ["Web Application Penetration Testing", "OWASP Top 10", "SQL Injection", "Cross-Site Scripting (XSS)", "CSRF Testing", "Broken Access Control", "Authentication Testing", "Session Management", "IDOR Testing", "BOLA Testing", "API Security Testing", "REST API Security", "Burp Suite", "OWASP ZAP"],
   },
   {
     id: "standards",
     label: "Standards",
+    count: 12,
     skills: ["OWASP Mobile Top 10", "OWASP Top 10", "CVSS Scoring", "CVE Analysis", "Vulnerability Assessment", "Penetration Testing Methodology", "Secure SDLC", "Threat Modelling", "Secure Code Review", "SAST", "DAST", "Security Reporting"],
   },
   {
     id: "tools",
-    label: "Tools & Tech",
+    label: "Tools",
+    count: 15,
     skills: ["Burp Suite", "Frida", "MobSF", "JADX", "Apktool", "OWASP ZAP", "Nmap", "Wireshark", "Metasploit", "Kali Linux", "Ubuntu", "Linux CLI", "Bash Scripting", "Python", "Git"],
   },
 ];
 
 export default function Skills() {
   const [active, setActive] = useState("mobile");
+  const cat = CATEGORIES.find(c => c.id === active)!;
 
   return (
-    <section id="skills" className="py-24 md:py-36 px-6 md:px-12 max-w-7xl mx-auto border-t border-black/8 bg-[#F5F0E8]">
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        className="flex items-center gap-4 mb-16"
+    <section id="skills" className="bg-[#111] text-white relative overflow-hidden">
+      {/* Big decorative number */}
+      <div
+        className="absolute right-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-white/[0.03] leading-none select-none pointer-events-none"
+        aria-hidden="true"
       >
-        <span className="text-[10px] tracking-[0.25em] uppercase text-[#C4973A] font-medium">02 / Skills</span>
-        <div className="h-px flex-1 bg-[#C4973A]/20" />
-      </motion.div>
+        02
+      </div>
 
-      <div className="grid lg:grid-cols-12 gap-12">
-        {/* Left tabs */}
-        <div className="lg:col-span-3 flex flex-row lg:flex-col gap-0 overflow-x-auto border-b lg:border-b-0 lg:border-r border-black/8 pb-4 lg:pb-0 lg:pr-8">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActive(cat.id)}
-              className={`text-left py-3 pr-6 lg:border-b border-black/6 last:border-0 text-xs tracking-[0.12em] uppercase font-medium transition-colors whitespace-nowrap lg:whitespace-normal mr-6 lg:mr-0 ${
-                active === cat.id
-                  ? "text-[#C4973A]"
-                  : "text-[#111]/40 hover:text-[#111]/70"
-              }`}
-            >
-              {active === cat.id && (
-                <span className="inline-block w-3 h-px bg-[#C4973A] mr-2 align-middle" />
-              )}
-              {cat.label}
-            </button>
-          ))}
-        </div>
+      <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
+        {/* Section label */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="flex items-center gap-4 mb-16"
+        >
+          <span className="text-[10px] tracking-[0.3em] uppercase text-[#B8892F] font-medium">
+            02 — Skills
+          </span>
+          <div className="h-px w-16 bg-[#B8892F]/30" />
+        </motion.div>
 
-        {/* Right content */}
-        <div className="lg:col-span-9">
-          <AnimatePresence mode="wait">
-            {CATEGORIES.map(
-              (cat) =>
-                cat.id === active && (
-                  <motion.div
-                    key={cat.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.25 }}
-                  >
-                    <h3 className="serif text-3xl md:text-4xl font-light text-[#111] mb-8 tracking-tight">
-                      {cat.label}
-                    </h3>
-                    <div className="flex flex-wrap gap-2">
-                      {cat.skills.map((skill, i) => (
-                        <span
-                          key={i}
-                          className="px-4 py-2 border border-black/10 bg-white text-[#111]/65 text-xs tracking-wide font-light hover:border-[#C4973A] hover:text-[#C4973A] transition-colors cursor-default"
-                        >
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </motion.div>
-                )
-            )}
-          </AnimatePresence>
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
+          {/* Left tabs */}
+          <div className="lg:col-span-4 flex flex-row lg:flex-col gap-0 overflow-x-auto lg:overflow-visible">
+            {CATEGORIES.map((c) => (
+              <button
+                key={c.id}
+                onClick={() => setActive(c.id)}
+                className={`group flex items-center justify-between text-left py-4 pr-6 border-b border-white/8 last:border-0 transition-all w-full shrink-0 ${
+                  active === c.id
+                    ? "text-[#B8892F]"
+                    : "text-white/35 hover:text-white/70"
+                }`}
+              >
+                <div className="flex items-center gap-3">
+                  {active === c.id && (
+                    <span className="w-6 h-px bg-[#B8892F] shrink-0" />
+                  )}
+                  <span className="text-sm tracking-wide font-light">{c.label}</span>
+                </div>
+                <span className={`text-xs mono transition-colors ${active === c.id ? "text-[#B8892F]" : "text-white/20"}`}>
+                  {c.count}
+                </span>
+              </button>
+            ))}
+          </div>
+
+          {/* Right panel */}
+          <div className="lg:col-span-8">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="flex items-end justify-between mb-8">
+                  <h3 className="serif font-light text-3xl md:text-4xl text-white leading-tight">
+                    {cat.label}
+                  </h3>
+                  <span className="serif italic text-[#B8892F]/50 text-6xl font-light leading-none select-none">
+                    {String(cat.count).padStart(2, "0")}
+                  </span>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  {cat.skills.map((skill, i) => (
+                    <motion.span
+                      key={i}
+                      initial={{ opacity: 0, scale: 0.92 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.2, delay: i * 0.025 }}
+                      className="px-4 py-2.5 border border-white/10 text-white/55 text-xs tracking-wide font-light hover:border-[#B8892F] hover:text-[#B8892F] transition-colors cursor-default"
+                    >
+                      {skill}
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </div>
     </section>
