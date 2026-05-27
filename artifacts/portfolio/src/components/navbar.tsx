@@ -41,7 +41,7 @@ export default function Navbar() {
             <a
               key={l.name}
               href={l.href}
-              className="text-[11px] tracking-[0.12em] uppercase text-[#111]/45 hover:text-[#B8892F] transition-colors font-medium"
+              className="text-xs tracking-[0.12em] uppercase text-[#111]/55 hover:text-[#B8892F] transition-colors font-medium"
             >
               {l.name}
             </a>
@@ -49,7 +49,7 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden md:flex items-center gap-5">
-          <div className="flex items-center gap-2 text-[11px] tracking-widest uppercase text-[#111]/35">
+          <div className="flex items-center gap-2 text-[11px] tracking-widest uppercase text-[#111]/60 font-medium">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             Open to Work
           </div>

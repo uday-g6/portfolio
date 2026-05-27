@@ -8,20 +8,20 @@ export default function Footer() {
         <div className="flex items-center gap-4">
           <span className="serif text-lg font-light text-white">Uday G</span>
           <span className="text-white/15">·</span>
-          <span className="text-[10px] tracking-[0.15em] uppercase text-white/25 font-medium">
+          <span className="text-xs tracking-[0.15em] uppercase text-white/50 font-medium">
             Security Test Engineer
           </span>
         </div>
-        <p className="text-[10px] text-white/20 tracking-widest uppercase order-last sm:order-none">
+        <p className="text-xs text-white/40 tracking-widest uppercase order-last sm:order-none">
           © {new Date().getFullYear()}
         </p>
         <div className="flex items-center gap-5">
           <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
-            className="text-white/25 hover:text-[#B8892F] transition-colors">
+            className="text-white/45 hover:text-[#B8892F] transition-colors">
             <SiGithub className="h-4 w-4" />
           </a>
           <a href="https://linkedin.com/in/uday-g-" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"
-            className="text-white/25 hover:text-[#B8892F] transition-colors">
+            className="text-white/45 hover:text-[#B8892F] transition-colors">
             <Linkedin className="h-4 w-4" />
           </a>
         </div>

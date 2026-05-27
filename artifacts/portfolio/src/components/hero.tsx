@@ -36,10 +36,9 @@ export default function Hero() {
             initial={{ opacity: 0, x: 16 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="hidden md:flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-[#111]/50"
+            className="text-[11px] tracking-[0.2em] uppercase text-[#111]/55 font-medium"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            Open to Work
+            Bengaluru, India
           </motion.div>
         </div>
 
@@ -84,7 +83,7 @@ export default function Hero() {
                 View Work
               </a>
             </div>
-            <div className="flex gap-4 text-[11px] text-[#111]/45 tracking-widest uppercase">
+            <div className="flex gap-4 text-xs text-[#111]/55 tracking-widest uppercase">
               <a href="tel:+917899169395" className="hover:text-[#B8892F] transition-colors">+91 78991-69395</a>
               <span className="opacity-40">·</span>
               <a href="mailto:udaygopalakrishna@gmail.com" className="hover:text-[#B8892F] transition-colors">udaygopalakrishna@gmail.com</a>
