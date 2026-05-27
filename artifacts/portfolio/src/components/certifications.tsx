@@ -44,9 +44,9 @@ export default function Certifications() {
               transition={{ duration: 0.3, delay: idx * 0.04 }}
               className="group grid grid-cols-[1fr_auto_auto] gap-6 items-center py-5 border-b border-black/6 last:border-0 hover:bg-[#EDE6D6] -mx-4 px-4 transition-colors"
             >
-              <p className="text-sm text-[#111]/85 font-medium group-hover:text-[#111] transition-colors leading-snug">{cert.title}</p>
-              <p className="text-xs text-[#111]/55 hidden sm:block w-44 text-right group-hover:text-[#B8892F] transition-colors">{cert.issuer}</p>
-              <p className="text-xs text-[#111]/55 w-10 text-right">{cert.year}</p>
+              <p className="text-base text-[#111]/85 font-medium group-hover:text-[#111] transition-colors leading-snug">{cert.title}</p>
+              <p className="text-sm text-[#111]/60 hidden sm:block w-44 text-right group-hover:text-[#B8892F] transition-colors">{cert.issuer}</p>
+              <p className="text-sm text-[#111]/55 w-10 text-right">{cert.year}</p>
             </motion.div>
           ))}
         </div>

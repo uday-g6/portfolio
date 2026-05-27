@@ -68,9 +68,9 @@ export default function Experience() {
                 <p className="text-2xl font-semibold text-[#111] leading-tight">{exp.role}</p>
                 <p className="text-sm text-[#111]/70">{exp.company}</p>
                 <div className="flex flex-wrap gap-2 mt-1">
-                  <span className="text-[10px] tracking-widest uppercase border border-black/15 text-[#111]/55 px-2.5 py-1 font-medium">{exp.type}</span>
+                  <span className="text-xs tracking-widest uppercase border border-black/15 text-[#111]/60 px-2.5 py-1.5 font-medium">{exp.type}</span>
                   {exp.domain && (
-                    <span className="text-[10px] tracking-widest uppercase border border-[#B8892F]/40 text-[#B8892F] px-2.5 py-1 font-medium">{exp.domain}</span>
+                    <span className="text-xs tracking-widest uppercase border border-[#B8892F]/40 text-[#B8892F] px-2.5 py-1.5 font-medium">{exp.domain}</span>
                   )}
                 </div>
               </div>
@@ -80,12 +80,12 @@ export default function Experience() {
                 {exp.callout && (
                   <div className="bg-[#111] text-white px-6 py-4 border-l-2 border-[#B8892F] flex items-start gap-3">
                     <span className="text-[#B8892F] text-lg leading-none mt-0.5 shrink-0">✦</span>
-                    <p className="text-sm text-white/90 leading-relaxed">{exp.callout}</p>
+                    <p className="text-base text-white/90 leading-relaxed">{exp.callout}</p>
                   </div>
                 )}
                 <ul className="flex flex-col gap-3.5">
                   {exp.bullets.map((b, i) => (
-                    <li key={i} className="flex gap-3 text-sm text-[#111]/75 leading-[1.8]">
+                    <li key={i} className="flex gap-3 text-base text-[#111]/78 leading-[1.85]">
                       <span className="text-[#B8892F] shrink-0 mt-1.5 text-xs">—</span>
                       {b}
                     </li>

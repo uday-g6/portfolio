@@ -44,7 +44,7 @@ export default function Contact() {
             <h2 className="text-4xl md:text-5xl font-light text-white leading-[1.1] tracking-tight mb-6">
               Let's talk about your next security engagement.
             </h2>
-            <p className="text-white/65 text-sm leading-[1.85] mb-12 max-w-sm">
+            <p className="text-white/70 text-base leading-[1.85] mb-12 max-w-sm">
               Available for security engineering roles and VAPT engagements. Fastest response by phone or email.
             </p>
 

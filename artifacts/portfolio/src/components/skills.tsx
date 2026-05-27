@@ -82,7 +82,7 @@ export default function Skills() {
                       initial={{ opacity: 0, scale: 0.92 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.2, delay: i * 0.025 }}
-                      className="px-4 py-2.5 border border-white/20 text-white/80 text-xs tracking-wide hover:border-[#B8892F] hover:text-[#B8892F] transition-colors cursor-default"
+                      className="px-4 py-2.5 border border-white/20 text-white/85 text-sm hover:border-[#B8892F] hover:text-[#B8892F] transition-colors cursor-default"
                     >
                       {skill}
                     </motion.span>

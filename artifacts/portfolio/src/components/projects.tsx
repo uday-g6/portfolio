@@ -58,13 +58,13 @@ export default function Projects() {
                   <span className="md:hidden text-[11px] tracking-widest uppercase text-[#B8892F] font-medium">{p.num}.</span>
                   <h3 className="text-2xl md:text-3xl font-semibold text-[#111] tracking-tight leading-tight">{p.title}</h3>
                 </div>
-                <p className="text-[#111]/70 text-sm leading-[1.85] mb-8 max-w-2xl">{p.desc}</p>
+                <p className="text-[#111]/72 text-base leading-[1.85] mb-8 max-w-2xl">{p.desc}</p>
                 <div className="grid md:grid-cols-2 gap-8">
                   <div>
                     <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8892F] font-medium mb-4">Key Findings</p>
                     <ul className="flex flex-col gap-2.5">
                       {p.findings.map((f, i) => (
-                        <li key={i} className="flex gap-2.5 text-sm text-[#111]/75 leading-[1.75]">
+                        <li key={i} className="flex gap-2.5 text-base text-[#111]/75 leading-[1.8]">
                           <span className="text-[#B8892F] shrink-0 mt-0.5 text-xs">—</span>
                           {f}
                         </li>
@@ -75,7 +75,7 @@ export default function Projects() {
                     <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8892F] font-medium mb-4">Tools</p>
                     <div className="flex flex-wrap gap-2">
                       {p.tools.map((t, i) => (
-                        <span key={i} className="px-3.5 py-2 bg-white border border-black/12 text-[#111]/70 text-xs hover:border-[#B8892F] hover:text-[#B8892F] transition-colors cursor-default">
+                        <span key={i} className="px-3.5 py-2 bg-white border border-black/12 text-[#111]/75 text-sm hover:border-[#B8892F] hover:text-[#B8892F] transition-colors cursor-default">
                           {t}
                         </span>
                       ))}

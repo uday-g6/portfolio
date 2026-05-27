@@ -58,7 +58,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35 }}
-            className="mt-6 text-[#111]/60 text-lg md:text-xl font-light tracking-wide max-w-lg"
+            className="mt-6 text-[#111]/65 text-xl md:text-2xl font-light tracking-wide max-w-lg"
           >
             Mobile &amp; Web Application Security · VAPT · API Security
           </motion.p>
@@ -107,7 +107,7 @@ export default function Hero() {
         ].map((s, i) => (
           <div key={i} className={`px-6 md:px-8 py-6 flex flex-col gap-1 ${i < 2 ? "border-r border-white/10" : ""}`}>
             <span className="serif text-3xl md:text-4xl font-light text-[#B8892F] leading-none">{s.num}</span>
-            <span className="text-[10px] tracking-[0.15em] uppercase text-white/55">{s.label}</span>
+            <span className="text-xs tracking-[0.15em] uppercase text-white/65">{s.label}</span>
           </div>
         ))}
       </motion.div>

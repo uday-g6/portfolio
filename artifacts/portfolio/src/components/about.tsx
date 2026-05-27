@@ -37,7 +37,7 @@ export default function About() {
               </p>
               <div className="mt-2 inline-flex items-center gap-3 border border-[#B8892F]/40 bg-[#B8892F]/8 px-5 py-3 self-start">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#B8892F]" />
-                <span className="text-xs text-[#B8892F] tracking-wide font-medium">
+                <span className="text-sm text-[#B8892F] tracking-wide font-medium">
                   Promoted intern → full-time in 6 months
                 </span>
               </div>
@@ -63,7 +63,7 @@ export default function About() {
                   "Banking & Financial Applications",
                   "CVSS Reporting & Remediation",
                 ].map((item, i) => (
-                  <li key={i} className="group py-3.5 border-b border-black/8 text-sm text-[#111]/80 flex items-center justify-between hover:text-[#111] transition-colors cursor-default">
+                  <li key={i} className="group py-3.5 border-b border-black/8 text-base text-[#111]/80 flex items-center justify-between hover:text-[#111] transition-colors cursor-default">
                     <span>{item}</span>
                     <span className="text-[#B8892F] opacity-0 group-hover:opacity-100 transition-opacity text-xs">✦</span>
                   </li>
@@ -77,7 +77,7 @@ export default function About() {
               <p className="text-[11px] tracking-[0.25em] uppercase text-[#B8892F] font-medium mb-4">Education</p>
               <p className="text-xl font-medium leading-snug mb-1 text-white">B.E. Computer Science</p>
               <p className="text-sm text-white/70 mb-0.5">Maharaja Institute of Technology, Mysuru</p>
-              <p className="text-xs text-white/50 mb-5">Visvesvaraya Technological University</p>
+              <p className="text-sm text-white/60 mb-5">Visvesvaraya Technological University</p>
               <div className="flex justify-between items-center text-xs text-white/50 tracking-widest uppercase">
                 <span>2021 – 2025</span>
                 <span className="text-[#B8892F] font-medium">CGPA 7.2 / 10</span>
