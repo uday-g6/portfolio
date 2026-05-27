@@ -10,11 +10,13 @@ import Contact from "@/components/contact";
 import Footer from "@/components/footer";
 import BackToTop from "@/components/back-to-top";
 import ProgressBar from "@/components/progress-bar";
+import CursorSpotlight from "@/components/cursor-spotlight";
 
 export default function Home() {
   return (
     <div className="min-h-[100dvh] text-foreground font-sans" style={{ backgroundColor: "#F8F5EF" }}>
       <ProgressBar />
+      <CursorSpotlight />
       <Navbar />
       <main>
         <Hero />
