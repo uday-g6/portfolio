@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "BmcpjkGKHR2nnojos9-nA"
+uri = "file://portfolio-source.tar.gz"
+type = "unspecified"
+title = "Uday G — Portfolio Source Code"
