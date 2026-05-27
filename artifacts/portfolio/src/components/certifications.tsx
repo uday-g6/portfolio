@@ -15,13 +15,7 @@ const CERTS = [
 export default function Certifications() {
   return (
     <section id="certifications" className="bg-[#F8F5EF] relative overflow-hidden">
-      {/* Big decorative number */}
-      <div
-        className="absolute left-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[#111]/[0.04] leading-none select-none pointer-events-none"
-        aria-hidden="true"
-      >
-        05
-      </div>
+      <div className="absolute left-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[#111]/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">05</div>
 
       <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
         <motion.div
@@ -30,17 +24,15 @@ export default function Certifications() {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-16"
         >
-          <span className="text-[10px] tracking-[0.3em] uppercase text-[#B8892F] font-medium">
-            05 — Certifications
-          </span>
+          <span className="text-[11px] tracking-[0.3em] uppercase text-[#B8892F] font-medium">05 — Certifications</span>
           <div className="h-px w-16 bg-[#B8892F]/30" />
         </motion.div>
 
-        <div className="border-t border-black/8">
-          <div className="grid grid-cols-[1fr_auto_auto] gap-6 py-3 border-b border-black/6">
-            <span className="text-[10px] tracking-[0.2em] uppercase text-[#111]/25 font-medium">Certificate</span>
-            <span className="text-[10px] tracking-[0.2em] uppercase text-[#111]/25 font-medium hidden sm:block w-44 text-right">Issuer</span>
-            <span className="text-[10px] tracking-[0.2em] uppercase text-[#111]/25 font-medium w-10 text-right">Year</span>
+        <div className="border-t border-black/10">
+          <div className="grid grid-cols-[1fr_auto_auto] gap-6 py-3 border-b border-black/8">
+            <span className="text-[11px] tracking-[0.2em] uppercase text-[#111]/45 font-medium">Certificate</span>
+            <span className="text-[11px] tracking-[0.2em] uppercase text-[#111]/45 font-medium hidden sm:block w-44 text-right">Issuer</span>
+            <span className="text-[11px] tracking-[0.2em] uppercase text-[#111]/45 font-medium w-10 text-right">Year</span>
           </div>
 
           {CERTS.map((cert, idx) => (
@@ -50,15 +42,11 @@ export default function Certifications() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: idx * 0.04 }}
-              className="group grid grid-cols-[1fr_auto_auto] gap-6 items-center py-5 border-b border-black/5 last:border-0 hover:bg-[#EDE6D6] -mx-4 px-4 transition-colors"
+              className="group grid grid-cols-[1fr_auto_auto] gap-6 items-center py-5 border-b border-black/6 last:border-0 hover:bg-[#EDE6D6] -mx-4 px-4 transition-colors"
             >
-              <p className="text-sm text-[#111]/70 font-light group-hover:text-[#111] transition-colors leading-snug">
-                {cert.title}
-              </p>
-              <p className="text-xs text-[#111]/35 font-light hidden sm:block w-44 text-right group-hover:text-[#B8892F] transition-colors">
-                {cert.issuer}
-              </p>
-              <p className="text-xs text-[#111]/30 font-light w-10 text-right">{cert.year}</p>
+              <p className="text-sm text-[#111]/85 font-medium group-hover:text-[#111] transition-colors leading-snug">{cert.title}</p>
+              <p className="text-xs text-[#111]/55 hidden sm:block w-44 text-right group-hover:text-[#B8892F] transition-colors">{cert.issuer}</p>
+              <p className="text-xs text-[#111]/55 w-10 text-right">{cert.year}</p>
             </motion.div>
           ))}
         </div>

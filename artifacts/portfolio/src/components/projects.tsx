@@ -27,13 +27,7 @@ const PROJECTS = [
 export default function Projects() {
   return (
     <section id="projects" className="relative overflow-hidden bg-[#EDE6D6]">
-      {/* Big decorative number */}
-      <div
-        className="absolute right-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[#111]/[0.05] leading-none select-none pointer-events-none"
-        aria-hidden="true"
-      >
-        04
-      </div>
+      <div className="absolute right-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[#111]/[0.05] leading-none select-none pointer-events-none" aria-hidden="true">04</div>
 
       <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
         <motion.div
@@ -42,9 +36,7 @@ export default function Projects() {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-16"
         >
-          <span className="text-[10px] tracking-[0.3em] uppercase text-[#B8892F] font-medium">
-            04 — Projects
-          </span>
+          <span className="text-[11px] tracking-[0.3em] uppercase text-[#B8892F] font-medium">04 — Projects</span>
           <div className="h-px w-16 bg-[#B8892F]/30" />
         </motion.div>
 
@@ -56,28 +48,23 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="py-12 md:py-16 border-b border-black/8 last:border-0 grid md:grid-cols-[100px_1fr] gap-8 md:gap-12"
+              className="py-12 md:py-16 border-b border-black/10 last:border-0 grid md:grid-cols-[100px_1fr] gap-8 md:gap-12"
             >
-              {/* Number */}
               <div className="hidden md:block">
-                <span className="serif text-[4rem] font-light leading-none text-[#B8892F]/20 select-none">
-                  {p.num}
-                </span>
+                <span className="serif text-[4rem] font-light leading-none text-[#B8892F]/25 select-none">{p.num}</span>
               </div>
-
               <div>
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="md:hidden text-[10px] tracking-widest uppercase text-[#B8892F] font-medium">{p.num}.</span>
-                  <h3 className="serif font-light text-2xl md:text-3xl text-[#111] tracking-tight leading-tight">{p.title}</h3>
+                  <span className="md:hidden text-[11px] tracking-widest uppercase text-[#B8892F] font-medium">{p.num}.</span>
+                  <h3 className="text-2xl md:text-3xl font-semibold text-[#111] tracking-tight leading-tight">{p.title}</h3>
                 </div>
-                <p className="text-[#111]/50 text-sm leading-[1.85] font-light mb-8 max-w-2xl">{p.desc}</p>
-
+                <p className="text-[#111]/70 text-sm leading-[1.85] mb-8 max-w-2xl">{p.desc}</p>
                 <div className="grid md:grid-cols-2 gap-8">
                   <div>
-                    <p className="text-[10px] tracking-[0.2em] uppercase text-[#B8892F] font-medium mb-4">Key Findings</p>
+                    <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8892F] font-medium mb-4">Key Findings</p>
                     <ul className="flex flex-col gap-2.5">
                       {p.findings.map((f, i) => (
-                        <li key={i} className="flex gap-2.5 text-sm text-[#111]/55 leading-[1.75] font-light">
+                        <li key={i} className="flex gap-2.5 text-sm text-[#111]/75 leading-[1.75]">
                           <span className="text-[#B8892F] shrink-0 mt-0.5 text-xs">—</span>
                           {f}
                         </li>
@@ -85,13 +72,10 @@ export default function Projects() {
                     </ul>
                   </div>
                   <div>
-                    <p className="text-[10px] tracking-[0.2em] uppercase text-[#B8892F] font-medium mb-4">Tools</p>
+                    <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8892F] font-medium mb-4">Tools</p>
                     <div className="flex flex-wrap gap-2">
                       {p.tools.map((t, i) => (
-                        <span
-                          key={i}
-                          className="px-3.5 py-2 bg-white border border-black/10 text-[#111]/55 text-xs font-light hover:border-[#B8892F] hover:text-[#B8892F] transition-colors cursor-default"
-                        >
+                        <span key={i} className="px-3.5 py-2 bg-white border border-black/12 text-[#111]/70 text-xs hover:border-[#B8892F] hover:text-[#B8892F] transition-colors cursor-default">
                           {t}
                         </span>
                       ))}
