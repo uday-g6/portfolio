@@ -1,6 +1,15 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export default function Hero() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <section
       id="hero"
@@ -42,7 +51,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Name — single clean display */}
+        {/* Name */}
         <div className="my-auto py-12">
           <motion.h1
             initial={{ opacity: 0, y: 32 }}
@@ -91,6 +100,34 @@ export default function Hero() {
           </div>
         </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.a
+        href="#about"
+        aria-label="Scroll down"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: scrolled ? 0 : 1 }}
+        transition={{ duration: 0.4 }}
+        className="absolute bottom-[120px] left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 group cursor-pointer"
+      >
+        <span className="text-[10px] tracking-[0.3em] uppercase text-[#111]/35 font-medium group-hover:text-[#B8892F] transition-colors">
+          Scroll
+        </span>
+        <div className="relative w-px h-12 bg-[#111]/12 overflow-hidden">
+          <motion.div
+            className="absolute top-0 left-0 w-full bg-[#B8892F]"
+            style={{ height: "40%" }}
+            animate={{ y: ["0%", "250%", "250%"] }}
+            transition={{
+              duration: 1.4,
+              repeat: Infinity,
+              repeatDelay: 0.6,
+              ease: "easeInOut",
+              times: [0, 0.6, 1],
+            }}
+          />
+        </div>
+      </motion.a>
 
       {/* Stats bar */}
       <motion.div
