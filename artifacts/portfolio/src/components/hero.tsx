@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
+import TiltCard from "./tilt-card";
 
 export default function Hero() {
   const [scrolled, setScrolled] = useState(false);
@@ -137,14 +138,18 @@ export default function Hero() {
         className="relative z-10 grid grid-cols-3 bg-[#111] text-white"
       >
         {[
-          { num: "20+", label: "Banking APKs Tested" },
+          { num: "60+", label: "Banking APKs Tested" },
           { num: "50+", label: "Vulnerabilities Found" },
           { num: "30%", label: "MTTR Reduction" },
         ].map((s, i) => (
-          <div key={i} className={`px-6 md:px-8 py-6 flex flex-col gap-1 ${i < 2 ? "border-r border-white/10" : ""}`}>
+          <TiltCard
+            key={i}
+            maxTilt={12}
+            className={`px-6 md:px-8 py-6 flex flex-col gap-1 hover:bg-white/[0.03] hover:shadow-[0_20px_40px_-15px_rgba(184,137,47,0.35)] ${i < 2 ? "border-r border-white/10" : ""}`}
+          >
             <span className="serif text-3xl md:text-4xl font-light text-[#B8892F] leading-none">{s.num}</span>
             <span className="text-xs tracking-[0.15em] uppercase text-white/65">{s.label}</span>
-          </div>
+          </TiltCard>
         ))}
       </motion.div>
     </section>

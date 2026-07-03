@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 
 const CERTS = [
+  { title: "ICIP", issuer: "OPSWAT Academy", year: "2026" },
   { title: "Learning the OWASP Top 10", issuer: "LinkedIn Learning", year: "2026" },
   { title: "The OWASP API Security Top 10: An Overview", issuer: "LinkedIn Learning", year: "2026" },
   { title: "Penetration Testing and Ethical Hacking", issuer: "LinkedIn Learning", year: "2026" },

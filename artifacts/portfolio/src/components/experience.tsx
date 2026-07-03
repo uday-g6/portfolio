@@ -9,8 +9,8 @@ const EXPERIENCES = [
     period: "Jan 2026 – Present",
     callout: "Promoted from intern to full-time within six months based on findings quality.",
     bullets: [
-      "Performed Android mobile application security testing across 20+ banking APKs — static analysis, reverse engineering, dynamic testing, API security assessment, and remediation validation.",
-      "Developed custom Frida scripts to bypass SSL pinning, root detection, and certificate validation across 10+ banking APKs.",
+      "Performed Android mobile application security testing across 60+ banking APKs — static analysis, reverse engineering, dynamic testing, API security assessment, and remediation validation.",
+      "Developed custom Frida scripts to bypass SSL pinning, root detection, and certificate validation across 15+ banking APKs.",
       "APK reverse engineering with JADX and Apktool — identified hardcoded API keys, insecure SharedPreferences, and business logic flaws.",
       "Static analysis with MobSF: exposed unprotected broadcast receivers, dangerous permissions, and insecure data storage.",
       "Dynamic analysis with Burp Suite: authentication bypasses, BOLA, IDOR, and injection vulnerabilities in REST APIs.",
@@ -26,9 +26,9 @@ const EXPERIENCES = [
     period: "Apr 2025 – Aug 2025",
     callout: "",
     bullets: [
-      "Android APK security testing across 5+ applications using MobSF, JADX, Apktool, and Burp Suite.",
+      "Android APK security testing across 60+ applications using MobSF, JADX, Apktool, and Burp Suite.",
       "Static analysis: insecure data storage, hardcoded credentials, exported activities without access controls.",
-      "Documented 20+ vulnerabilities with structured reports, reproduction steps, and remediation recommendations.",
+      "Documented 50+ vulnerabilities with structured reports, reproduction steps, and remediation recommendations.",
       "Supported API security testing — traffic interception, correlating runtime with static findings.",
       "Promoted to full-time Security Test Engineer within six months.",
     ],

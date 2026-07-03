@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import TiltCard from "./tilt-card";
 
 export default function About() {
   return (
@@ -71,7 +72,7 @@ export default function About() {
               </ul>
             </div>
 
-            <div className="bg-[#111] text-white p-8 relative overflow-hidden">
+            <TiltCard className="bg-[#111] text-white p-8 hover:shadow-[0_25px_50px_-20px_rgba(0,0,0,0.5)]">
               <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-[#B8892F]/40" />
               <div className="absolute bottom-4 left-4 w-8 h-8 border-b border-l border-[#B8892F]/40" />
               <p className="text-[11px] tracking-[0.25em] uppercase text-[#B8892F] font-medium mb-4">Education</p>
@@ -82,7 +83,7 @@ export default function About() {
                 <span>2021 – 2025</span>
                 <span className="text-[#B8892F] font-medium">CGPA 7.2 / 10</span>
               </div>
-            </div>
+            </TiltCard>
           </motion.div>
         </div>
       </div>
