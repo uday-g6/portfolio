@@ -6,15 +6,28 @@ import { SiGithub } from "react-icons/si";
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    setError(false);
+    const form = e.currentTarget;
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(new FormData(form) as unknown as Record<string, string>).toString(),
+      });
+      if (!response.ok) throw new Error(`Form submission failed: ${response.status}`);
+      form.reset();
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 5000);
-    }, 1500);
+    } catch {
+      setError(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -93,7 +106,11 @@ export default function Contact() {
                 <p className="text-white/55 text-sm">I'll be in touch shortly.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-7">
+              <form name="contact" data-netlify="true" netlify-honeypot="bot-field" onSubmit={handleSubmit} className="flex flex-col gap-7">
+                <input type="hidden" name="form-name" value="contact" />
+                <p hidden>
+                  <label>Don't fill this out: <input name="bot-field" /></label>
+                </p>
                 <div className="grid sm:grid-cols-2 gap-6">
                   {[
                     { id: "name", label: "Name", type: "text", ph: "Jane Smith" },
@@ -101,14 +118,17 @@ export default function Contact() {
                   ].map(f => (
                     <div key={f.id} className="flex flex-col gap-2">
                       <label className="text-[11px] tracking-[0.2em] uppercase text-white/50 font-medium">{f.label}</label>
-                      <input type={f.type} required placeholder={f.ph} className="border-b border-white/15 bg-transparent py-2.5 text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-[#B8892F] transition-colors" />
+                      <input name={f.id} type={f.type} required placeholder={f.ph} className="border-b border-white/15 bg-transparent py-2.5 text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-[#B8892F] transition-colors" />
                     </div>
                   ))}
                 </div>
                 <div className="flex flex-col gap-2">
                   <label className="text-[11px] tracking-[0.2em] uppercase text-white/50 font-medium">Message</label>
-                  <textarea required rows={5} placeholder="Hi Uday, I'm reaching out about..." className="border-b border-white/15 bg-transparent py-2.5 text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-[#B8892F] transition-colors resize-none" />
+                  <textarea name="message" required rows={5} placeholder="Hi Uday, I'm reaching out about..." className="border-b border-white/15 bg-transparent py-2.5 text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-[#B8892F] transition-colors resize-none" />
                 </div>
+                {error && (
+                  <p className="text-sm text-red-400">Something went wrong sending your message — please email me directly instead.</p>
+                )}
                 <button type="submit" disabled={isSubmitting} className="bg-[#B8892F] text-white text-xs tracking-[0.15em] uppercase px-8 py-4 hover:bg-[#D4A84B] transition-colors font-medium disabled:opacity-50">
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </button>

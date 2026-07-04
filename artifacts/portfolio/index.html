@@ -19,6 +19,13 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- Static form so Netlify's build bot can detect the "contact" form; the real form is rendered by React in contact.tsx and submitted via fetch. -->
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <textarea name="message"></textarea>
+      <input type="text" name="bot-field" />
+    </form>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
