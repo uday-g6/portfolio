@@ -1,134 +1,156 @@
-import { useState, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { GithubIcon, MenuIcon, CloseIcon } from "./icons";
+import { LINKS } from "@/data/links";
 
-const LINKS = [
-  { name: "About", href: "#about", id: "about" },
-  { name: "Skills", href: "#skills", id: "skills" },
-  { name: "Experience", href: "#experience", id: "experience" },
-  { name: "Projects", href: "#projects", id: "projects" },
-  { name: "Contact", href: "#contact", id: "contact" },
+const NAV_ITEMS = [
+  { label: "Home", href: "#home" },
+  { label: "About", href: "#about" },
+  { label: "Experience", href: "#experience" },
+  { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
+  { label: "Offensive Security", href: "#offensive" },
+  { label: "Certifications", href: "#certifications" },
+  { label: "Contact", href: "#contact" },
 ];
 
-export default function Navbar() {
+export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
+  const [open, setOpen] = useState(false);
+  const [active, setActive] = useState("home");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Scroll-spy
   useEffect(() => {
-    const observers: IntersectionObserver[] = [];
+    const ids = NAV_ITEMS.map((n) => n.href.slice(1));
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter(Boolean) as HTMLElement[];
+    if (sections.length === 0 || typeof IntersectionObserver === "undefined")
+      return;
 
-    LINKS.forEach(({ id }) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveSection(id);
-        },
-        { rootMargin: "-30% 0px -60% 0px", threshold: 0 }
-      );
-
-      observer.observe(el);
-      observers.push(observer);
-    });
-
-    return () => observers.forEach((o) => o.disconnect());
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
   }, []);
+
+  // Lock body scroll when mobile menu open
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
         scrolled
-          ? "bg-[#F8F5EF]/95 backdrop-blur-sm border-b border-black/8"
-          : "bg-transparent"
+          ? "border-b border-[var(--color-line)] bg-[var(--color-paper)]/92 backdrop-blur-md"
+          : "border-b border-transparent bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-16 h-16 flex items-center justify-between">
+      <nav className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-12">
         <a
-          href="#hero"
-          onClick={() => setActiveSection("")}
-          className="serif text-xl font-light text-[#111] tracking-tight hover:text-[#B8892F] transition-colors"
+          href="#home"
+          className="group flex items-center gap-2.5"
+          aria-label="Uday G — home"
         >
-          Uday G
+          <span className="grid h-7 w-7 place-items-center border border-[var(--color-ink)] bg-[var(--color-teal)] font-display text-sm font-bold text-[var(--color-lime)]">
+            U
+          </span>
+          <span className="font-display text-sm font-600 tracking-tight text-[var(--color-ink)]">
+            Uday G
+            <span className="ml-1.5 hidden font-mono text-[0.6rem] font-400 tracking-widest text-[var(--color-ink-muted)] sm:inline">
+              /SEC
+            </span>
+          </span>
         </a>
 
-        <nav className="hidden md:flex items-center gap-8">
-          {LINKS.map((l) => (
-            <a
-              key={l.name}
-              href={l.href}
-              className={`relative text-xs tracking-[0.12em] uppercase font-medium transition-colors ${
-                activeSection === l.id
-                  ? "text-[#B8892F]"
-                  : "text-[#111]/55 hover:text-[#B8892F]"
-              }`}
-            >
-              {l.name}
-              {activeSection === l.id && (
-                <motion.span
-                  layoutId="nav-underline"
-                  className="absolute -bottom-1 left-0 right-0 h-px bg-[#B8892F]"
-                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                />
-              )}
-            </a>
-          ))}
-        </nav>
-
-        <div className="hidden md:flex items-center gap-5">
-          <div className="flex items-center gap-2 text-[11px] tracking-widest uppercase text-[#111]/60 font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            Open to Work
-          </div>
-          <a
-            href="mailto:udaygopalakrishna@gmail.com?subject=Resume%20Request"
-            className="text-[11px] tracking-[0.12em] uppercase border border-[#B8892F] text-[#B8892F] px-5 py-2 hover:bg-[#B8892F] hover:text-white transition-all duration-300 font-medium"
-          >
-            Download CV
-          </a>
-        </div>
-
-        <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)}>
-          {mobileOpen ? <X size={20} className="text-[#111]" /> : <Menu size={20} className="text-[#111]" />}
-        </button>
-      </div>
-
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            className="md:hidden bg-[#F8F5EF]/98 backdrop-blur border-b border-black/8 px-6 py-6 flex flex-col gap-4"
-          >
-            {LINKS.map((l) => (
+        {/* Desktop nav */}
+        <ul className="hidden items-center gap-1 lg:flex">
+          {NAV_ITEMS.map((item) => (
+            <li key={item.href}>
               <a
-                key={l.name}
-                href={l.href}
-                onClick={() => setMobileOpen(false)}
-                className={`text-sm tracking-widest uppercase transition-colors ${
-                  activeSection === l.id
-                    ? "text-[#B8892F]"
-                    : "text-[#111]/55 hover:text-[#B8892F]"
+                href={item.href}
+                className={`font-mono text-[0.7rem] uppercase tracking-wider px-2.5 py-1.5 transition-colors ${
+                  active === item.href.slice(1)
+                    ? "text-[var(--color-teal)]"
+                    : "text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]"
                 }`}
               >
-                {l.name}
+                {item.label}
               </a>
-            ))}
-            <div className="pt-4 border-t border-black/8 flex items-center gap-2 text-[11px] text-[#111]/45 uppercase tracking-widest">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Open to Work
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex items-center gap-2">
+          <a
+            href={LINKS.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden items-center gap-2 border border-[var(--color-ink)] bg-[var(--color-ink)] px-3 py-1.5 font-mono text-[0.68rem] uppercase tracking-wider text-[var(--color-paper)] transition-colors hover:bg-[var(--color-teal)] hover:border-[var(--color-teal)] sm:inline-flex"
+          >
+            <GithubIcon width={14} height={14} />
+            GitHub
+          </a>
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            className="grid h-9 w-9 place-items-center border border-[var(--color-line)] bg-[var(--color-paper-soft)] text-[var(--color-ink)] lg:hidden"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+          >
+            {open ? <CloseIcon /> : <MenuIcon />}
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile menu */}
+      <div
+        className={`overflow-hidden border-t border-[var(--color-line)] bg-[var(--color-paper)] transition-[max-height] duration-300 lg:hidden ${
+          open ? "max-h-[480px]" : "max-h-0 border-t-0"
+        }`}
+      >
+        <ul className="flex flex-col px-5 py-3 sm:px-8">
+          {NAV_ITEMS.map((item) => (
+            <li key={item.href}>
+              <a
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className="flex items-center justify-between border-b border-[var(--color-line-soft)] py-2.5 font-mono text-xs uppercase tracking-wider text-[var(--color-ink-soft)]"
+              >
+                {item.label}
+                <span className="text-[var(--color-ink-faint)]">→</span>
+              </a>
+            </li>
+          ))}
+          <li className="pt-3">
+            <a
+              href={LINKS.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+              className="inline-flex items-center gap-2 border border-[var(--color-ink)] bg-[var(--color-ink)] px-3 py-2 font-mono text-[0.7rem] uppercase tracking-wider text-[var(--color-paper)]"
+            >
+              <GithubIcon width={14} height={14} /> GitHub
+            </a>
+          </li>
+        </ul>
+      </div>
     </header>
   );
 }

@@ -4,108 +4,347 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ===========================================================================
+   Uday G — Security Workbench
+   Field notebook + developer terminal + offensive security workbench
+   =========================================================================== */
+
+@theme {
+  --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: "Space Grotesk", -apple-system, sans-serif;
+  --font-mono: "DM Mono", "JetBrains Mono", ui-monospace, monospace;
+
+  /* Paper / ink */
+  --color-paper: #f4efe2;
+  --color-paper-soft: #efe9d9;
+  --color-paper-deep: #e8e1cd;
+  --color-ink: #161412;
+  --color-ink-soft: #2b2723;
+  --color-ink-muted: #6b6358;
+  --color-ink-faint: #9a9082;
+
+  /* Dark teal — structure & surfaces */
+  --color-teal: #0f2a28;
+  --color-teal-deep: #0a201e;
+  --color-teal-soft: #1c3f3c;
+  --color-teal-line: #234b48;
+
+  /* Acid lime — highlights */
+  --color-lime: #c4f74a;
+  --color-lime-deep: #a8d92f;
+  --color-lime-soft: #e3fb9c;
+
+  /* Oxide-coral — small accents */
+  --color-coral: #d97456;
+  --color-coral-soft: #e89a82;
+
+  --color-line: #d9d1bd;
+  --color-line-soft: #e3dcc8;
+}
+
 :root {
-  --background: 0 0% 98%;
-  --foreground: 0 0% 7%;
-
-  --card: 0 0% 96%;
-  --card-foreground: 0 0% 7%;
-  --card-border: 0 0% 88%;
-
-  --primary: 38 62% 47%;
-  --primary-foreground: 0 0% 98%;
-
-  --secondary: 0 0% 94%;
-  --secondary-foreground: 0 0% 7%;
-
-  --muted: 0 0% 92%;
-  --muted-foreground: 0 0% 45%;
-
-  --accent: 38 62% 47%;
-  --accent-foreground: 0 0% 98%;
-
-  --border: 0 0% 88%;
-  --input: 0 0% 88%;
-  --ring: 38 62% 47%;
-
-  --app-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  --app-font-serif: 'Cormorant Garamond', 'Georgia', serif;
-  --app-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-  --radius: 0px;
-
-  --gold: #B8892F;
-  --gold-light: #D4A84B;
-  --cream: #F5EFE0;
-  --ink: #111111;
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: hsl(var(--background));
-  --color-foreground: hsl(var(--foreground));
-  --color-border: hsl(var(--border));
-  --color-input: hsl(var(--input));
-  --color-ring: hsl(var(--ring));
-  --color-card: hsl(var(--card));
-  --color-card-foreground: hsl(var(--card-foreground));
-  --color-primary: hsl(var(--primary));
-  --color-primary-foreground: hsl(var(--primary-foreground));
-  --color-secondary: hsl(var(--secondary));
-  --color-secondary-foreground: hsl(var(--secondary-foreground));
-  --color-muted: hsl(var(--muted));
-  --color-muted-foreground: hsl(var(--muted-foreground));
-  --color-accent: hsl(var(--accent));
-  --color-accent-foreground: hsl(var(--accent-foreground));
-  --font-sans: var(--app-font-sans);
-  --font-serif: var(--app-font-serif);
-  --font-mono: var(--app-font-mono);
-  --radius-sm: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
-@layer base {
-  * { @apply border-border; }
-  body {
-    background-color: #F8F5EF;
-    color: #111111;
-    font-family: var(--app-font-sans);
-    -webkit-font-smoothing: antialiased;
-    scroll-behavior: smooth;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-.serif { font-family: var(--app-font-serif); }
-.mono  { font-family: var(--app-font-mono); }
-
-/* Marquee */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Subtle paper grain */
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(22, 20, 18, 0.035) 1px, transparent 0);
+  background-size: 22px 22px;
+  background-attachment: fixed;
 }
+
+::selection {
+  background: var(--color-lime);
+  color: var(--color-ink);
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--color-lime-deep);
+  outline-offset: 2px;
+}
+
+/* Thin technical scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-paper-soft);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-line);
+  border: 2px solid var(--color-paper-soft);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ink-faint);
+}
+
+/* ---------- Reusable utility classes ---------- */
+
+.font-display {
+  font-family: var(--font-display);
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Numeric font-weight helpers (Manrope/Space Grotesk both support 300-800) */
+.font-300 { font-weight: 300; }
+.font-400 { font-weight: 400; }
+.font-500 { font-weight: 500; }
+.font-600 { font-weight: 600; }
+.font-700 { font-weight: 700; }
+.font-800 { font-weight: 800; }
+
+/* Monospace technical label */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-ink-muted);
+  font-weight: 400;
+}
+
+.eyebrow-lime {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-teal);
+  font-weight: 500;
+}
+
+/* Thin bordered surface */
+.surface {
+  background: var(--color-paper-soft);
+  border: 1px solid var(--color-line);
+}
+
+.surface-teal {
+  background: var(--color-teal);
+  border: 1px solid var(--color-teal-line);
+  color: var(--color-paper);
+}
+
+/* Grid texture overlay (restrained) */
+.grid-texture {
+  background-image:
+    linear-gradient(to right, rgba(22, 20, 18, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(22, 20, 18, 0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.grid-texture-teal {
+  background-image:
+    linear-gradient(to right, rgba(244, 239, 226, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(244, 239, 226, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ---------- Reveal animations ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- Marquee ---------- */
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 .marquee-track {
   display: flex;
-  white-space: nowrap;
-  animation: marquee 28s linear infinite;
-}
-.marquee-track:hover { animation-play-state: paused; }
-
-/* Diagonal section separator */
-.clip-diagonal {
-  clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+  width: max-content;
+  animation: marquee-scroll 38s linear infinite;
 }
 
-/* Hover underline */
-.hover-line {
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+    transform: none;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}
+
+/* ---------- Terminal caret blink ---------- */
+
+@keyframes caret-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.terminal-caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.05em;
+  background: var(--color-lime);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  animation: caret-blink 1.1s step-end infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .terminal-caret { animation: none; opacity: 1; }
+}
+
+/* ---------- Underline-on-hover for links ---------- */
+.link-underline {
   position: relative;
 }
-.hover-line::after {
-  content: '';
+.link-underline::after {
+  content: "";
   position: absolute;
-  bottom: -2px;
   left: 0;
-  width: 0;
+  bottom: -2px;
   height: 1px;
-  background: var(--gold);
+  width: 0;
+  background: currentColor;
   transition: width 0.3s ease;
 }
-.hover-line:hover::after { width: 100%; }
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.15rem;
+  border: 1px solid var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-paper);
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+  line-height: 1;
+}
+.btn:hover {
+  background: var(--color-teal);
+  border-color: var(--color-teal);
+}
+.btn-outline {
+  background: transparent;
+  color: var(--color-ink);
+}
+.btn-outline:hover {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border-color: var(--color-ink);
+}
+.btn-lime {
+  background: var(--color-lime);
+  color: var(--color-ink);
+  border-color: var(--color-lime-deep);
+}
+.btn-lime:hover {
+  background: var(--color-ink);
+  color: var(--color-lime);
+  border-color: var(--color-ink);
+}
+.btn-ghost-teal {
+  background: transparent;
+  color: var(--color-paper);
+  border-color: var(--color-teal-line);
+}
+.btn-ghost-teal:hover {
+  background: var(--color-lime);
+  color: var(--color-ink);
+  border-color: var(--color-lime);
+}
+
+/* ---------- Tag chips ---------- */
+
+.chip {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  padding: 0.28rem 0.6rem;
+  border: 1px solid var(--color-line);
+  background: var(--color-paper);
+  color: var(--color-ink-soft);
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.chip-teal {
+  border-color: var(--color-teal-line);
+  background: rgba(15, 42, 40, 0.06);
+  color: var(--color-teal);
+}
+
+.chip-lime {
+  border-color: var(--color-lime-deep);
+  background: rgba(196, 247, 74, 0.18);
+  color: var(--color-teal);
+}
+
+/* ---------- Section ruler ---------- */
+.section-rule {
+  height: 1px;
+  background: var(--color-line);
+}
+
+/* Large editorial number */
+.editorial-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-feature-settings: "tnum" 1;
+  line-height: 0.9;
+}

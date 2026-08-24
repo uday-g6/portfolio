@@ -1,3 +1,11 @@
+[build]
+  command = "pnpm --filter @workspace/portfolio run build"
+  base = "."
+  publish = "artifacts/portfolio/dist/public"
+
+[build.environment]
+  NODE_VERSION = "22"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

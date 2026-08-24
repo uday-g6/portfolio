@@ -1,92 +1,58 @@
-import { motion } from "framer-motion";
-import TiltCard from "./tilt-card";
+import { Section } from "./section";
 
-export default function About() {
+const PARAGRAPHS = [
+  "I'm a Security Engineer specializing in Application Security, Android & Mobile Security, API Security, Web Application Security, and VAPT.",
+  "I'm passionate about understanding how applications work, thinking like an attacker, finding security weaknesses, and helping engineering teams build more secure products.",
+  "My approach combines manual security testing, reverse engineering, static and dynamic analysis, runtime instrumentation, vulnerability validation, and clear technical reporting.",
+  "I currently work as a Security Test Engineer at WizzyBox Private Limited, where I perform security assessments for banking and financial applications.",
+  "I have assessed 80+ production Android applications, developed and used custom Frida instrumentation across 40+ applications, authored 50+ CVSS-rated vulnerability reports, and worked with 7+ development teams through vulnerability remediation, retesting, and closure.",
+  "I believe effective application security is not just about finding vulnerabilities. It is about understanding root causes, communicating risk clearly, collaborating with developers, and helping build more secure products.",
+];
+
+export function About() {
   return (
-    <section id="about" className="relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[35vw] h-full bg-[#EDE6D6] pointer-events-none" aria-hidden="true" />
+    <Section id="about" eyebrow="About" index="01 / 09" className="py-20">
+      <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
+        <div className="lg:col-span-5">
+          <h2 className="reveal font-display text-3xl font-700 leading-[1.05] tracking-tight text-[var(--color-ink)] sm:text-4xl lg:text-[2.75rem]">
+            Security is a{" "}
+            <span className="text-[var(--color-teal)]">problem-solving</span>{" "}
+            discipline.
+          </h2>
 
-      <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex items-center gap-4 mb-16"
-        >
-          <span className="text-[11px] tracking-[0.3em] uppercase text-[#B8892F] font-medium">01 — About</span>
-          <div className="h-px w-16 bg-[#B8892F]/30" />
-        </motion.div>
+          <div className="reveal mt-8 surface-teal p-5">
+            <p className="font-mono text-[0.62rem] uppercase tracking-widest text-[var(--color-lime)]">
+              // positioning
+            </p>
+            <p className="mt-2 font-display text-lg font-500 leading-snug text-[var(--color-paper)]">
+              Think like an attacker.
+              <br />
+              Communicate like an engineer.
+              <br />
+              Build like a defender.
+            </p>
+          </div>
+        </div>
 
-        <div className="grid lg:grid-cols-12 gap-16 lg:gap-0">
-          {/* Left */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="lg:col-span-7 lg:pr-16"
-          >
-            <h2 className="serif font-light text-4xl md:text-5xl leading-[1.15] tracking-tight text-[#111] mb-8">
-              Security engineer with a hacker's instinct and an analyst's discipline.
-            </h2>
-            <div className="flex flex-col gap-5 max-w-xl">
-              <p className="text-[#111]/75 text-base leading-[1.9]">
-                I specialise in Android APK reverse engineering, static and dynamic analysis, and Frida-based runtime instrumentation — with a focus on banking and financial applications.
+        <div className="lg:col-span-7">
+          <div className="reveal mb-6 flex items-center gap-3">
+            <span className="font-mono text-[0.7rem] uppercase tracking-widest text-[var(--color-ink-muted)]">
+              README.md
+            </span>
+            <span className="section-rule flex-1" />
+          </div>
+          <div className="space-y-4">
+            {PARAGRAPHS.map((p, i) => (
+              <p
+                key={i}
+                className="reveal text-[0.95rem] leading-relaxed text-[var(--color-ink-soft)] sm:text-base"
+              >
+                {p}
               </p>
-              <p className="text-[#111]/75 text-base leading-[1.9]">
-                On the web side, I run OWASP Top 10-aligned penetration testing and API security assessments using Burp Suite.
-              </p>
-              <div className="mt-2 inline-flex items-center gap-3 border border-[#B8892F]/40 bg-[#B8892F]/8 px-5 py-3 self-start">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#B8892F]" />
-                <span className="text-sm text-[#B8892F] tracking-wide font-medium">
-                  Promoted intern → full-time in 6 months
-                </span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Right */}
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="lg:col-span-5 lg:pl-12 flex flex-col gap-12"
-          >
-            <div>
-              <p className="text-[11px] tracking-[0.25em] uppercase text-[#B8892F] font-medium mb-5">Domain Expertise</p>
-              <ul className="flex flex-col">
-                {[
-                  "Android APK Security Testing",
-                  "Mobile Runtime Instrumentation",
-                  "REST API Penetration Testing",
-                  "OWASP Top 10 / Mobile Top 10",
-                  "Banking & Financial Applications",
-                  "CVSS Reporting & Remediation",
-                ].map((item, i) => (
-                  <li key={i} className="group py-3.5 border-b border-black/8 text-base text-[#111]/80 flex items-center justify-between hover:text-[#111] transition-colors cursor-default">
-                    <span>{item}</span>
-                    <span className="text-[#B8892F] opacity-0 group-hover:opacity-100 transition-opacity text-xs">✦</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <TiltCard className="bg-[#111] text-white p-8 hover:shadow-[0_25px_50px_-20px_rgba(0,0,0,0.5)]">
-              <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-[#B8892F]/40" />
-              <div className="absolute bottom-4 left-4 w-8 h-8 border-b border-l border-[#B8892F]/40" />
-              <p className="text-[11px] tracking-[0.25em] uppercase text-[#B8892F] font-medium mb-4">Education</p>
-              <p className="text-xl font-medium leading-snug mb-1 text-white">B.E. Computer Science</p>
-              <p className="text-sm text-white/70 mb-0.5">Maharaja Institute of Technology, Mysuru</p>
-              <p className="text-sm text-white/60 mb-5">Visvesvaraya Technological University</p>
-              <div className="flex justify-between items-center text-xs text-white/50 tracking-widest uppercase">
-                <span>2021 – 2025</span>
-                <span className="text-[#B8892F] font-medium">CGPA 7.2 / 10</span>
-              </div>
-            </TiltCard>
-          </motion.div>
+            ))}
+          </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

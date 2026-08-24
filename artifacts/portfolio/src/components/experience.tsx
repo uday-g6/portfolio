@@ -1,101 +1,138 @@
-import { motion } from "framer-motion";
+import { Section } from "./section";
 
-const EXPERIENCES = [
+type Role = {
+  title: string;
+  company: string;
+  period: string;
+  location: string;
+  current?: boolean;
+  promotion?: string;
+  highlights: string[];
+};
+
+const ROLES: Role[] = [
   {
-    role: "Security Test Engineer",
+    title: "Security Test Engineer",
     company: "WizzyBox Private Limited",
-    type: "Full-Time",
-    domain: "Banking & Financial Domain",
     period: "Jan 2026 – Present",
-    callout: "Promoted from intern to full-time within six months based on findings quality.",
-    bullets: [
-      "Performed Android mobile application security testing across 60+ banking APKs — static analysis, reverse engineering, dynamic testing, API security assessment, and remediation validation.",
-      "Developed custom Frida scripts to bypass SSL pinning, root detection, and certificate validation across 15+ banking APKs.",
-      "APK reverse engineering with JADX and Apktool — identified hardcoded API keys, insecure SharedPreferences, and business logic flaws.",
-      "Static analysis with MobSF: exposed unprotected broadcast receivers, dangerous permissions, and insecure data storage.",
-      "Dynamic analysis with Burp Suite: authentication bypasses, BOLA, IDOR, and injection vulnerabilities in REST APIs.",
-      "Full OWASP Mobile Top 10 (M1–M10) coverage on every assessment.",
-      "50+ CVSS-rated vulnerability reports — contributing to a 30% MTTR reduction.",
+    location: "Bengaluru, Karnataka, India",
+    current: true,
+    promotion: "Security Test Engineer Intern → Security Test Engineer",
+    highlights: [
+      "80+ production Android application assessments",
+      "40+ applications tested using custom Frida instrumentation",
+      "APK reverse engineering using JADX and Apktool",
+      "Android security-control testing",
+      "Web application VAPT",
+      "API security testing",
+      "Burp Suite / OWASP ZAP / Postman",
+      "OWASP Top 10 testing",
+      "50+ CVSS-rated vulnerability reports",
+      "7+ development teams supported through remediation and retesting",
     ],
   },
   {
-    role: "Security Test Engineer",
+    title: "Security Test Engineer Intern",
     company: "WizzyBox Private Limited",
-    type: "Internship",
-    domain: "",
     period: "Apr 2025 – Aug 2025",
-    callout: "",
-    bullets: [
-      "Android APK security testing across 60+ applications using MobSF, JADX, Apktool, and Burp Suite.",
-      "Static analysis: insecure data storage, hardcoded credentials, exported activities without access controls.",
-      "Documented 50+ vulnerabilities with structured reports, reproduction steps, and remediation recommendations.",
-      "Supported API security testing — traffic interception, correlating runtime with static findings.",
-      "Promoted to full-time Security Test Engineer within six months.",
+    location: "Bengaluru, Karnataka, India",
+    highlights: [
+      "Android application security testing",
+      "MobSF",
+      "JADX",
+      "Apktool",
+      "Burp Suite",
+      "Static analysis",
+      "Security configuration review",
+      "Android component testing",
+      "Vulnerability documentation",
+      "Remediation validation",
     ],
   },
 ];
 
-export default function Experience() {
+export function Experience() {
   return (
-    <section id="experience" className="relative overflow-hidden bg-[#F8F5EF]">
-      <div className="absolute left-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[#111]/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">03</div>
+    <Section id="experience" eyebrow="Experience" index="02 / 09" className="py-20">
+      <div className="mt-10">
+        <h2 className="reveal font-display text-3xl font-700 leading-tight tracking-tight text-[var(--color-ink)] sm:text-4xl">
+          A timeline of testing, breaking, and{" "}
+          <span className="text-[var(--color-teal)]">helping fix.</span>
+        </h2>
 
-      <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex items-center gap-4 mb-16"
-        >
-          <span className="text-[11px] tracking-[0.3em] uppercase text-[#B8892F] font-medium">03 — Experience</span>
-          <div className="h-px w-16 bg-[#B8892F]/30" />
-        </motion.div>
-
-        <div className="flex flex-col gap-0">
-          {EXPERIENCES.map((exp, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="py-12 md:py-16 border-b border-black/10 last:border-0 grid md:grid-cols-[220px_1fr] gap-8 md:gap-16"
+        <div className="mt-12 grid grid-cols-1 gap-0">
+          {ROLES.map((role, i) => (
+            <article
+              key={i}
+              className="reveal relative grid grid-cols-1 gap-6 border-t border-[var(--color-line)] py-10 md:grid-cols-12 md:gap-8"
             >
-              {/* Left meta */}
-              <div className="flex flex-col gap-4">
-                <span className="text-[11px] tracking-[0.2em] uppercase text-[#B8892F] font-medium">{exp.period}</span>
-                <div className="w-8 h-px bg-[#B8892F]/50" />
-                <p className="text-2xl font-semibold text-[#111] leading-tight">{exp.role}</p>
-                <p className="text-sm text-[#111]/70">{exp.company}</p>
-                <div className="flex flex-wrap gap-2 mt-1">
-                  <span className="text-xs tracking-widest uppercase border border-black/15 text-[#111]/60 px-2.5 py-1.5 font-medium">{exp.type}</span>
-                  {exp.domain && (
-                    <span className="text-xs tracking-widest uppercase border border-[#B8892F]/40 text-[#B8892F] px-2.5 py-1.5 font-medium">{exp.domain}</span>
-                  )}
+              {/* Left rail: meta + node */}
+              <div className="md:col-span-4">
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`h-2.5 w-2.5 border ${
+                      role.current
+                        ? "border-[var(--color-lime-deep)] bg-[var(--color-lime)]"
+                        : "border-[var(--color-ink-muted)] bg-transparent"
+                    }`}
+                    aria-hidden
+                  />
+                  <span className="font-mono text-[0.7rem] uppercase tracking-wider text-[var(--color-ink-muted)]">
+                    {role.period}
+                  </span>
                 </div>
+                {role.current && (
+                  <span className="mt-3 inline-flex chip chip-lime">
+                    Current
+                  </span>
+                )}
               </div>
 
-              {/* Right */}
-              <div className="flex flex-col gap-6">
-                {exp.callout && (
-                  <div className="bg-[#111] text-white px-6 py-4 border-l-2 border-[#B8892F] flex items-start gap-3">
-                    <span className="text-[#B8892F] text-lg leading-none mt-0.5 shrink-0">✦</span>
-                    <p className="text-base text-white/90 leading-relaxed">{exp.callout}</p>
+              {/* Middle: title / company */}
+              <div className="md:col-span-4">
+                <h3 className="font-display text-xl font-600 leading-tight text-[var(--color-ink)] sm:text-2xl">
+                  {role.title}
+                </h3>
+                <p className="mt-1.5 font-mono text-sm text-[var(--color-teal)]">
+                  {role.company}
+                </p>
+                <p className="mt-1 font-mono text-[0.72rem] uppercase tracking-wider text-[var(--color-ink-faint)]">
+                  {role.location}
+                </p>
+
+                {role.promotion && (
+                  <div className="mt-4 border-l-2 border-[var(--color-lime-deep)] pl-3">
+                    <p className="font-mono text-[0.62rem] uppercase tracking-widest text-[var(--color-ink-muted)]">
+                      Promotion
+                    </p>
+                    <p className="mt-0.5 text-sm font-500 text-[var(--color-ink-soft)]">
+                      {role.promotion}
+                    </p>
                   </div>
                 )}
-                <ul className="flex flex-col gap-3.5">
-                  {exp.bullets.map((b, i) => (
-                    <li key={i} className="flex gap-3 text-base text-[#111]/78 leading-[1.85]">
-                      <span className="text-[#B8892F] shrink-0 mt-1.5 text-xs">—</span>
-                      {b}
+              </div>
+
+              {/* Right: highlights */}
+              <div className="md:col-span-4">
+                <p className="mb-3 font-mono text-[0.62rem] uppercase tracking-widest text-[var(--color-ink-muted)]">
+                  Focus areas
+                </p>
+                <ul className="space-y-1.5">
+                  {role.highlights.map((h, j) => (
+                    <li
+                      key={j}
+                      className="flex gap-2 text-[0.88rem] leading-snug text-[var(--color-ink-soft)]"
+                    >
+                      <span className="mt-1.5 h-px w-3 flex-shrink-0 bg-[var(--color-teal)]" />
+                      <span>{h}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-            </motion.div>
+            </article>
           ))}
         </div>
       </div>
-    </section>
+    </Section>
   );
 }

@@ -1,157 +1,306 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useState } from "react";
-import TiltCard from "./tilt-card";
+import { useEffect, useRef, useState } from "react";
+import { useCountUp } from "@/hooks/animations";
+import {
+  ArrowDownIcon,
+  ArrowIcon,
+  DownloadIcon,
+  GithubIcon,
+  LinkedinIcon,
+} from "./icons";
+import { LINKS, mailto } from "@/data/links";
 
-export default function Hero() {
-  const [scrolled, setScrolled] = useState(false);
+const METRICS = [
+  { value: 80, suffix: "+", label: "Android Applications Assessed" },
+  { value: 40, suffix: "+", label: "Applications Tested with Frida" },
+  { value: 50, suffix: "+", label: "CVSS-Rated Vulnerability Reports" },
+  { value: 7, suffix: "+", label: "Development Teams Supported" },
+];
+
+function Metric({
+  value,
+  suffix,
+  label,
+}: {
+  value: number;
+  suffix: string;
+  label: string;
+}) {
+  const { ref, value: count } = useCountUp(value);
+  return (
+    <div className="border-t border-[var(--color-line)] pt-3">
+      <div className="flex items-baseline gap-0.5">
+        <span
+          ref={ref}
+          className="editorial-num text-4xl text-[var(--color-teal)] sm:text-5xl"
+        >
+          {count}
+        </span>
+        <span className="editorial-num text-2xl text-[var(--color-lime-deep)] sm:text-3xl">
+          {suffix}
+        </span>
+      </div>
+      <p className="mt-1.5 font-mono text-[0.66rem] uppercase tracking-wider leading-tight text-[var(--color-ink-muted)]">
+        {label}
+      </p>
+    </div>
+  );
+}
+
+const TERMINAL_LINES: { prompt?: string; text: string; cls?: string }[] = [
+  { prompt: "$", text: "whoami" },
+  { text: "uday@security:~$", prompt: "", cls: "text-[var(--color-lime-deep)]" },
+  { text: "Security Engineer" },
+  { prompt: "uday@security:~$", text: "role", cls: "text-[var(--color-lime-deep)]" },
+  { text: "Security Engineer" },
+  { prompt: "uday@security:~$", text: "focus", cls: "text-[var(--color-lime-deep)]" },
+  { text: "Application Security" },
+  { text: "Mobile Security" },
+  { text: "API Security" },
+  { text: "Offensive Security" },
+  { prompt: "uday@security:~$", text: "status", cls: "text-[var(--color-lime-deep)]" },
+  { text: "[+] Security testing", cls: "text-[var(--color-coral-soft)]" },
+  { text: "[+] Reverse engineering", cls: "text-[var(--color-coral-soft)]" },
+  { text: "[+] VAPT", cls: "text-[var(--color-coral-soft)]" },
+  { text: "[+] Continuous learning", cls: "text-[var(--color-coral-soft)]" },
+];
+
+function TerminalVisual() {
+  const [visibleLines, setVisibleLines] = useState(0);
+  const [typing, setTyping] = useState("");
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const started = useRef(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const el = containerRef.current;
+    if (!el) return;
+    const prefersReduced = window.matchMedia?.(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (prefersReduced || typeof IntersectionObserver === "undefined") {
+      setVisibleLines(TERMINAL_LINES.length);
+      setTyping("");
+      started.current = true;
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !started.current) {
+          started.current = true;
+          let i = 0;
+          const typeNext = () => {
+            if (i >= TERMINAL_LINES.length) {
+              setTyping("");
+              return;
+            }
+            const line = TERMINAL_LINES[i];
+            const full = line.prompt
+              ? `${line.prompt ? line.prompt + " " : ""}${line.text}`
+              : line.text;
+            let charIdx = 0;
+            setTyping(full.charAt(0));
+            const charTimer = setInterval(() => {
+              charIdx++;
+              if (charIdx >= full.length) {
+                clearInterval(charTimer);
+                setVisibleLines(i + 1);
+                setTyping("");
+                i++;
+                setTimeout(typeNext, 180);
+              } else {
+                setTyping(full.slice(0, charIdx + 1));
+              }
+            }, 28);
+          };
+          typeNext();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
   }, []);
 
+  const currentLine =
+    visibleLines < TERMINAL_LINES.length ? TERMINAL_LINES[visibleLines] : null;
+  const showCaret = visibleLines < TERMINAL_LINES.length;
+
+  return (
+    <div ref={containerRef} className="relative">
+      {/* Offset shadow layer */}
+      <div
+        className="absolute inset-0 translate-x-2 translate-y-2 border border-[var(--color-line)] bg-[var(--color-paper-deep)]"
+        aria-hidden
+      />
+      <div className="surface-teal relative overflow-hidden">
+        {/* Title bar */}
+        <div className="flex items-center justify-between border-b border-[var(--color-teal-line)] px-4 py-2.5">
+          <div className="flex items-center gap-1.5">
+            <span className="h-2.5 w-2.5 border border-[var(--color-coral)] bg-[var(--color-coral)]/30" />
+            <span className="h-2.5 w-2.5 border border-[var(--color-lime-deep)] bg-[var(--color-lime)]/20" />
+            <span className="h-2.5 w-2.5 border border-[var(--color-line)] bg-[var(--color-paper)]/10" />
+          </div>
+          <span className="font-mono text-[0.62rem] uppercase tracking-widest text-[var(--color-paper)]/50">
+            uday@security — bash
+          </span>
+          <span className="font-mono text-[0.62rem] text-[var(--color-lime)]">
+            ●
+          </span>
+        </div>
+        {/* Body */}
+        <div className="grid-texture-teal min-h-[300px] p-4 font-mono text-[0.78rem] leading-relaxed sm:text-[0.82rem]">
+          {TERMINAL_LINES.slice(0, visibleLines).map((line, i) => (
+            <TerminalLine key={i} line={line} />
+          ))}
+          {currentLine && (
+            <div className="whitespace-pre-wrap break-words">
+              <span
+                className={
+                  currentLine.cls ?? "text-[var(--color-paper)]"
+                }
+              >
+                {typing}
+              </span>
+              {showCaret && <span className="terminal-caret" />}
+            </div>
+          )}
+          {visibleLines === TERMINAL_LINES.length && (
+            <div className="mt-1 flex items-center text-[var(--color-lime-deep)]">
+              <span className="mr-1">uday@security:~$</span>
+              <span className="terminal-caret" />
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TerminalLine({
+  line,
+}: {
+  line: { prompt?: string; text: string; cls?: string };
+}) {
+  return (
+    <div className="whitespace-pre-wrap break-words">
+      {line.prompt && (
+        <span className="text-[var(--color-lime-deep)]">{line.prompt} </span>
+      )}
+      <span className={line.cls ?? "text-[var(--color-paper)]"}>
+        {line.text}
+      </span>
+    </div>
+  );
+}
+
+export function Hero() {
   return (
     <section
-      id="hero"
-      className="relative min-h-[100dvh] flex flex-col overflow-hidden bg-[#F8F5EF]"
+      id="home"
+      className="relative overflow-hidden px-5 pb-16 pt-28 sm:px-8 sm:pt-32 lg:px-12 lg:pb-24 lg:pt-36"
     >
-      {/* Giant decorative background word */}
-      <div
-        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
-        aria-hidden="true"
-      >
-        <span className="serif font-bold text-[22vw] leading-none text-[#111]/[0.04] uppercase tracking-tighter">
-          SECURITY
-        </span>
-      </div>
+      {/* Restrained grid texture */}
+      <div className="grid-texture pointer-events-none absolute inset-0 opacity-60" aria-hidden />
 
-      {/* Circle accents */}
-      <div className="absolute top-[-120px] right-[-120px] w-[480px] h-[480px] rounded-full border border-[#B8892F]/15 pointer-events-none" aria-hidden="true" />
-      <div className="absolute top-[-60px] right-[-60px] w-[280px] h-[280px] rounded-full border border-[#B8892F]/20 pointer-events-none" aria-hidden="true" />
-
-      {/* Main content */}
-      <div className="relative z-10 flex flex-col justify-between flex-1 px-6 md:px-16 pb-12 pt-28">
-        {/* Top label row */}
-        <div className="flex items-center justify-between">
-          <motion.p
-            initial={{ opacity: 0, x: -16 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-[11px] tracking-[0.25em] uppercase text-[#B8892F] font-medium"
-          >
-            Security Test Engineer
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, x: 16 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-[11px] tracking-[0.2em] uppercase text-[#111]/55 font-medium"
-          >
-            Bengaluru, India
-          </motion.div>
-        </div>
-
-        {/* Name */}
-        <div className="my-auto py-12">
-          <motion.h1
-            initial={{ opacity: 0, y: 32 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="serif font-light leading-[0.92] tracking-[-0.03em] text-[#111] text-[clamp(5.5rem,15vw,14rem)]"
-          >
-            Uday G
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.35 }}
-            className="mt-6 text-[#111]/65 text-xl md:text-2xl font-light tracking-wide max-w-lg"
-          >
-            Mobile &amp; Web Application Security · VAPT · API Security
-          </motion.p>
-        </div>
-
-        {/* Bottom row */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.5 }}
-          className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8 border-t border-black/10 pt-8"
-        >
-          <p className="text-[#111]/65 text-sm md:text-base leading-[1.85] font-light max-w-md">
-            Securing banking apps, APIs &amp; web platforms through offensive security — OWASP-aligned VAPT, Frida instrumentation, APK reverse engineering.
+      <div className="relative mx-auto grid w-full max-w-6xl grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
+        {/* Left */}
+        <div className="lg:col-span-7">
+          <p className="eyebrow-lime reveal">
+            Security Engineer / Application Security / Offensive Security
           </p>
 
-          <div className="flex flex-col gap-4 items-start md:items-end shrink-0">
-            <div className="flex gap-3">
-              <a href="#contact" className="text-[11px] tracking-[0.15em] uppercase bg-[#111] text-white px-8 py-3.5 hover:bg-[#B8892F] transition-all duration-300 font-medium">
-                Get in Touch
-              </a>
-              <a href="#experience" className="text-[11px] tracking-[0.15em] uppercase border border-[#111]/25 text-[#111]/65 px-8 py-3.5 hover:border-[#B8892F] hover:text-[#B8892F] transition-all duration-300 font-medium">
-                View Work
-              </a>
-            </div>
-            <div className="flex gap-4 text-xs text-[#111]/55 tracking-widest uppercase">
-              <a href="tel:+917899169395" className="hover:text-[#B8892F] transition-colors">+91 78991-69395</a>
-              <span className="opacity-40">·</span>
-              <a href="mailto:udaygopalakrishna@gmail.com" className="hover:text-[#B8892F] transition-colors">udaygopalakrishna@gmail.com</a>
-            </div>
+          <h1 className="reveal mt-5 font-display text-[2.6rem] font-700 leading-[0.98] tracking-tight text-[var(--color-ink)] sm:text-6xl lg:text-7xl">
+            I Break Applications
+            <br />
+            to Help Build Them
+            <br />
+            <span className="relative inline-block text-[var(--color-teal)]">
+              More Securely.
+              <span
+                className="absolute -bottom-1 left-0 h-1 w-full bg-[var(--color-lime)]"
+                aria-hidden
+              />
+            </span>
+          </h1>
+
+          <p className="reveal mt-6 max-w-xl text-base font-500 leading-relaxed text-[var(--color-ink-soft)] sm:text-lg">
+            Security Engineer specializing in Application Security, Android &
+            Mobile Security, API Security, Web VAPT, Penetration Testing, and
+            APK Reverse Engineering.
+          </p>
+
+          <p className="reveal mt-4 max-w-xl text-sm leading-relaxed text-[var(--color-ink-muted)] sm:text-[0.95rem]">
+            I work across application and mobile security, combining manual
+            testing, reverse engineering, dynamic analysis, runtime
+            instrumentation, and practical vulnerability validation.
+          </p>
+
+          {/* Buttons */}
+          <div className="reveal mt-7 flex flex-wrap gap-2.5">
+            <a href="#projects" className="btn btn-lime">
+              View My Work <ArrowIcon width={14} height={14} />
+            </a>
+            <a
+              href={LINKS.resume}
+              className="btn btn-outline"
+              aria-label="Download resume"
+            >
+              <DownloadIcon width={14} height={14} /> Download Resume
+            </a>
+            <a
+              href={LINKS.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-outline"
+            >
+              <GithubIcon width={14} height={14} /> GitHub
+            </a>
+            <a
+              href={LINKS.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-outline"
+            >
+              <LinkedinIcon width={14} height={14} /> LinkedIn
+            </a>
           </div>
-        </motion.div>
+
+          {/* Metrics */}
+          <div className="reveal mt-10 grid grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-4">
+            {METRICS.map((m) => (
+              <Metric key={m.label} {...m} />
+            ))}
+          </div>
+        </div>
+
+        {/* Right — tilted terminal */}
+        <div className="lg:col-span-5">
+          <div
+            className="reveal relative lg:mt-4"
+            style={{ transform: "rotate(1.4deg)" }}
+          >
+            <TerminalVisual />
+          </div>
+          <p className="reveal mt-4 text-center font-mono text-[0.62rem] uppercase tracking-widest text-[var(--color-ink-faint)] lg:text-left">
+            // live profile — authorized environments only
+          </p>
+        </div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.a
-        href="#about"
-        aria-label="Scroll down"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: scrolled ? 0 : 1 }}
-        transition={{ duration: 0.4 }}
-        className="absolute bottom-[120px] left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 group cursor-pointer"
-      >
-        <span className="text-[10px] tracking-[0.3em] uppercase text-[#111]/35 font-medium group-hover:text-[#B8892F] transition-colors">
+      {/* Scroll cue */}
+      <div className="relative mx-auto mt-16 flex w-full max-w-6xl items-center gap-3">
+        <span className="font-mono text-[0.62rem] uppercase tracking-widest text-[var(--color-ink-faint)]">
           Scroll
         </span>
-        <div className="relative w-px h-12 bg-[#111]/12 overflow-hidden">
-          <motion.div
-            className="absolute top-0 left-0 w-full bg-[#B8892F]"
-            style={{ height: "40%" }}
-            animate={{ y: ["0%", "250%", "250%"] }}
-            transition={{
-              duration: 1.4,
-              repeat: Infinity,
-              repeatDelay: 0.6,
-              ease: "easeInOut",
-              times: [0, 0.6, 1],
-            }}
-          />
-        </div>
-      </motion.a>
-
-      {/* Stats bar */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.7, delay: 0.7 }}
-        className="relative z-10 grid grid-cols-3 bg-[#111] text-white"
-      >
-        {[
-          { num: "60+", label: "Banking APKs Tested" },
-          { num: "50+", label: "Vulnerabilities Found" },
-          { num: "30%", label: "MTTR Reduction" },
-        ].map((s, i) => (
-          <TiltCard
-            key={i}
-            maxTilt={12}
-            className={`px-6 md:px-8 py-6 flex flex-col gap-1 hover:bg-white/[0.03] hover:shadow-[0_20px_40px_-15px_rgba(184,137,47,0.35)] ${i < 2 ? "border-r border-white/10" : ""}`}
-          >
-            <span className="serif text-3xl md:text-4xl font-light text-[#B8892F] leading-none">{s.num}</span>
-            <span className="text-xs tracking-[0.15em] uppercase text-white/65">{s.label}</span>
-          </TiltCard>
-        ))}
-      </motion.div>
+        <ArrowDownIcon
+          width={14}
+          height={14}
+          className="text-[var(--color-ink-faint)]"
+        />
+        <span className="section-rule flex-1" />
+      </div>
     </section>
   );
 }

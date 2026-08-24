@@ -1,23 +1,38 @@
-const items = [
-  "Android APK Security", "Frida Instrumentation", "SSL Pinning Bypass",
-  "OWASP Mobile Top 10", "Burp Suite", "VAPT", "Reverse Engineering",
-  "BOLA Testing", "IDOR", "CVSS Reporting", "MobSF", "Root Detection Bypass",
-  "API Penetration Testing", "Static Analysis", "Dynamic Analysis", "Kali Linux",
+const ITEMS = [
+  "APPLICATION SECURITY",
+  "ANDROID SECURITY",
+  "API SECURITY",
+  "WEB VAPT",
+  "PENETRATION TESTING",
+  "FRIDA",
+  "APK REVERSE ENGINEERING",
+  "BURP SUITE",
+  "OWASP",
+  "OFFENSIVE SECURITY",
 ];
 
-export default function Marquee() {
-  const doubled = [...items, ...items];
+export function Marquee() {
+  // Duplicate the list once for a seamless -50% translate loop.
+  const loop = [...ITEMS, ...ITEMS];
+
   return (
-    <div className="overflow-hidden border-y border-black/10 bg-[#111] py-4 select-none">
-      <div className="marquee-track">
-        {doubled.map((item, i) => (
-          <span key={i} className="inline-flex items-center gap-6 px-6">
-            <span className="text-[11px] tracking-[0.2em] uppercase text-white/60 font-medium">
+    <div
+      className="relative border-y border-[var(--color-line)] bg-[var(--color-teal)] py-3"
+      role="presentation"
+      aria-hidden="true"
+    >
+      <div className="overflow-hidden">
+        <div className="marquee-track">
+          {loop.map((item, i) => (
+            <span
+              key={i}
+              className="flex items-center font-mono text-[0.72rem] uppercase tracking-[0.18em] text-[var(--color-paper)]/85"
+            >
               {item}
+              <span className="mx-5 text-[var(--color-lime)]">/</span>
             </span>
-            <span className="text-[#B8892F] text-base leading-none">✦</span>
-          </span>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

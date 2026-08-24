@@ -1,92 +1,268 @@
-import { motion } from "framer-motion";
+import { useMemo, useState } from "react";
+import { Section } from "./section";
+import { ArrowIcon } from "./icons";
 
-const PROJECTS = [
+type Filter =
+  | "All"
+  | "Application Security"
+  | "Mobile Security"
+  | "API Security"
+  | "Offensive Security"
+  | "Security Engineering";
+
+type Project = {
+  num: string;
+  title: string;
+  description: string;
+  technologies: string[];
+  topics?: string[];
+  filters: Filter[];
+  variant: "feature" | "wide" | "compact";
+  tags: string[];
+};
+
+const PROJECTS: Project[] = [
   {
     num: "01",
-    title: "Android Banking APK Security Assessment",
-    desc: "Static and dynamic security assessment of Android banking APKs using Frida, MobSF, JADX, and Burp Suite — full OWASP Mobile Top 10 coverage.",
-    tools: ["Frida", "MobSF", "JADX", "Apktool", "Burp Suite"],
-    findings: ["15+ OWASP Mobile Top 10 vulnerabilities", "10+ hidden API endpoints via SSL/root bypass", "Hardcoded credentials & insecure SharedPreferences", "API: broken access control & insecure transmission", "Custom Frida scripts for pinning/root bypass"],
+    title: "Android Application Security & APK Reverse Engineering",
+    description:
+      "Hands-on Android security assessment covering APK static analysis, reverse engineering, dynamic testing, runtime instrumentation, and validation of Android security controls.",
+    technologies: ["MobSF", "JADX", "Apktool", "Frida", "Burp Suite", "Android Studio"],
+    topics: [
+      "SSL Pinning",
+      "Root Detection",
+      "Emulator Detection",
+      "Proxy Detection",
+      "Anti-Hooking",
+      "Application Integrity",
+      "Exported Components",
+      "Secure Storage",
+    ],
+    filters: ["Mobile Security", "Application Security", "Offensive Security"],
+    variant: "feature",
+    tags: ["Mobile Security", "Reverse Engineering"],
   },
   {
     num: "02",
-    title: "Web Application Penetration Testing Lab",
-    desc: "OWASP Top 10 testing on DVWA and WebGoat — exploiting and documenting vulnerabilities with full proof-of-concept reproduction steps.",
-    tools: ["Burp Suite", "OWASP ZAP", "SQLMap", "DVWA", "WebGoat"],
-    findings: ["SQL Injection, XSS, CSRF with full PoC", "Authentication bypass via token manipulation", "Privilege escalation and IDOR testing", "Session entropy analysis & cookie flag validation", "Burp Suite Repeater parameter tampering"],
+    title: "API Security & Web Application VAPT",
+    description:
+      "Practical web and API security testing based on OWASP methodologies, covering authentication, authorization, broken access control, BOLA/IDOR, injection, session security, API endpoint security, and HTTP request manipulation.",
+    technologies: ["Burp Suite", "OWASP ZAP", "Postman"],
+    filters: ["API Security", "Application Security", "Offensive Security"],
+    variant: "wide",
+    tags: ["API Security", "Web VAPT"],
   },
   {
     num: "03",
-    title: "Network Security & Traffic Analysis",
-    desc: "Network reconnaissance and packet capture across enterprise lab environments — host enumeration, service discovery, and plaintext traffic analysis.",
-    tools: ["Nmap", "Wireshark", "Linux CLI", "Bash Scripting"],
-    findings: ["50+ live hosts & 30+ insecure service configs", "1,000+ HTTP, DNS, FTP packets analysed", "Unencrypted sensitive data in FTP/Telnet/HTTP", "OS detection, version scanning & service enum", "Bash scripts for automated enumeration"],
+    title: "SecurAI / SecureGuard",
+    description:
+      "Cybersecurity vulnerability management and security validation platform designed to centralize asset management, vulnerability tracking, risk analysis, scanning workflows, remediation, and security reporting.",
+    technologies: ["Python", "FastAPI", "React", "Redis", "Celery", "MongoDB/PostgreSQL", "Docker"],
+    filters: ["Security Engineering", "Application Security"],
+    variant: "compact",
+    tags: ["Security Engineering"],
   },
 ];
 
-export default function Projects() {
+const FILTERS: Filter[] = [
+  "All",
+  "Application Security",
+  "Mobile Security",
+  "API Security",
+  "Offensive Security",
+  "Security Engineering",
+];
+
+function ProjectCard({ project }: { project: Project }) {
+  if (project.variant === "feature") {
+    return (
+      <article className="surface reveal grid grid-cols-1 gap-0 overflow-hidden md:grid-cols-2">
+        <div className="surface-teal relative grid-texture-teal p-7">
+          <span className="font-mono text-[0.62rem] uppercase tracking-widest text-[var(--color-lime)]">
+            Project / {project.num}
+          </span>
+          <h3 className="mt-4 font-display text-2xl font-700 leading-tight text-[var(--color-paper)]">
+            {project.title}
+          </h3>
+          <div className="mt-5 flex flex-wrap gap-1.5">
+            {project.tags.map((t) => (
+              <span
+                key={t}
+                className="chip border-[var(--color-teal-line)] bg-transparent text-[var(--color-lime)]"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="p-7">
+          <p className="text-[0.92rem] leading-relaxed text-[var(--color-ink-soft)]">
+            {project.description}
+          </p>
+          <div className="mt-5">
+            <p className="mb-2 font-mono text-[0.62rem] uppercase tracking-widest text-[var(--color-ink-muted)]">
+              Technologies
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {project.technologies.map((t) => (
+                <span key={t} className="chip chip-teal">
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+          {project.topics && (
+            <div className="mt-4">
+              <p className="mb-2 font-mono text-[0.62rem] uppercase tracking-widest text-[var(--color-ink-muted)]">
+                Topics
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {project.topics.map((t) => (
+                  <span key={t} className="chip">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </article>
+    );
+  }
+
+  if (project.variant === "wide") {
+    return (
+      <article className="surface reveal overflow-hidden">
+        <div className="grid grid-cols-1 gap-0 md:grid-cols-12">
+          <div className="border-b border-[var(--color-line)] p-7 md:col-span-5 md:border-b-0 md:border-r">
+            <span className="font-mono text-[0.62rem] uppercase tracking-widest text-[var(--color-coral)]">
+              Project / {project.num}
+            </span>
+            <h3 className="mt-4 font-display text-xl font-700 leading-tight text-[var(--color-ink)] sm:text-2xl">
+              {project.title}
+            </h3>
+            <div className="mt-4 flex flex-wrap gap-1.5">
+              {project.tags.map((t) => (
+                <span key={t} className="chip chip-teal">
+                  {t}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="p-7 md:col-span-7">
+            <p className="text-[0.92rem] leading-relaxed text-[var(--color-ink-soft)]">
+              {project.description}
+            </p>
+            <div className="mt-5">
+              <p className="mb-2 font-mono text-[0.62rem] uppercase tracking-widest text-[var(--color-ink-muted)]">
+                Technologies
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {project.technologies.map((t) => (
+                  <span key={t} className="chip">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+    );
+  }
+
+  // compact
   return (
-    <section id="projects" className="relative overflow-hidden bg-[#EDE6D6]">
-      <div className="absolute right-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[#111]/[0.05] leading-none select-none pointer-events-none" aria-hidden="true">04</div>
-
-      <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex items-center gap-4 mb-16"
-        >
-          <span className="text-[11px] tracking-[0.3em] uppercase text-[#B8892F] font-medium">04 — Projects</span>
-          <div className="h-px w-16 bg-[#B8892F]/30" />
-        </motion.div>
-
-        <div className="flex flex-col gap-0">
-          {PROJECTS.map((p, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="py-12 md:py-16 border-b border-black/10 last:border-0 grid md:grid-cols-[100px_1fr] gap-8 md:gap-12"
-            >
-              <div className="hidden md:block">
-                <span className="serif text-[4rem] font-light leading-none text-[#B8892F]/25 select-none">{p.num}</span>
-              </div>
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="md:hidden text-[11px] tracking-widest uppercase text-[#B8892F] font-medium">{p.num}.</span>
-                  <h3 className="text-2xl md:text-3xl font-semibold text-[#111] tracking-tight leading-tight">{p.title}</h3>
-                </div>
-                <p className="text-[#111]/72 text-base leading-[1.85] mb-8 max-w-2xl">{p.desc}</p>
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div>
-                    <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8892F] font-medium mb-4">Key Findings</p>
-                    <ul className="flex flex-col gap-2.5">
-                      {p.findings.map((f, i) => (
-                        <li key={i} className="flex gap-2.5 text-base text-[#111]/75 leading-[1.8]">
-                          <span className="text-[#B8892F] shrink-0 mt-0.5 text-xs">—</span>
-                          {f}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div>
-                    <p className="text-[11px] tracking-[0.2em] uppercase text-[#B8892F] font-medium mb-4">Tools</p>
-                    <div className="flex flex-wrap gap-2">
-                      {p.tools.map((t, i) => (
-                        <span key={i} className="px-3.5 py-2 bg-white border border-black/12 text-[#111]/75 text-sm hover:border-[#B8892F] hover:text-[#B8892F] transition-colors cursor-default">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+    <article className="surface reveal overflow-hidden">
+      <div className="surface-teal grid-texture-teal p-6">
+        <span className="font-mono text-[0.62rem] uppercase tracking-widest text-[var(--color-lime)]">
+          Project / {project.num}
+        </span>
+        <h3 className="mt-3 font-display text-xl font-700 leading-tight text-[var(--color-paper)]">
+          {project.title}
+        </h3>
+      </div>
+      <div className="p-6">
+        <p className="text-[0.92rem] leading-relaxed text-[var(--color-ink-soft)]">
+          {project.description}
+        </p>
+        <div className="mt-5">
+          <p className="mb-2 font-mono text-[0.62rem] uppercase tracking-widest text-[var(--color-ink-muted)]">
+            Technologies
+          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {project.technologies.map((t) => (
+              <span key={t} className="chip">
+                {t}
+              </span>
+            ))}
+          </div>
         </div>
       </div>
-    </section>
+    </article>
+  );
+}
+
+export function Projects() {
+  const [filter, setFilter] = useState<Filter>("All");
+
+  const filtered = useMemo(
+    () =>
+      filter === "All"
+        ? PROJECTS
+        : PROJECTS.filter((p) => p.filters.includes(filter)),
+    [filter]
+  );
+
+  return (
+    <Section id="projects" eyebrow="Projects" index="03 / 09" className="py-20">
+      <div className="mt-10 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <h2 className="reveal font-display text-3xl font-700 leading-tight tracking-tight text-[var(--color-ink)] sm:text-4xl">
+          Featured work —{" "}
+          <span className="text-[var(--color-teal)]">selected, not stacked.</span>
+        </h2>
+        <p className="reveal max-w-sm text-sm leading-relaxed text-[var(--color-ink-muted)]">
+          An asymmetrical selection of hands-on security work across mobile,
+          web, API, and engineering.
+        </p>
+      </div>
+
+      {/* Filters */}
+      <div className="reveal mt-8 flex flex-wrap items-center gap-2 border-y border-[var(--color-line)] py-3">
+        <span className="mr-1 font-mono text-[0.62rem] uppercase tracking-widest text-[var(--color-ink-faint)]">
+          filter:
+        </span>
+        {FILTERS.map((f) => (
+          <button
+            key={f}
+            type="button"
+            onClick={() => setFilter(f)}
+            className={`border px-2.5 py-1.5 font-mono text-[0.68rem] uppercase tracking-wider transition-colors ${
+              filter === f
+                ? "border-[var(--color-ink)] bg-[var(--color-ink)] text-[var(--color-lime)]"
+                : "border-[var(--color-line)] bg-transparent text-[var(--color-ink-muted)] hover:border-[var(--color-ink)] hover:text-[var(--color-ink)]"
+            }`}
+          >
+            {f}
+          </button>
+        ))}
+        <span className="ml-auto font-mono text-[0.62rem] uppercase tracking-widest text-[var(--color-ink-faint)]">
+          {filtered.length} / {PROJECTS.length}
+        </span>
+      </div>
+
+      {/* Grid */}
+      <div className="mt-8 space-y-5">
+        {filtered.map((p) => (
+          <ProjectCard key={p.num} project={p} />
+        ))}
+      </div>
+
+      {filtered.length === 0 && (
+        <p className="mt-10 font-mono text-sm text-[var(--color-ink-muted)]">
+          // no projects match this filter.
+        </p>
+      )}
+    </Section>
   );
 }
