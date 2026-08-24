@@ -27,19 +27,22 @@ export default function About() {
             className="lg:col-span-7 lg:pr-16"
           >
             <h2 className="serif font-light text-4xl md:text-5xl leading-[1.15] tracking-tight text-[#111] mb-8">
-              Security engineer with a hacker's instinct and an analyst's discipline.
+              About Me
             </h2>
             <div className="flex flex-col gap-5 max-w-xl">
               <p className="text-[#111]/75 text-base leading-[1.9]">
-                I specialise in Android APK reverse engineering, static and dynamic analysis, and Frida-based runtime instrumentation — with a focus on banking and financial applications.
+                I’m a Security Engineer specializing in Application Security, Android &amp; Mobile Security, API Security, Web Application Security, and VAPT.
               </p>
               <p className="text-[#111]/75 text-base leading-[1.9]">
-                On the web side, I run OWASP Top 10-aligned penetration testing and API security assessments using Burp Suite.
+                I’m passionate about understanding how applications work, thinking like an attacker, finding security weaknesses, and helping engineering teams build more secure products. I enjoy going beyond automated scanning by combining manual testing, reverse engineering, dynamic analysis, runtime instrumentation, and practical vulnerability validation.
+              </p>
+              <p className="text-[#111]/75 text-base leading-[1.9]">
+                Currently, I work as a Security Test Engineer at WizzyBox Private Limited, where I perform security assessments for banking and financial applications.
               </p>
               <div className="mt-2 inline-flex items-center gap-3 border border-[#B8892F]/40 bg-[#B8892F]/8 px-5 py-3 self-start">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#B8892F]" />
                 <span className="text-sm text-[#B8892F] tracking-wide font-medium">
-                  Promoted intern → full-time in 6 months
+                  Promoted from Security Test Engineer Intern to full-time Security Test Engineer based on technical performance and delivery.
                 </span>
               </div>
             </div>
@@ -57,12 +60,12 @@ export default function About() {
               <p className="text-[11px] tracking-[0.25em] uppercase text-[#B8892F] font-medium mb-5">Domain Expertise</p>
               <ul className="flex flex-col">
                 {[
-                  "Android APK Security Testing",
-                  "Mobile Runtime Instrumentation",
-                  "REST API Penetration Testing",
-                  "OWASP Top 10 / Mobile Top 10",
-                  "Banking & Financial Applications",
-                  "CVSS Reporting & Remediation",
+                  "Application Security",
+                  "Android & Mobile Security",
+                  "API Security",
+                  "Web Application Security",
+                  "Reverse Engineering",
+                  "Vulnerability Reporting & Remediation",
                 ].map((item, i) => (
                   <li key={i} className="group py-3.5 border-b border-black/8 text-base text-[#111]/80 flex items-center justify-between hover:text-[#111] transition-colors cursor-default">
                     <span>{item}</span>

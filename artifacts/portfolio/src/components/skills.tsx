@@ -6,9 +6,9 @@ const SKILL_TIPS: Record<string, string> = {
   "APK Reverse Engineering": "Decompile APKs with JADX & Apktool to expose logic, keys, and hidden endpoints",
   "Static Analysis": "Source-level review for insecure storage, hardcoded secrets, and dangerous permissions",
   "Dynamic Analysis": "Runtime testing with live traffic interception and behavioural observation",
-  "SSL Pinning Bypass": "Custom Frida scripts to bypass certificate pinning on banking APKs",
-  "Root Detection Bypass": "Hook root-check routines at runtime to enable testing on rooted devices",
-  "Certificate Validation Bypass": "Override cert validation logic to intercept HTTPS traffic",
+  "SSL Pinning Validation / Bypass Testing": "Custom Frida scripts to bypass certificate pinning on banking APKs",
+  "Root Detection Testing / Bypass Validation": "Hook root-check routines at runtime to enable testing on rooted devices",
+  "Certificate Validation Testing": "Override cert validation logic to intercept HTTPS traffic",
   "Frida Instrumentation": "JavaScript-based runtime hooking to modify app behaviour on the fly",
   "Runtime Instrumentation": "Inject logic into running processes without modifying the APK",
   "MobSF": "Automated static & dynamic analysis framework for mobile applications",
@@ -55,20 +55,28 @@ const SKILL_TIPS: Record<string, string> = {
 
 const CATEGORIES = [
   {
-    id: "mobile", label: "Mobile Security", count: 14,
-    skills: ["Android APK Security Testing", "APK Reverse Engineering", "Static Analysis", "Dynamic Analysis", "SSL Pinning Bypass", "Root Detection Bypass", "Certificate Validation Bypass", "Frida Instrumentation", "Runtime Instrumentation", "MobSF", "JADX", "Apktool", "ADB", "Android Studio"],
+    id: "application", label: "Application Security", count: 8,
+    skills: ["Application Security", "Web Application Security", "API Security", "Authentication Testing", "Authorization Testing", "Broken Access Control", "Session Security", "Security Reporting"],
   },
   {
-    id: "web", label: "Web & API", count: 14,
-    skills: ["Web Application Penetration Testing", "OWASP Top 10", "SQL Injection", "Cross-Site Scripting (XSS)", "CSRF Testing", "Broken Access Control", "Authentication Testing", "Session Management", "IDOR Testing", "BOLA Testing", "API Security Testing", "REST API Security", "Burp Suite", "OWASP ZAP"],
+    id: "mobile", label: "Android & Mobile Security", count: 9,
+    skills: ["Android APK Security Testing", "APK Reverse Engineering", "Static Analysis", "Dynamic Analysis", "Frida", "Frida Instrumentation", "JADX", "Apktool", "MobSF"],
   },
   {
-    id: "standards", label: "Standards", count: 12,
-    skills: ["OWASP Mobile Top 10", "OWASP Top 10", "CVSS Scoring", "CVE Analysis", "Vulnerability Assessment", "Penetration Testing Methodology", "Secure SDLC", "Threat Modelling", "Secure Code Review", "SAST", "DAST", "Security Reporting"],
+    id: "api", label: "API Security", count: 7,
+    skills: ["API Security", "API Security Testing", "Authentication Testing", "Authorization Testing", "BOLA / IDOR", "Broken Access Control", "Session Security"],
   },
   {
-    id: "tools", label: "Tools", count: 15,
-    skills: ["Burp Suite", "Frida", "MobSF", "JADX", "Apktool", "OWASP ZAP", "Nmap", "Wireshark", "Metasploit", "Kali Linux", "Ubuntu", "Linux CLI", "Bash Scripting", "Python", "Git"],
+    id: "vapt", label: "Web VAPT", count: 8,
+    skills: ["Web Application Penetration Testing", "Web Application Security", "SQL Injection", "Cross-Site Scripting (XSS)", "CSRF Testing", "Security Misconfiguration", "Vulnerability Assessment", "Vulnerability Validation"],
+  },
+  {
+    id: "offensive", label: "Offensive Security Testing", count: 5,
+    skills: ["Offensive Security Testing", "Vulnerability Discovery", "Exploitation", "Privilege Escalation Testing", "Authentication Attacks"],
+  },
+  {
+    id: "reverse", label: "Reverse Engineering", count: 7,
+    skills: ["Reverse Engineering", "APK Reverse Engineering", "Frida", "Frida Instrumentation", "JADX", "Apktool", "Runtime Instrumentation"],
   },
 ];
 
@@ -135,15 +143,15 @@ export default function Skills() {
               <button
                 key={c.id}
                 onClick={() => setActive(c.id)}
-                className={`flex items-center justify-between text-left py-4 pr-6 border-b border-white/10 last:border-0 transition-all w-full shrink-0 ${
+                className={`flex w-full min-h-[72px] items-center justify-between gap-4 text-left py-4 pr-6 border-b border-white/10 last:border-0 transition-all shrink-0 ${
                   active === c.id ? "text-[#B8892F]" : "text-white/60 hover:text-white/90"
                 }`}
               >
-                <div className="flex items-center gap-3">
+                <div className="flex min-w-0 flex-1 items-center gap-3">
                   {active === c.id && <span className="w-6 h-px bg-[#B8892F] shrink-0" />}
-                  <span className="text-sm tracking-wide">{c.label}</span>
+                  <span className="text-sm tracking-wide whitespace-nowrap">{c.label}</span>
                 </div>
-                <span className={`text-xs ${active === c.id ? "text-[#B8892F]" : "text-white/35"}`}>{c.count}</span>
+                <span className={`w-8 text-right text-xs ${active === c.id ? "text-[#B8892F]" : "text-white/35"}`}>{c.count}</span>
               </button>
             ))}
           </div>

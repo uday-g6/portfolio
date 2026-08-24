@@ -3,24 +3,24 @@ import { motion } from "framer-motion";
 const PROJECTS = [
   {
     num: "01",
-    title: "Android Banking APK Security Assessment",
-    desc: "Static and dynamic security assessment of Android banking APKs using Frida, MobSF, JADX, and Burp Suite — full OWASP Mobile Top 10 coverage.",
-    tools: ["Frida", "MobSF", "JADX", "Apktool", "Burp Suite"],
-    findings: ["15+ OWASP Mobile Top 10 vulnerabilities", "10+ hidden API endpoints via SSL/root bypass", "Hardcoded credentials & insecure SharedPreferences", "API: broken access control & insecure transmission", "Custom Frida scripts for pinning/root bypass"],
+    title: "Android Application Security Testing & APK Reverse Engineering",
+    desc: "Hands-on Android security assessment work covering APK static analysis, reverse engineering, dynamic testing, runtime instrumentation, and validation of Android security controls.",
+    tools: ["MobSF", "JADX", "Apktool", "Frida", "Burp Suite", "Android Studio"],
+    findings: ["SSL Pinning", "Root Detection", "Emulator Detection", "Proxy Detection", "Anti-Hooking", "Application Integrity", "Exported Components", "Secure Storage"],
   },
   {
     num: "02",
-    title: "Web Application Penetration Testing Lab",
-    desc: "OWASP Top 10 testing on DVWA and WebGoat — exploiting and documenting vulnerabilities with full proof-of-concept reproduction steps.",
-    tools: ["Burp Suite", "OWASP ZAP", "SQLMap", "DVWA", "WebGoat"],
-    findings: ["SQL Injection, XSS, CSRF with full PoC", "Authentication bypass via token manipulation", "Privilege escalation and IDOR testing", "Session entropy analysis & cookie flag validation", "Burp Suite Repeater parameter tampering"],
+    title: "API Security & Web Application VAPT",
+    desc: "Practical web and API security testing based on OWASP methodologies, covering authentication, authorization, broken access control, BOLA/IDOR, injection, session security, endpoint security, and HTTP request manipulation.",
+    tools: ["Burp Suite", "OWASP ZAP", "Postman"],
+    findings: ["Authentication & authorization review", "Broken access control testing", "BOLA / IDOR validation", "Injection and session security checks", "Endpoint and request manipulation assessment"],
   },
   {
     num: "03",
-    title: "Network Security & Traffic Analysis",
-    desc: "Network reconnaissance and packet capture across enterprise lab environments — host enumeration, service discovery, and plaintext traffic analysis.",
-    tools: ["Nmap", "Wireshark", "Linux CLI", "Bash Scripting"],
-    findings: ["50+ live hosts & 30+ insecure service configs", "1,000+ HTTP, DNS, FTP packets analysed", "Unencrypted sensitive data in FTP/Telnet/HTTP", "OS detection, version scanning & service enum", "Bash scripts for automated enumeration"],
+    title: "SecurAI / SecureGuard",
+    desc: "Security-focused project exploring workflow structure for asset tracking, vulnerability review, and reporting in a centralized validation environment.",
+    tools: ["Python", "FastAPI", "React", "Redis", "Celery", "MongoDB/PostgreSQL", "Docker"],
+    findings: ["Asset tracking workflow", "Vulnerability review flow", "Reporting structure", "Validation-focused process design"],
   },
 ];
 

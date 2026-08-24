@@ -88,7 +88,8 @@ export default function Navbar() {
             Open to Work
           </div>
           <a
-            href="mailto:udaygopalakrishna@gmail.com?subject=Resume%20Request"
+            href="/resume.pdf"
+            download
             className="text-[11px] tracking-[0.12em] uppercase border border-[#B8892F] text-[#B8892F] px-5 py-2 hover:bg-[#B8892F] hover:text-white transition-all duration-300 font-medium"
           >
             Download CV

@@ -55,10 +55,10 @@ export default function Contact() {
             className="flex flex-col"
           >
             <h2 className="text-4xl md:text-5xl font-light text-white leading-[1.1] tracking-tight mb-6">
-              Let's talk about your next security engagement.
+              Let's Connect
             </h2>
             <p className="text-white/70 text-base leading-[1.85] mb-12 max-w-sm">
-              Available for security engineering roles and VAPT engagements. Fastest response by phone or email.
+              Interested in application security, offensive security, mobile security, vulnerability research, or secure product development? I’m always open to connecting with security professionals, recruiters, engineering teams, and potential collaborators.
             </p>
 
             <div className="flex flex-col gap-0">
@@ -78,7 +78,7 @@ export default function Contact() {
                 <a href="https://linkedin.com/in/uday-g-" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/50 hover:text-[#B8892F] transition-colors text-xs tracking-widest uppercase">
                   <Linkedin className="h-3.5 w-3.5" /> LinkedIn
                 </a>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/50 hover:text-[#B8892F] transition-colors text-xs tracking-widest uppercase">
+                <a href="https://github.com/uday-g6" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/50 hover:text-[#B8892F] transition-colors text-xs tracking-widest uppercase">
                   <SiGithub className="h-3.5 w-3.5" /> GitHub
                 </a>
                 <a href="https://udayg.netlify.app" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-[#B8892F] transition-colors text-xs tracking-widest uppercase">

@@ -40,7 +40,7 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="text-[11px] tracking-[0.25em] uppercase text-[#B8892F] font-medium"
           >
-            Security Test Engineer
+            Security Engineer | Application Security | Offensive Security
           </motion.p>
           <motion.div
             initial={{ opacity: 0, x: 16 }}
@@ -67,9 +67,18 @@ export default function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.35 }}
-            className="mt-6 text-[#111]/65 text-xl md:text-2xl font-light tracking-wide max-w-lg"
+            className="mt-6 text-[#111]/65 text-xl md:text-2xl font-light tracking-wide max-w-2xl"
           >
-            Mobile &amp; Web Application Security · VAPT · API Security
+            Security Engineer specializing in Application &amp; Offensive Security
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.45 }}
+            className="mt-5 text-[#111]/65 text-lg md:text-xl font-light tracking-wide max-w-3xl"
+          >
+            Application Security | Android &amp; Mobile Security | API Security | Web VAPT | Penetration Testing | Frida &amp; APK Reverse Engineering
           </motion.p>
         </div>
 
@@ -81,22 +90,22 @@ export default function Hero() {
           className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8 border-t border-black/10 pt-8"
         >
           <p className="text-[#111]/65 text-sm md:text-base leading-[1.85] font-light max-w-md">
-            Securing banking apps, APIs &amp; web platforms through offensive security — OWASP-aligned VAPT, Frida instrumentation, APK reverse engineering.
+            I’m a Security Engineer focused on finding, validating, and helping remediate security vulnerabilities across web, API, and Android applications. My work combines manual security testing, reverse engineering, dynamic analysis, runtime instrumentation, and practical vulnerability validation.
           </p>
 
           <div className="flex flex-col gap-4 items-start md:items-end shrink-0">
             <div className="flex gap-3">
-              <a href="#contact" className="text-[11px] tracking-[0.15em] uppercase bg-[#111] text-white px-8 py-3.5 hover:bg-[#B8892F] transition-all duration-300 font-medium">
-                Get in Touch
+              <a href="#experience" className="text-[11px] tracking-[0.15em] uppercase bg-[#111] text-white px-8 py-3.5 hover:bg-[#B8892F] transition-all duration-300 font-medium">
+                View My Work
               </a>
-              <a href="#experience" className="text-[11px] tracking-[0.15em] uppercase border border-[#111]/25 text-[#111]/65 px-8 py-3.5 hover:border-[#B8892F] hover:text-[#B8892F] transition-all duration-300 font-medium">
-                View Work
+              <a href="/resume.pdf" download className="text-[11px] tracking-[0.15em] uppercase border border-[#111]/25 text-[#111]/65 px-8 py-3.5 hover:border-[#B8892F] hover:text-[#B8892F] transition-all duration-300 font-medium">
+                Download Resume
               </a>
             </div>
             <div className="flex gap-4 text-xs text-[#111]/55 tracking-widest uppercase">
-              <a href="tel:+917899169395" className="hover:text-[#B8892F] transition-colors">+91 78991-69395</a>
+              <a href="#contact" className="hover:text-[#B8892F] transition-colors">Contact Me</a>
               <span className="opacity-40">·</span>
-              <a href="mailto:udaygopalakrishna@gmail.com" className="hover:text-[#B8892F] transition-colors">udaygopalakrishna@gmail.com</a>
+              <a href="https://linkedin.com/in/uday-g-" target="_blank" rel="noreferrer" className="hover:text-[#B8892F] transition-colors">LinkedIn</a>
             </div>
           </div>
         </motion.div>
@@ -135,17 +144,18 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.7, delay: 0.7 }}
-        className="relative z-10 grid grid-cols-3 bg-[#111] text-white"
+        className="relative z-10 grid grid-cols-2 md:grid-cols-4 bg-[#111] text-white"
       >
         {[
-          { num: "60+", label: "Banking APKs Tested" },
-          { num: "50+", label: "Vulnerabilities Found" },
-          { num: "30%", label: "MTTR Reduction" },
+          { num: "80+", label: "Android Applications Assessed" },
+          { num: "40+", label: "Applications Tested with Frida" },
+          { num: "50+", label: "Vulnerability Reports" },
+          { num: "7+", label: "Development Teams Supported" },
         ].map((s, i) => (
           <TiltCard
             key={i}
             maxTilt={12}
-            className={`px-6 md:px-8 py-6 flex flex-col gap-1 hover:bg-white/[0.03] hover:shadow-[0_20px_40px_-15px_rgba(184,137,47,0.35)] ${i < 2 ? "border-r border-white/10" : ""}`}
+            className={`px-6 md:px-8 py-6 flex flex-col gap-1 hover:bg-white/[0.03] hover:shadow-[0_20px_40px_-15px_rgba(184,137,47,0.35)] ${i < 3 ? "border-r border-white/10" : ""}`}
           >
             <span className="serif text-3xl md:text-4xl font-light text-[#B8892F] leading-none">{s.num}</span>
             <span className="text-xs tracking-[0.15em] uppercase text-white/65">{s.label}</span>
