@@ -46,7 +46,7 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#F8F5EF]/95 backdrop-blur-sm border-b border-black/8"
+          ? "bg-[var(--bg-paper-light)]/95 backdrop-blur-sm border-b border-[var(--border-thin)]"
           : "bg-transparent"
       }`}
     >
@@ -54,7 +54,7 @@ export default function Navbar() {
         <a
           href="#hero"
           onClick={() => setActiveSection("")}
-          className="serif text-xl font-light text-[#111] tracking-tight hover:text-[#B8892F] transition-colors"
+          className="font-display text-xl font-light text-[var(--text-ink)] tracking-tight hover:text-[var(--accent-gold)] transition-colors"
         >
           Uday G
         </a>
@@ -64,17 +64,17 @@ export default function Navbar() {
             <a
               key={l.name}
               href={l.href}
-              className={`relative text-xs tracking-[0.12em] uppercase font-medium transition-colors ${
+              className={`relative text-label font-medium transition-colors ${
                 activeSection === l.id
-                  ? "text-[#B8892F]"
-                  : "text-[#111]/55 hover:text-[#B8892F]"
+                  ? "text-[var(--accent-gold)]"
+                  : "text-[var(--text-ink-muted)] hover:text-[var(--accent-gold)]"
               }`}
             >
               {l.name}
               {activeSection === l.id && (
                 <motion.span
                   layoutId="nav-underline"
-                  className="absolute -bottom-1 left-0 right-0 h-px bg-[#B8892F]"
+                  className="absolute -bottom-1 left-0 right-0 h-px bg-[var(--accent-gold)]"
                   transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 />
               )}
@@ -83,21 +83,21 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden md:flex items-center gap-5">
-          <div className="flex items-center gap-2 text-[11px] tracking-widest uppercase text-[#111]/60 font-medium">
+          <div className="flex items-center gap-2 text-label text-[var(--text-ink-muted)] font-medium">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             Open to Work
           </div>
           <a
             href="/resume.pdf"
             download
-            className="text-[11px] tracking-[0.12em] uppercase border border-[#B8892F] text-[#B8892F] px-5 py-2 hover:bg-[#B8892F] hover:text-white transition-all duration-300 font-medium"
+            className="text-label border border-[var(--accent-gold)] text-[var(--accent-gold)] px-5 py-2 hover:bg-[var(--accent-gold)] hover:text-white transition-all duration-300 font-medium"
           >
             Download CV
           </a>
         </div>
 
         <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)}>
-          {mobileOpen ? <X size={20} className="text-[#111]" /> : <Menu size={20} className="text-[#111]" />}
+          {mobileOpen ? <X size={20} className="text-[var(--text-ink)]" /> : <Menu size={20} className="text-[var(--text-ink)]" />}
         </button>
       </div>
 
@@ -107,7 +107,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            className="md:hidden bg-[#F8F5EF]/98 backdrop-blur border-b border-black/8 px-6 py-6 flex flex-col gap-4"
+            className="md:hidden bg-[var(--bg-paper-light)]/98 backdrop-blur border-b border-[var(--border-thin)] px-6 py-6 flex flex-col gap-4"
           >
             {LINKS.map((l) => (
               <a
@@ -116,14 +116,14 @@ export default function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 className={`text-sm tracking-widest uppercase transition-colors ${
                   activeSection === l.id
-                    ? "text-[#B8892F]"
-                    : "text-[#111]/55 hover:text-[#B8892F]"
+                    ? "text-[var(--accent-gold)]"
+                    : "text-[var(--text-ink-muted)] hover:text-[var(--accent-gold)]"
                 }`}
               >
                 {l.name}
               </a>
             ))}
-            <div className="pt-4 border-t border-black/8 flex items-center gap-2 text-[11px] text-[#111]/45 uppercase tracking-widest">
+            <div className="pt-4 border-t border-[var(--border-thin)] flex items-center gap-2 text-label text-[var(--text-ink-light)] uppercase tracking-widest">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               Open to Work
             </div>

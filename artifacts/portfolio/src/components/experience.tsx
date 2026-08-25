@@ -40,8 +40,8 @@ const EXPERIENCES = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="relative overflow-hidden bg-[#F8F5EF]">
-      <div className="absolute left-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[#111]/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">03</div>
+    <section id="experience" className="relative overflow-hidden bg-[var(--bg-paper-light)]">
+      <div className="absolute left-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[var(--text-ink)]/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">03</div>
 
       <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
         <motion.div
@@ -50,8 +50,8 @@ export default function Experience() {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-16"
         >
-          <span className="text-[11px] tracking-[0.3em] uppercase text-[#B8892F] font-medium">03 — Experience</span>
-          <div className="h-px w-16 bg-[#B8892F]/30" />
+          <span className="text-label text-[var(--accent-gold)]">03 — Experience</span>
+          <div className="h-px w-16 bg-[var(--accent-gold-border)]" />
         </motion.div>
 
         <div className="flex flex-col gap-0">
@@ -62,18 +62,18 @@ export default function Experience() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className="py-12 md:py-16 border-b border-black/10 last:border-0 grid md:grid-cols-[220px_1fr] gap-8 md:gap-16"
+              className="py-12 md:py-16 border-b border-[var(--border-thin)] last:border-0 grid md:grid-cols-[220px_1fr] gap-8 md:gap-16"
             >
               {/* Left meta */}
               <div className="flex flex-col gap-4">
-                <span className="text-[11px] tracking-[0.2em] uppercase text-[#B8892F] font-medium">{exp.period}</span>
-                <div className="w-8 h-px bg-[#B8892F]/50" />
-                <p className="text-2xl font-semibold text-[#111] leading-tight">{exp.role}</p>
-                <p className="text-sm text-[#111]/70">{exp.company}</p>
+                <span className="text-label text-[var(--accent-gold)]">{exp.period}</span>
+                <div className="w-8 h-px bg-[var(--accent-gold-border)]" />
+                <p className="text-2xl font-semibold text-[var(--text-ink)] leading-tight">{exp.role}</p>
+                <p className="text-sm text-[var(--text-ink-muted)]">{exp.company}</p>
                 <div className="flex flex-wrap gap-2 mt-1">
-                  <span className="text-xs tracking-widest uppercase border border-black/15 text-[#111]/60 px-2.5 py-1.5 font-medium">{exp.type}</span>
+                  <span className="text-label border border-[var(--border-thin)] text-[var(--text-ink-muted)] px-2.5 py-1.5 font-medium">{exp.type}</span>
                   {exp.domain && (
-                    <span className="text-xs tracking-widest uppercase border border-[#B8892F]/40 text-[#B8892F] px-2.5 py-1.5 font-medium">{exp.domain}</span>
+                    <span className="text-label border border-[var(--accent-gold-border)] text-[var(--accent-gold)] px-2.5 py-1.5 font-medium">{exp.domain}</span>
                   )}
                 </div>
               </div>
@@ -81,15 +81,15 @@ export default function Experience() {
               {/* Right */}
               <div className="flex flex-col gap-6">
                 {exp.callout && (
-                  <div className="bg-[#111] text-white px-6 py-4 border-l-2 border-[#B8892F] flex items-start gap-3">
-                    <span className="text-[#B8892F] text-lg leading-none mt-0.5 shrink-0">✦</span>
+                  <div className="bg-[var(--bg-dark)] text-white px-6 py-4 border-l-2 border-[var(--accent-gold)] flex items-start gap-3">
+                    <span className="text-[var(--accent-gold)] text-lg leading-none mt-0.5 shrink-0">✦</span>
                     <p className="text-base text-white/90 leading-relaxed">{exp.callout}</p>
                   </div>
                 )}
                 <ul className="flex flex-col gap-3.5">
                   {exp.bullets.map((b, i) => (
-                    <li key={i} className="flex gap-3 text-base text-[#111]/78 leading-[1.85]">
-                      <span className="text-[#B8892F] shrink-0 mt-1.5 text-xs">—</span>
+                    <li key={i} className="flex gap-3 text-body text-[var(--text-ink-muted)] leading-[1.85]">
+                      <span className="text-[var(--accent-gold)] shrink-0 mt-1.5 text-xs">—</span>
                       {b}
                     </li>
                   ))}

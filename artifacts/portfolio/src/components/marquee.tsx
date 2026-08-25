@@ -8,14 +8,14 @@ const items = [
 export default function Marquee() {
   const doubled = [...items, ...items];
   return (
-    <div className="overflow-hidden border-y border-black/10 bg-[#111] py-4 select-none">
+    <div className="overflow-hidden border-y border-[var(--border-thin)] bg-[var(--bg-dark)] py-4 select-none">
       <div className="marquee-track">
         {doubled.map((item, i) => (
           <span key={i} className="inline-flex items-center gap-6 px-6">
-            <span className="text-[11px] tracking-[0.2em] uppercase text-white/60 font-medium">
+            <span className="text-label text-white/60 font-medium">
               {item}
             </span>
-            <span className="text-[#B8892F] text-base leading-none">✦</span>
+            <span className="text-[var(--accent-gold)] text-base leading-none">✦</span>
           </span>
         ))}
       </div>

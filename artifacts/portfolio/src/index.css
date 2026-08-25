@@ -7,19 +7,19 @@
 :root {
   /* ============================================================
      COLOR PALETTE — Field Notebook + Terminal + Workbench
+     Gold/Amber accent system (implemented design)
      ============================================================ */
 
   /* Backgrounds */
   --bg-paper: #FDFBF7;           /* Warm cream/paper base */
-  --bg-paper-dark: #F5F1E8;      /* Slightly darker paper */
-  --bg-paper-darker: #EDE6D6;    /* Even darker for accents */
+  --bg-paper-light: #F8F5EF;     /* Light cream — section backgrounds */
+  --bg-paper-dark: #F5F1E8;      /* Medium cream — accents */
+  --bg-paper-darker: #EDE6D6;    /* Darker cream — section backgrounds */
   --bg-card: #FFFFFF;            /* Pure white cards */
   --bg-card-hover: #FAF8F3;      /* Card hover state */
-  --bg-dark: #1A1A1A;            /* Deep charcoal surfaces */
-  --bg-dark-elevated: #222222;   /* Elevated dark */
-  --bg-teal: #0D3B3B;            /* Dark teal — primary structure */
-  --bg-teal-light: #144D4D;      /* Lighter teal */
-  --bg-teal-hover: #1A5E5E;      /* Teal hover */
+  --bg-dark: #111111;            /* Deep charcoal surfaces */
+  --bg-dark-elevated: #1A1A1A;   /* Elevated dark */
+  --bg-dark-hover: #1F1F1F;      /* Dark hover */
 
   /* Text */
   --text-ink: #111111;           /* Deep charcoal/ink — primary */
@@ -29,19 +29,19 @@
   --text-white-muted: #E8E8E8;
   --text-white-dim: #B8B8B8;
 
-  /* Accents */
-  --accent-lime: #A8E600;        /* Acid lime — primary highlight */
-  --accent-lime-dim: #8ACC00;    /* Dimmed lime */
-  --accent-lime-muted: #A8E60033; /* Lime with opacity */
-  --accent-coral: #E86C5A;       /* Muted oxide-coral — small accents */
-  --accent-coral-dim: #D45A4A;   /* Dimmed coral */
-  --accent-coral-muted: #E86C5A33; /* Coral with opacity */
+  /* Accents — Gold/Amber system */
+  --accent-gold: #B8892F;        /* Primary gold/amber */
+  --accent-gold-dim: #A07628;    /* Dimmed gold */
+  --accent-gold-light: #D4A84B;  /* Light gold for hover */
+  --accent-gold-muted: #B8892F33; /* Gold with opacity (20%) */
+  --accent-gold-subtle: #B8892F1A; /* Gold with opacity (10%) */
+  --accent-gold-border: #B8892F4D; /* Gold with opacity (30%) */
 
   /* Borders & Lines */
   --border-thin: #D4D0C8;        /* Thin technical borders (light) */
   --border-thin-dark: #3D3D3D;   /* Thin technical borders (dark) */
   --border-medium: #C4C0B8;      /* Medium borders */
-  --border-focus: #A8E600;       /* Focus ring */
+  --border-focus: var(--accent-gold);       /* Focus ring */
   --border-error: #E86C5A;       /* Error border */
 
   /* Semantic mappings for Tailwind */
@@ -52,9 +52,9 @@
   --card-foreground: var(--text-ink);
   --card-border: var(--border-thin);
 
-  --primary: var(--bg-teal);
+  --primary: var(--bg-dark);
   --primary-foreground: var(--text-white);
-  --primary-hover: var(--bg-teal-hover);
+  --primary-hover: var(--bg-dark-hover);
 
   --secondary: var(--bg-paper-dark);
   --secondary-foreground: var(--text-ink);
@@ -62,16 +62,16 @@
   --muted: var(--bg-paper-dark);
   --muted-foreground: var(--text-ink-light);
 
-  --accent: var(--accent-lime);
+  --accent: var(--accent-gold);
   --accent-foreground: var(--text-ink);
-  --accent-hover: var(--accent-lime-dim);
+  --accent-hover: var(--accent-gold-dim);
 
-  --destructive: var(--accent-coral);
+  --destructive: var(--border-error);
   --destructive-foreground: var(--text-white);
 
   --border: var(--border-thin);
   --input: var(--border-thin);
-  --ring: var(--accent-lime);
+  --ring: var(--accent-gold);
 
   /* ============================================================
      TYPOGRAPHY
@@ -167,12 +167,7 @@
   }
 
   ::selection {
-    background-color: var(--accent-lime);
-    color: var(--text-ink);
-  }
-
-  ::selection {
-    background-color: var(--accent-lime);
+    background-color: var(--accent-gold);
     color: var(--text-ink);
   }
 
@@ -501,59 +496,56 @@
 .card-dark {
   background-color: var(--bg-dark);
   border: 1px solid var(--border-thin-dark);
-  color: white;
+  color: var(--text-white);
   transition: all 300ms;
 }
 
 .card-dark-hover {
   background-color: var(--bg-dark);
   border: 1px solid var(--border-thin-dark);
-  color: white;
+  color: var(--text-white);
   transition: all 300ms;
 }
 
 .card-dark-hover:hover {
   background-color: var(--bg-dark-elevated);
   box-shadow: 0 20px 40px -15px rgba(0,0,0,0.4);
-  border-color: var(--bg-teal);
+  border-color: var(--accent-gold);
 }
 
-/* Teal surface card */
-.card-teal {
-  background-color: var(--bg-teal);
-  border: 1px solid var(--border-thin-dark);
-  color: white;
+/* Gold accent surface card */
+.card-gold {
+  background-color: var(--accent-gold);
+  border: 1px solid transparent;
+  color: var(--text-ink);
   transition: all 300ms;
 }
 
-.card-teal-hover {
-  background-color: var(--bg-teal);
-  border: 1px solid var(--border-thin-dark);
-  color: white;
+.card-gold-hover {
+  background-color: var(--accent-gold);
+  border: 1px solid transparent;
+  color: var(--text-ink);
   transition: all 300ms;
 }
 
-.card-teal-hover:hover {
-  background-color: var(--bg-teal-hover);
-  box-shadow: 0 20px 40px -15px rgba(13,59,59,0.4);
+.card-gold-hover:hover {
+  background-color: var(--accent-gold-light);
+  box-shadow: 0 20px 40px -15px rgba(184,137,47,0.4);
 }
 
 /* Accent border left */
-
-
-
-.border-accent-left {
-  border-left: 2px solid var(--accent-lime);
+.border-gold-left {
+  border-left: 2px solid var(--accent-gold);
   padding-left: 1rem;
 }
 
-.border-teal-left {
-  border-left: 2px solid var(--bg-teal);
+.border-dark-left {
+  border-left: 2px solid var(--bg-dark);
   padding-left: 1rem;
 }
 
-.border-coral-left {
-  border-left: 2px solid var(--accent-coral);
+.border-error-left {
+  border-left: 2px solid var(--border-error);
   padding-left: 1rem;
 }
 
@@ -569,7 +561,7 @@
   left: 0;
   width: 0;
   height: 1px;
-  background-color: var(--accent-lime);
+  background-color: var(--accent-gold);
   transition: all 300ms;
 }
 
@@ -634,7 +626,7 @@
 /* Terminal prompt style */
 .terminal-prompt {
   font-family: var(--font-mono);
-  color: var(--accent-lime);
+  color: var(--accent-gold);
   font-size: 0.6875rem;
   line-height: 1.4;
   text-transform: uppercase;
@@ -660,7 +652,7 @@
 .metric-value {
   font-family: var(--font-display);
   font-weight: 300;
-  color: var(--accent-lime);
+  color: var(--accent-gold);
   line-height: 1;
   font-size: clamp(2.5rem, 6vw, 4rem);
 }
@@ -720,8 +712,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background-color: var(--bg-teal);
-  color: #fff;
+  background-color: var(--bg-dark);
+  color: var(--text-white);
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -734,8 +726,8 @@
 }
 
 .btn-primary:hover {
-  background-color: var(--bg-teal-hover);
-  box-shadow: 0 8px 24px -8px rgba(13, 59, 59, 0.4);
+  background-color: var(--bg-dark-hover);
+  box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.4);
 }
 
 .btn-primary:focus-visible,
@@ -743,7 +735,7 @@
 .btn-accent:focus-visible,
 .btn-ghost:focus-visible,
 .focus-visible-ring:focus-visible {
-  outline: 2px solid var(--accent-lime);
+  outline: 2px solid var(--accent-gold);
   outline-offset: 2px;
 }
 
@@ -766,9 +758,9 @@
 }
 
 .btn-secondary:hover {
-  border-color: var(--accent-lime);
-  color: var(--accent-lime);
-  background-color: var(--accent-lime-muted);
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+  background-color: var(--accent-gold-muted);
 }
 
 .btn-accent {
@@ -776,7 +768,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background-color: var(--accent-lime);
+  background-color: var(--accent-gold);
   color: var(--text-ink);
   font-family: var(--font-mono);
   text-transform: uppercase;
@@ -790,8 +782,8 @@
 }
 
 .btn-accent:hover {
-  background-color: var(--accent-lime-dim);
-  box-shadow: 0 8px 24px -8px rgba(168, 230, 0, 0.4);
+  background-color: var(--accent-gold-light);
+  box-shadow: 0 8px 24px -8px rgba(184, 137, 47, 0.4);
 }
 
 .btn-ghost {
@@ -853,12 +845,12 @@
 }
 
 .input-base:focus {
-  border-bottom-color: var(--accent-lime);
+  border-bottom-color: var(--accent-gold);
   outline: none;
 }
 
 .input-base:focus-visible {
-  outline: 2px solid var(--accent-lime);
+  outline: 2px solid var(--accent-gold);
   outline-offset: 2px;
 }
 
@@ -883,12 +875,12 @@
 }
 
 .textarea-base:focus {
-  border-bottom-color: var(--accent-lime);
+  border-bottom-color: var(--accent-gold);
   outline: none;
 }
 
 .textarea-base:focus-visible {
-  outline: 2px solid var(--accent-lime);
+  outline: 2px solid var(--accent-gold);
   outline-offset: 2px;
 }
 
@@ -906,15 +898,15 @@
 /* ============================================================
    UTILITY: Text gradient
    ============================================================ */
-.text-gradient-lime {
-  background: linear-gradient(135deg, var(--accent-lime) 0%, var(--accent-lime-dim) 100%);
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-light) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-.text-gradient-teal {
-  background: linear-gradient(135deg, var(--bg-teal-light) 0%, var(--bg-teal) 100%);
+.text-gradient-dark {
+  background: linear-gradient(135deg, var(--bg-dark-elevated) 0%, var(--bg-dark) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

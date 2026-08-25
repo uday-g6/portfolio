@@ -15,7 +15,7 @@ import CursorSpotlight from "@/components/cursor-spotlight";
 
 export default function Home() {
   return (
-    <div className="min-h-[100dvh] text-foreground font-sans" style={{ backgroundColor: "#F8F5EF" }}>
+    <div className="min-h-[100dvh] text-foreground font-sans bg-[var(--bg-paper-light)]">
       <ProgressBar />
       <CursorSpotlight />
       <Navbar />

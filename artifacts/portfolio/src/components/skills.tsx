@@ -92,7 +92,7 @@ function SkillTag({ skill }: { skill: string }) {
         transition={{ duration: 0.2 }}
         className={`block px-4 py-2.5 border text-sm cursor-default transition-colors ${
           hovered
-            ? "border-[#B8892F] text-[#B8892F]"
+            ? "border-[var(--accent-gold)] text-[var(--accent-gold)]"
             : "border-white/20 text-white/85"
         }`}
       >
@@ -106,10 +106,10 @@ function SkillTag({ skill }: { skill: string }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 4 }}
             transition={{ duration: 0.15 }}
-            className="absolute bottom-full left-0 mb-2 z-50 w-64 bg-[#1a1a1a] border border-[#B8892F]/30 px-3.5 py-2.5 pointer-events-none"
+            className="absolute bottom-full left-0 mb-2 z-50 w-64 bg-[var(--bg-dark)] border border-[var(--accent-gold-border)] px-3.5 py-2.5 pointer-events-none"
           >
             <p className="text-xs text-white/75 leading-relaxed">{tip}</p>
-            <div className="absolute top-full left-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-[#B8892F]/30" />
+            <div className="absolute top-full left-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-[var(--accent-gold-border)]" />
           </motion.div>
         )}
       </AnimatePresence>
@@ -122,7 +122,7 @@ export default function Skills() {
   const cat = CATEGORIES.find(c => c.id === active)!;
 
   return (
-    <section id="skills" className="bg-[#111] text-white relative overflow-hidden">
+    <section id="skills" className="bg-[var(--bg-dark)] text-white relative overflow-hidden">
       <div className="absolute right-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-white/[0.03] leading-none select-none pointer-events-none" aria-hidden="true">02</div>
 
       <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
@@ -132,8 +132,8 @@ export default function Skills() {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-16"
         >
-          <span className="text-[11px] tracking-[0.3em] uppercase text-[#B8892F] font-medium">02 — Skills</span>
-          <div className="h-px w-16 bg-[#B8892F]/30" />
+          <span className="text-label text-[var(--accent-gold)]">02 — Skills</span>
+          <div className="h-px w-16 bg-[var(--accent-gold-border)]" />
         </motion.div>
 
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
@@ -144,14 +144,14 @@ export default function Skills() {
                 key={c.id}
                 onClick={() => setActive(c.id)}
                 className={`flex w-full min-h-[72px] items-center justify-between gap-4 text-left py-4 pr-6 border-b border-white/10 last:border-0 transition-all shrink-0 ${
-                  active === c.id ? "text-[#B8892F]" : "text-white/60 hover:text-white/90"
+                  active === c.id ? "text-[var(--accent-gold)]" : "text-white/60 hover:text-white/90"
                 }`}
               >
                 <div className="flex min-w-0 flex-1 items-center gap-3">
-                  {active === c.id && <span className="w-6 h-px bg-[#B8892F] shrink-0" />}
+                  {active === c.id && <span className="w-6 h-px bg-[var(--accent-gold)] shrink-0" />}
                   <span className="text-sm tracking-wide whitespace-nowrap">{c.label}</span>
                 </div>
-                <span className={`w-8 text-right text-xs ${active === c.id ? "text-[#B8892F]" : "text-white/35"}`}>{c.count}</span>
+                <span className={`w-8 text-right text-xs ${active === c.id ? "text-[var(--accent-gold)]" : "text-white/35"}`}>{c.count}</span>
               </button>
             ))}
           </div>
@@ -168,7 +168,7 @@ export default function Skills() {
               >
                 <div className="flex items-end justify-between mb-8">
                   <h3 className="text-3xl md:text-4xl font-light text-white leading-tight">{cat.label}</h3>
-                  <span className="serif italic text-[#B8892F]/40 text-6xl font-light leading-none select-none">
+                  <span className="serif italic text-[var(--accent-gold)]/40 text-6xl font-light leading-none select-none">
                     {String(cat.count).padStart(2, "0")}
                   </span>
                 </div>
@@ -177,7 +177,7 @@ export default function Skills() {
                     <SkillTag key={`${active}-${i}`} skill={skill} />
                   ))}
                 </div>
-                <p className="mt-6 text-[10px] tracking-widest uppercase text-white/25">Hover a skill for details</p>
+                <p className="mt-6 text-label text-white/25">Hover a skill for details</p>
               </motion.div>
             </AnimatePresence>
           </div>
