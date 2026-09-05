@@ -147,10 +147,10 @@ export default function Hero() {
         className="relative z-10 grid grid-cols-2 md:grid-cols-4 bg-[var(--bg-dark)] text-white"
       >
         {[
-          { num: "80+", label: "Android Applications Assessed" },
-          { num: "40+", label: "Applications Tested with Frida" },
+          { num: "100+", label: "Android Applications Assessed" },
+          { num: "60+", label: "Applications Tested with Frida" },
           { num: "50+", label: "Vulnerability Reports" },
-          { num: "7+", label: "Development Teams Supported" },
+          { num: "10+", label: "Development Teams Supported" },
         ].map((s, i) => (
           <TiltCard
             key={i}
