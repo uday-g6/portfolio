@@ -15,13 +15,6 @@ const PROJECTS = [
     tools: ["Burp Suite", "OWASP ZAP", "Postman"],
     findings: ["Authentication & authorization review", "Broken access control testing", "BOLA / IDOR validation", "Injection and session security checks", "Endpoint and request manipulation assessment"],
   },
-  {
-    num: "03",
-    title: "SecurAI / SecureGuard",
-    desc: "Security-focused project exploring workflow structure for asset tracking, vulnerability review, and reporting in a centralized validation environment.",
-    tools: ["Python", "FastAPI", "React", "Redis", "Celery", "MongoDB/PostgreSQL", "Docker"],
-    findings: ["Asset tracking workflow", "Vulnerability review flow", "Reporting structure", "Validation-focused process design"],
-  },
 ];
 
 export default function Projects() {
