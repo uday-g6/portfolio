@@ -13,7 +13,7 @@ const TOPICS = [
 export default function OffensiveSecurity() {
   return (
     <section id="offensive-security" className="relative overflow-hidden bg-[var(--bg-paper-darker)]">
-      <div className="absolute right-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[var(--text-ink)]/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">07</div>
+      <div className="absolute right-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[var(--text-ink)]/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">03</div>
 
       <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
         <motion.div
@@ -22,7 +22,7 @@ export default function OffensiveSecurity() {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-16"
         >
-          <span className="text-label text-[var(--accent-gold)]">07 — Offensive Security</span>
+          <span className="text-label text-[var(--accent-gold)]">03 — Offensive Security</span>
           <div className="h-px w-16 bg-[var(--accent-gold-border)]" />
         </motion.div>
 

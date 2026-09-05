@@ -18,7 +18,7 @@ const CERTS = [
 export default function Certifications() {
   return (
     <section id="certifications" className="relative overflow-hidden bg-[var(--bg-paper-light)]">
-      <div className="absolute left-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[var(--text-ink)]/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">05</div>
+      <div className="absolute left-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[var(--text-ink)]/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">06</div>
 
       <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
         <motion.div
@@ -27,7 +27,7 @@ export default function Certifications() {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-16"
         >
-          <span className="text-label text-[var(--accent-gold)]">05 — Certifications</span>
+          <span className="text-label text-[var(--accent-gold)]">06 — Certifications</span>
           <div className="h-px w-16 bg-[var(--accent-gold-border)]" />
         </motion.div>
 
