@@ -2,12 +2,12 @@ import { motion } from "framer-motion";
 
 const EXPERIENCES = [
   {
-    role: "Security Test Engineer",
+    role: "Security Test Engineer (Product & Mobile Application Security)",
     company: "Wizzybox Private Limited",
     type: "Full-Time",
     domain: "Banking & Financial Domain",
     period: "Jan 2026 – Present",
-    callout: "Converted from Security Test Engineer Intern to full-time Security Test Engineer based on technical performance and delivery.",
+    callout: "Progressed from Security Test Engineer Intern to full-time Security Test Engineer based on performance and technical delivery.",
     bullets: [
       "Conduct security assessments across 100+ production Android applications, aligned to the OWASP Mobile Application Security Verification Standard (MASVS) and Mobile Testing Guide (MASTG).",
       "Perform static analysis, APK reverse engineering, dynamic analysis, runtime security testing, and vulnerability validation.",

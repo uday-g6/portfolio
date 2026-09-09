@@ -31,7 +31,7 @@ export default function About() {
             </h2>
             <div className="flex flex-col gap-5 max-w-xl">
               <p className="text-body text-[var(--text-ink-muted)]">
-                I'm an Android & Mobile Application Security Engineer, with hands-on API and web application security testing alongside. Across 100+ production Android APK assessments I've covered static analysis, APK reverse engineering, dynamic analysis, and Frida-based runtime instrumentation on live banking and financial applications.
+                I'm a Security Test Engineer working on product and mobile application security, with hands-on API and web application security testing alongside. Across 100+ production Android APK assessments I've covered static analysis, APK reverse engineering, dynamic analysis, and Frida-based runtime instrumentation on live banking and financial applications.
               </p>
               <p className="text-body text-[var(--text-ink-muted)]">
                 I go beyond automated scanning — combining manual testing, reverse engineering, runtime instrumentation, and practical vulnerability validation, then working directly with development teams to get findings understood, fixed, retested, and formally closed.
@@ -42,7 +42,7 @@ export default function About() {
               <div className="mt-2 inline-flex items-center gap-3 border border-[var(--accent-gold-border)] bg-[var(--accent-gold-muted)] px-5 py-3 self-start">
                 <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)]" />
                 <span className="text-sm text-[var(--accent-gold)] tracking-wide font-medium">
-                  Promoted from Security Test Engineer Intern to full-time Security Test Engineer based on technical performance and delivery.
+                  Progressed from Security Test Engineer Intern to full-time Security Test Engineer based on performance and technical delivery.
                 </span>
               </div>
             </div>

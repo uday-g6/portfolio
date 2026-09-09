@@ -6,7 +6,7 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 const TERMINAL_LINES = [
   { type: "prompt", text: "$ whoami" },
   { type: "output", text: "uday@security:~$ role" },
-  { type: "output", text: "Android & Mobile Application Security Engineer" },
+  { type: "output", text: "Security Test Engineer · Product & Mobile Application Security" },
   { type: "prompt", text: "uday@security:~$ focus" },
   { type: "output", text: "Android APK Security Testing" },
   { type: "output", text: "Mobile VAPT · Frida · Reverse Engineering" },
@@ -75,7 +75,7 @@ export default function TerminalVisual({
         ${className}
       `}
       role="img"
-      aria-label="Terminal showing security engineer profile"
+      aria-label="Terminal showing security test engineer profile"
     >
       {/* Terminal header */}
       <div className="flex items-center gap-2 px-4 py-3 bg-[var(--bg-dark-elevated)] border-b border-[var(--border-thin-dark)]">

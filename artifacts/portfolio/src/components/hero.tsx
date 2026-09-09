@@ -40,7 +40,7 @@ export default function Hero() {
             transition={{ duration: 0.6 }}
             className="text-label text-[var(--accent-gold)]"
           >
-            Android & Mobile Application Security | VAPT | Application Security
+            Security Test Engineer | Android & Mobile Application Security | VAPT | API Security
           </motion.p>
           <motion.div
             initial={{ opacity: 0, x: 16 }}
@@ -69,7 +69,7 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.35 }}
             className="mt-6 text-[var(--text-ink-muted)] text-xl md:text-2xl font-light tracking-wide max-w-2xl"
           >
-            Android & Mobile Application Security Engineer
+            Security Test Engineer (Product & Mobile Application Security)
           </motion.p>
 
           <motion.p
@@ -78,7 +78,7 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.45 }}
             className="mt-5 text-[var(--text-ink-muted)] text-lg md:text-xl font-light tracking-wide max-w-3xl"
           >
-            Android APK Security Testing | Mobile VAPT | Frida & Runtime Instrumentation | APK Reverse Engineering | API Security Testing | Burp Suite | OWASP MASVS
+            Android APK Security Testing | Mobile VAPT / Penetration Testing | Frida & Runtime Instrumentation | APK Reverse Engineering | API Security Testing | Burp Suite | OWASP MASVS
           </motion.p>
         </div>
 
@@ -90,7 +90,7 @@ export default function Hero() {
           className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8 border-t border-[var(--border-thin)] pt-8"
         >
           <p className="text-[var(--text-ink-muted)] text-sm md:text-base leading-[1.85] font-light max-w-md">
-            I'm an Android & Mobile Application Security Engineer focused on finding, validating, and helping remediate vulnerabilities in production Android applications — with API and web security testing alongside. My work combines APK reverse engineering, static and dynamic analysis, Frida-based runtime instrumentation, and hands-on vulnerability validation for banking and financial applications.
+            I'm a Security Test Engineer working across product and mobile application security, with API and web application security testing alongside. My work covers the full VAPT lifecycle — testing to find and validate vulnerabilities, coordinating fixes with developers, retesting to verify closure, and preparing the final CVSS-rated report — combining APK reverse engineering, static and dynamic analysis, and Frida-based runtime instrumentation for banking and financial applications.
           </p>
 
           <div className="flex flex-col gap-4 items-start md:items-end shrink-0">
