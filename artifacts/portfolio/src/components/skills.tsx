@@ -2,81 +2,83 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const SKILL_TIPS: Record<string, string> = {
-  "Android APK Security Testing": "Full lifecycle security testing of Android apps — static, dynamic, and API layers",
+  "Android APK Security Testing": "Full-lifecycle security testing of production Android apps — static, dynamic, runtime, and API layers",
+  "Mobile VAPT": "Vulnerability assessment and penetration testing of Android applications against MASVS / Mobile Top 10",
+  "OWASP MASVS / MASTG": "Assessments mapped to the Mobile Application Security Verification Standard and Testing Guide",
   "APK Reverse Engineering": "Decompile APKs with JADX & Apktool to expose logic, keys, and hidden endpoints",
-  "Static Analysis": "Source-level review for insecure storage, hardcoded secrets, and dangerous permissions",
-  "Dynamic Analysis": "Runtime testing with live traffic interception and behavioural observation",
-  "SSL Pinning Validation / Bypass Testing": "Custom Frida scripts to bypass certificate pinning on banking APKs",
-  "Root Detection Testing / Bypass Validation": "Hook root-check routines at runtime to enable testing on rooted devices",
-  "Certificate Validation Testing": "Override cert validation logic to intercept HTTPS traffic",
-  "Frida Instrumentation": "JavaScript-based runtime hooking to modify app behaviour on the fly",
+  "Smali / Bytecode Analysis": "Read and patch Dalvik bytecode via Apktool to understand and modify app behaviour",
+  "Static Analysis": "Source- and bytecode-level review for insecure storage, hardcoded secrets, and dangerous permissions",
+  "Dynamic Analysis": "Runtime testing with live traffic interception and behavioural observation on device / emulator",
+  "Frida": "Dynamic instrumentation toolkit — core tool for Android runtime hooking",
+  "Frida Instrumentation": "Custom JavaScript hooks to observe and modify app behaviour at runtime",
+  "Objection": "Frida-powered runtime mobile exploration — bypasses, storage inspection, and method hooking",
+  "Drozer": "Android attack-surface framework for exported components, IPC, and content-provider testing",
+  "Genymotion": "Android emulator used for dynamic testing and instrumentation",
   "Runtime Instrumentation": "Inject logic into running processes without modifying the APK",
+  "SSL Pinning Bypass": "Custom Frida / Objection hooks to defeat certificate pinning and intercept HTTPS traffic",
+  "Root Detection Bypass": "Hook root-check routines at runtime to enable testing on rooted devices",
+  "Certificate Pinning Testing": "Verify pinning implementation and test its resilience to runtime tampering",
   "MobSF": "Automated static & dynamic analysis framework for mobile applications",
   "JADX": "Java decompiler for reading APK source code and identifying vulnerabilities",
-  "Apktool": "Decode and rebuild APKs for deep inspection and smali-level patching",
+  "Apktool": "Decode and rebuild APKs for deep inspection and smali-level analysis",
   "ADB": "Android Debug Bridge for device interaction, log capture, and file extraction",
-  "Android Studio": "IDE used for building test harnesses and emulator-based dynamic testing",
+  "Android Component Security": "Test exported activities, services, receivers, providers, and deep links",
   "Web Application Penetration Testing": "End-to-end OWASP-aligned testing of web apps and their backends",
   "OWASP Top 10": "Systematic coverage of the 10 most critical web application risks",
   "SQL Injection": "Payload crafting to extract data or bypass authentication via SQL flaws",
   "Cross-Site Scripting (XSS)": "Identify and exploit reflected, stored, and DOM-based XSS",
   "CSRF Testing": "Verify token implementation and SameSite cookie enforcement",
   "Broken Access Control": "Test horizontal and vertical privilege escalation across endpoints",
-  "Authentication Testing": "Credential brute-force, token entropy, and session fixation checks",
-  "Session Management": "Analyse session lifecycle, expiry, fixation, and cookie flags",
+  "Authentication Testing": "Credential handling, token entropy, session fixation, and MFA logic checks",
+  "Authorization Testing": "Verify role and object-level access controls across users and endpoints",
+  "Session Security": "Analyse session lifecycle, expiry, fixation, and cookie flags",
   "IDOR Testing": "Identify insecure direct object references that expose other users' data",
-  "BOLA Testing": "Broken Object Level Authorisation — top API security risk per OWASP",
-  "API Security Testing": "REST endpoint enumeration, auth bypass, and data exposure checks",
+  "BOLA / IDOR": "Broken Object Level Authorisation — the top API security risk per OWASP",
+  "BOLA Testing": "Broken Object Level Authorisation — the top API security risk per OWASP",
+  "API Security": "Auth, access-control, and data-exposure testing of REST APIs",
+  "API Security Testing": "REST endpoint enumeration, auth bypass, and data-exposure checks",
   "REST API Security": "Test API contracts for over-exposure, auth gaps, and injection points",
-  "Burp Suite": "Primary interception proxy for manual web and API penetration testing",
-  "OWASP ZAP": "Open-source scanner for automated and manual web application testing",
-  "OWASP Mobile Top 10": "Full M1–M10 coverage on every mobile application assessment",
+  "OWASP API Security Top 10": "Systematic coverage of the top API-specific risks",
+  "Burp Suite": "Primary interception proxy for manual web, mobile, and API testing",
+  "OWASP ZAP": "Open-source proxy/scanner for web and API testing",
+  "Postman": "API request crafting and workflow testing",
+  "OWASP Mobile Top 10": "M1–M10 coverage on every mobile application assessment",
   "CVSS Scoring": "Assign standardised severity scores to each finding for prioritisation",
-  "CVE Analysis": "Research known CVEs to assess exploitability in client environments",
+  "CWE Classification": "Map each finding to its Common Weakness Enumeration category",
   "Vulnerability Assessment": "Systematic identification and classification of security weaknesses",
-  "Penetration Testing Methodology": "Structured approach: recon → enum → exploit → report",
+  "Vulnerability Validation": "Manual confirmation and proof-of-concept for every reported finding",
+  "Security Reporting": "CVSS-rated, reproducible vulnerability reports with remediation guidance",
+  "Developer Remediation Support": "Explain findings, guide fixes, retest, and formally close vulnerabilities",
   "Secure SDLC": "Embedding security checkpoints across the software development lifecycle",
-  "Threat Modelling": "Identify attack surfaces and prioritise controls using STRIDE/DREAD",
-  "Secure Code Review": "Manual review of source code for logic flaws and insecure patterns",
-  "SAST": "Static Application Security Testing — automated code-level vulnerability scanning",
-  "DAST": "Dynamic Application Security Testing — black-box runtime scanning",
-  "Security Reporting": "CVSS-rated, reproducible vulnerability reports with remediation steps",
-  "Frida": "Dynamic instrumentation toolkit — core tool for mobile runtime hooking",
-  "Nmap": "Network scanner for host discovery, port scanning, and service detection",
-  "Wireshark": "Packet analyser for inspecting unencrypted protocol traffic",
-  "Metasploit": "Exploitation framework used in lab and CTF environments",
-  "Kali Linux": "Primary penetration testing OS for tooling and lab work",
-  "Ubuntu": "Server OS used for hosting test environments and automation scripts",
-  "Linux CLI": "Command-line proficiency for scripting, log analysis, and tool automation",
-  "Bash Scripting": "Automate enumeration, reporting, and test workflows",
-  "Python": "Scripting for custom payloads, automation, and data processing",
-  "Git": "Version control for managing scripts, reports, and config files",
+  "Web Application Security": "Manual, OWASP-aligned testing of web applications and their APIs",
+  "Application Security": "Finding, validating, and helping remediate vulnerabilities in applications",
+  "Security Misconfiguration": "Identify weak defaults, exposed interfaces, and missing hardening",
+  "Python": "Scripting for automation, custom checks, and data processing",
+  "Bash": "Automate enumeration, reporting, and test workflows",
+  "Linux CLI": "Command-line proficiency for tooling, log analysis, and automation",
+  "Git": "Version control for scripts, reports, and configuration",
 };
 
 const CATEGORIES = [
   {
-    id: "application", label: "Application Security", count: 8,
-    skills: ["Application Security", "Web Application Security", "API Security", "Authentication Testing", "Authorization Testing", "Broken Access Control", "Session Security", "Security Reporting"],
+    id: "mobile", label: "Android & Mobile Security",
+    skills: ["Android APK Security Testing", "Mobile VAPT", "OWASP MASVS / MASTG", "APK Reverse Engineering", "Frida", "Objection", "Drozer", "Genymotion", "SSL Pinning Bypass", "Root Detection Bypass", "Certificate Pinning Testing", "Android Component Security", "Static Analysis", "Dynamic Analysis", "JADX", "Apktool", "MobSF", "ADB"],
   },
   {
-    id: "mobile", label: "Android & Mobile Security", count: 9,
-    skills: ["Android APK Security Testing", "APK Reverse Engineering", "Static Analysis", "Dynamic Analysis", "Frida", "Frida Instrumentation", "JADX", "Apktool", "MobSF"],
+    id: "reverse", label: "Reverse Engineering & Instrumentation",
+    skills: ["APK Reverse Engineering", "Smali / Bytecode Analysis", "Frida", "Frida Instrumentation", "Objection", "Runtime Instrumentation", "JADX", "Apktool"],
   },
   {
-    id: "api", label: "API Security", count: 7,
-    skills: ["API Security", "API Security Testing", "Authentication Testing", "Authorization Testing", "BOLA / IDOR", "Broken Access Control", "Session Security"],
+    id: "api", label: "API Security",
+    skills: ["API Security", "API Security Testing", "REST API Security", "OWASP API Security Top 10", "BOLA / IDOR", "Authentication Testing", "Authorization Testing", "Broken Access Control", "Session Security"],
   },
   {
-    id: "vapt", label: "Web VAPT", count: 8,
-    skills: ["Web Application Penetration Testing", "Web Application Security", "SQL Injection", "Cross-Site Scripting (XSS)", "CSRF Testing", "Security Misconfiguration", "Vulnerability Assessment", "Vulnerability Validation"],
+    id: "vapt", label: "Web Application VAPT",
+    skills: ["Web Application Penetration Testing", "Web Application Security", "OWASP Top 10", "SQL Injection", "Cross-Site Scripting (XSS)", "CSRF Testing", "Security Misconfiguration", "Vulnerability Assessment", "Vulnerability Validation"],
   },
   {
-    id: "offensive", label: "Offensive Security Testing", count: 5,
-    skills: ["Offensive Security Testing", "Vulnerability Discovery", "Exploitation", "Privilege Escalation Testing", "Authentication Attacks"],
-  },
-  {
-    id: "reverse", label: "Reverse Engineering", count: 7,
-    skills: ["Reverse Engineering", "APK Reverse Engineering", "Frida", "Frida Instrumentation", "JADX", "Apktool", "Runtime Instrumentation"],
+    id: "reporting", label: "Assessment & Reporting",
+    skills: ["Vulnerability Assessment", "Vulnerability Validation", "CVSS Scoring", "CWE Classification", "Security Reporting", "Developer Remediation Support", "Secure SDLC", "Burp Suite", "OWASP ZAP", "Postman", "Python", "Bash"],
   },
 ];
 
@@ -151,7 +153,7 @@ export default function Skills() {
                   {active === c.id && <span className="w-6 h-px bg-[var(--accent-gold)] shrink-0" />}
                   <span className="text-sm tracking-wide whitespace-nowrap">{c.label}</span>
                 </div>
-                <span className={`w-8 text-right text-xs ${active === c.id ? "text-[var(--accent-gold)]" : "text-white/35"}`}>{c.count}</span>
+                <span className={`w-8 text-right text-xs ${active === c.id ? "text-[var(--accent-gold)]" : "text-white/35"}`}>{c.skills.length}</span>
               </button>
             ))}
           </div>
@@ -169,7 +171,7 @@ export default function Skills() {
                 <div className="flex items-end justify-between mb-8">
                   <h3 className="text-3xl md:text-4xl font-light text-white leading-tight">{cat.label}</h3>
                   <span className="serif italic text-[var(--accent-gold)]/40 text-6xl font-light leading-none select-none">
-                    {String(cat.count).padStart(2, "0")}
+                    {String(cat.skills.length).padStart(2, "0")}
                   </span>
                 </div>
                 <div className="flex flex-wrap gap-2">

@@ -3,17 +3,17 @@ import { motion } from "framer-motion";
 const EXPERIENCES = [
   {
     role: "Security Test Engineer",
-    company: "WizzyBox Private Limited",
+    company: "Wizzybox Private Limited",
     type: "Full-Time",
     domain: "Banking & Financial Domain",
     period: "Jan 2026 – Present",
-    callout: "Promoted from Security Test Engineer Intern to full-time Security Test Engineer based on technical performance and delivery.",
+    callout: "Converted from Security Test Engineer Intern to full-time Security Test Engineer based on technical performance and delivery.",
     bullets: [
-      "Conduct security assessments across 100+ production Android applications.",
+      "Conduct security assessments across 100+ production Android applications, aligned to the OWASP Mobile Application Security Verification Standard (MASVS) and Mobile Testing Guide (MASTG).",
       "Perform static analysis, APK reverse engineering, dynamic analysis, runtime security testing, and vulnerability validation.",
-      "Develop and use custom Frida instrumentation across 60+ applications.",
-      "Test SSL pinning, root detection, certificate validation, anti-hooking mechanisms, runtime behavior, and other security controls.",
-      "Perform APK reverse engineering using JADX and Apktool.",
+      "Develop and use custom Frida instrumentation — with Objection — across 60+ applications; test on Genymotion and physical devices.",
+      "Test SSL pinning, root detection, certificate validation, anti-hooking mechanisms, runtime behavior, and other client-side security controls.",
+      "Perform APK reverse engineering using JADX and Apktool; assess exported components and IPC attack surface with Drozer.",
       "Analyze Android components, application logic, security configurations, hardcoded secrets, data storage, and cryptographic implementations.",
       "Conduct web application and API VAPT using Burp Suite, OWASP ZAP, and Postman.",
       "Test authentication, authorization, broken access control, BOLA/IDOR, injection vulnerabilities, session security, and API security.",
@@ -23,10 +23,10 @@ const EXPERIENCES = [
   },
   {
     role: "Security Test Engineer Intern",
-    company: "WizzyBox Private Limited",
+    company: "Wizzybox Private Limited",
     type: "Internship",
     domain: "",
-    period: "Apr 2025 – Aug 2025",
+    period: "Apr 2025 – Dec 2025",
     callout: "",
     bullets: [
       "Performed Android application security testing using MobSF, JADX, Apktool, and Burp Suite.",

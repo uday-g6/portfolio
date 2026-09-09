@@ -1,18 +1,14 @@
 import { motion } from "framer-motion";
 
 const CERTS = [
-  { title: "Cybersecurity and Cloud Fundamentals 1.0", issuer: "Fortinet Training Institute", year: "2025" },
-  { title: "Introduction to Critical Infrastructure Protection", issuer: "OPSWAT Academy", year: "2025" },
-  { title: "Learning the OWASP Top 10", issuer: "LinkedIn", year: "2025" },
-  { title: "The OWASP API Security Top 10: An Overview", issuer: "LinkedIn", year: "2025" },
-  { title: "Penetration Testing and Ethical Hacking", issuer: "LinkedIn", year: "2025" },
-  { title: "Cybersecurity Awareness: Cybersecurity Terminology", issuer: "LinkedIn", year: "2025" },
+  { title: "Ethical Hacking & CTF", issuer: "IIT (ISM) Dhanbad — ChES", year: "2024" },
+  { title: "Cybersecurity and Cloud Fundamentals 1.0", issuer: "Fortinet Training Institute", year: "2026" },
+  { title: "Introduction to Critical Infrastructure Protection", issuer: "OPSWAT Academy", year: "2026" },
+  { title: "Penetration Testing and Ethical Hacking", issuer: "LinkedIn Learning", year: "2026" },
+  { title: "Learning the OWASP Top 10", issuer: "LinkedIn Learning", year: "2026" },
+  { title: "OWASP API Security Top 10", issuer: "LinkedIn Learning", year: "2026" },
   { title: "Cybersecurity Fundamentals", issuer: "IBM", year: "2025" },
   { title: "Introduction to Cybersecurity", issuer: "Cisco Networking Academy", year: "2025" },
-  { title: "Mastercard Cybersecurity Job Simulation", issuer: "Forage", year: "2025" },
-  { title: "Deloitte Australia Cyber Job Simulation", issuer: "Forage", year: "2025" },
-  { title: "Tata Cybersecurity Analyst Job Simulation", issuer: "Forage", year: "2025" },
-  { title: "Ethical Hacking & Cyber Security with CTF", issuer: "ChES IIT (ISM) Dhanbad", year: "2024" },
 ];
 
 export default function Certifications() {

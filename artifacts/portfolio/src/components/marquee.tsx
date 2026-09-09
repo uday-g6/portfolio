@@ -1,8 +1,8 @@
 const items = [
-  "Android APK Security", "Frida Instrumentation", "SSL Pinning Bypass",
-  "OWASP Mobile Top 10", "Burp Suite", "VAPT", "Reverse Engineering",
-  "BOLA Testing", "IDOR", "CVSS Reporting", "MobSF", "Root Detection Bypass",
-  "API Penetration Testing", "Static Analysis", "Dynamic Analysis", "Kali Linux",
+  "Android APK Security", "Mobile VAPT", "Frida Instrumentation", "Objection",
+  "SSL Pinning Bypass", "Root Detection Bypass", "OWASP MASVS / MASTG", "Drozer",
+  "APK Reverse Engineering", "JADX", "Apktool", "MobSF", "Burp Suite",
+  "API Security Testing", "BOLA / IDOR", "CVSS Reporting", "Static Analysis", "Dynamic Analysis",
 ];
 
 export default function Marquee() {

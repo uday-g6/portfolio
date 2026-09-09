@@ -9,7 +9,7 @@ export default function Footer() {
           <span className="font-display text-lg font-light text-white">Uday G</span>
           <span className="text-white/15">·</span>
           <span className="text-label text-white/50 font-medium">
-            Security Engineer | Application Security | Offensive Security
+            Android & Mobile Application Security | VAPT | Application Security
           </span>
         </div>
         <p className="text-label text-white/40 tracking-widest uppercase order-last sm:order-none">

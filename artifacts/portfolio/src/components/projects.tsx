@@ -3,17 +3,17 @@ import { motion } from "framer-motion";
 const PROJECTS = [
   {
     num: "01",
-    title: "Android Application Security Testing & APK Reverse Engineering",
-    desc: "Hands-on Android security assessment work covering APK static analysis, reverse engineering, dynamic testing, runtime instrumentation, and validation of Android security controls.",
-    tools: ["MobSF", "JADX", "Apktool", "Frida", "Burp Suite", "Android Studio"],
-    findings: ["SSL Pinning", "Root Detection", "Emulator Detection", "Proxy Detection", "Anti-Hooking", "Application Integrity", "Exported Components", "Secure Storage"],
+    title: "Production Android APK Security Assessments — Banking & Financial",
+    desc: "Ongoing security assessment programme covering 100+ production Android applications for a banking and financial services client. Each assessment maps to the OWASP MASVS / MASTG and Mobile Top 10 — static analysis, APK reverse engineering, dynamic analysis, and Frida-based runtime instrumentation — followed by CVSS-rated reporting and remediation support with the development teams.",
+    tools: ["MobSF", "JADX", "Apktool", "Frida", "Objection", "Drozer", "Genymotion", "Burp Suite"],
+    findings: ["SSL pinning bypass", "Root & emulator detection bypass", "Anti-hooking & integrity checks", "Insecure data storage", "Hardcoded secrets & API keys", "Exported components & IPC", "Weak cryptography", "Client-side control gaps"],
   },
   {
     num: "02",
-    title: "API Security & Web Application VAPT",
-    desc: "Practical web and API security testing based on OWASP methodologies, covering authentication, authorization, broken access control, BOLA/IDOR, injection, session security, endpoint security, and HTTP request manipulation.",
+    title: "API & Web Application VAPT — Banking Backends",
+    desc: "OWASP-aligned penetration testing of the REST APIs and web applications behind the mobile banking apps: authentication and authorization logic, broken access control, BOLA/IDOR, injection, session security, and request manipulation — with every finding manually validated and reported.",
     tools: ["Burp Suite", "OWASP ZAP", "Postman"],
-    findings: ["Authentication & authorization review", "Broken access control testing", "BOLA / IDOR validation", "Injection and session security checks", "Endpoint and request manipulation assessment"],
+    findings: ["BOLA / IDOR in account & transaction endpoints", "Authentication & authorization bypass testing", "Broken access control", "Injection & input-validation flaws", "Session lifecycle & token security"],
   },
 ];
 

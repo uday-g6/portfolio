@@ -58,7 +58,7 @@ export default function Contact() {
               Let's Connect
             </h2>
             <p className="text-body text-white/70 mb-12 max-w-sm">
-              Interested in application security, offensive security, mobile security, vulnerability research, or secure product development? I'm always open to connecting with security professionals, recruiters, engineering teams, and potential collaborators.
+              Hiring for Android / mobile application security, VAPT, or application security in Bengaluru? I'm open to connecting with recruiters, security teams, and engineering leaders. Available on a 90-day notice period.
             </p>
 
             <div className="flex flex-col gap-0">

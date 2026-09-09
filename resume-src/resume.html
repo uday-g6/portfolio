@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Uday G — Resume</title>
+<style>
+  @page { size: A4; margin: 9mm 11mm 8mm 11mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 9pt; line-height: 1.24; color: #1a1a1a;
+  }
+  h1 { font-size: 18pt; letter-spacing: 0.5px; font-weight: 700; }
+  .title { font-size: 9pt; color: #333; margin-top: 2px; font-weight: 600; }
+  .contact { font-size: 8.3pt; color: #444; margin-top: 2px; }
+  h2 {
+    font-size: 8.8pt; text-transform: uppercase; letter-spacing: 1px;
+    font-weight: 700; color: #0b3d5c;
+    border-bottom: 1px solid #0b3d5c; padding-bottom: 1.5px; margin: 7px 0 3px;
+  }
+  .row { display: flex; justify-content: space-between; align-items: baseline; }
+  .role { font-weight: 700; font-size: 9.4pt; }
+  .org { font-style: italic; color: #333; }
+  .meta { font-size: 8.3pt; color: #555; white-space: nowrap; }
+  ul { list-style: none; margin: 1.5px 0 3px; }
+  li { position: relative; padding-left: 9px; margin-bottom: 1px; }
+  li::before { content: "\2013"; position: absolute; left: 0; color: #0b3d5c; }
+  .skills p { margin-bottom: 2px; }
+  .skills b, .edu b { color: #0b3d5c; }
+  .certs { font-size: 8.5pt; line-height: 1.32; }
+  .promo { font-style: italic; color: #333; margin: 1px 0 2px; }
+  .summary { text-align: justify; }
+</style>
+</head>
+<body>
+
+<h1>UDAY G</h1>
+<div class="title">Android &amp; Mobile Application Security Engineer &nbsp;&middot;&nbsp; Mobile VAPT &nbsp;&middot;&nbsp; Application &amp; API Security</div>
+<div class="contact">
+  udaygopalakrishna@gmail.com &nbsp;&middot;&nbsp; +91 7899169395 &nbsp;&middot;&nbsp; Bengaluru, India
+  &nbsp;&middot;&nbsp; linkedin.com/in/uday-g- &nbsp;&middot;&nbsp; udayg.netlify.app
+</div>
+
+<h2>Summary</h2>
+<p class="summary">
+Android &amp; Mobile Application Security Engineer with production experience across <b>100+ Android APK security assessments</b> for a banking
+and financial services client &mdash; static analysis, APK reverse engineering, dynamic analysis, and runtime testing mapped to OWASP MASVS / MASTG
+and the Mobile Top 10. Specialist in <b>Frida-based runtime instrumentation</b>, deployed with Objection across <b>60+ production applications</b> to
+bypass SSL pinning, root and emulator detection, certificate validation, and anti-hooking controls. Findings delivered as <b>50+ CVSS-rated reports</b>
+and driven to closure with <b>10+ development teams</b>. Converted from intern to full-time Security Test Engineer on performance.
+</p>
+
+<h2>Technical Skills</h2>
+<div class="skills">
+  <p><b>Android &amp; Mobile Security:</b> Android APK Security Testing, Mobile VAPT, OWASP MASVS / MASTG, OWASP Mobile Top 10, APK Reverse Engineering,
+  Static &amp; Dynamic Analysis, Frida Instrumentation &amp; Hooking, Objection, Drozer, SSL Pinning Bypass, Root &amp; Emulator Detection Bypass,
+  Certificate Pinning Testing, Anti-Hooking &amp; Integrity Checks, Android Component &amp; IPC Security, Insecure Data Storage Analysis,
+  JADX, Apktool, MobSF, Genymotion, ADB</p>
+  <p><b>Web &amp; API Security:</b> Web Application Penetration Testing, API Security Testing, REST API Security, OWASP Top 10, OWASP API Security Top 10,
+  Burp Suite Professional, OWASP ZAP, Postman, BOLA / IDOR, Broken Access Control, Authentication &amp; Authorization Testing, SQL Injection, XSS, CSRF,
+  Session Security, JWT Testing</p>
+  <p><b>Vulnerability Management &amp; Reporting:</b> Vulnerability Identification &amp; Validation, CVSS Scoring, CWE Classification, Proof-of-Concept
+  Development, Security Assessment Reporting, Remediation Coordination, Retesting &amp; Finding Closure, Developer Collaboration, Secure SDLC</p>
+  <p><b>Scripting &amp; Environment:</b> Python, Bash, JavaScript, Linux CLI, Git</p>
+</div>
+
+<h2>Professional Experience</h2>
+<div class="row">
+  <span class="role">Security Test Engineer</span>
+  <span class="meta">Jan 2026 &ndash; Present</span>
+</div>
+<div class="row">
+  <span class="org">Wizzybox Private Limited &nbsp;&middot;&nbsp; Client: Banking &amp; Financial Services (Ongoing)</span>
+  <span class="meta">Bengaluru, India &middot; Full-Time</span>
+</div>
+<p class="promo">Converted from Security Test Engineer Intern to full-time based on performance and technical delivery.</p>
+<ul>
+  <li>Completed 100+ production Android APK security assessments &mdash; static analysis, APK reverse engineering, dynamic analysis, runtime security testing,
+  and API security assessment &mdash; on live banking applications, mapped to OWASP MASVS / MASTG and the Mobile Top 10.</li>
+  <li>Built custom Frida instrumentation and used Objection across 60+ production applications to bypass SSL pinning, root and emulator detection, certificate
+  validation, and anti-hooking controls &mdash; enabling full runtime and API traffic analysis; tested on Genymotion and physical devices.</li>
+  <li>Reverse-engineered APKs with JADX and Apktool; assessed exported components, IPC, and content-provider attack surface with Drozer; reviewed application
+  logic, hardcoded secrets, insecure data storage, and cryptographic configuration.</li>
+  <li>Ran MobSF static analysis and Burp Suite dynamic / API testing &mdash; identified BOLA, IDOR, authentication and authorization weaknesses, insecure data
+  handling, injection, and broken access control across banking REST APIs.</li>
+  <li>Authored 50+ CVSS-rated assessment reports with technical evidence, PoC steps, CWE classification, and developer-ready remediation guidance for client
+  and banking stakeholders.</li>
+  <li>Worked with 10+ development teams on vulnerability triage, remediation guidance, retesting of fixed builds, and formal closure &mdash; owning the
+  finding-to-closure lifecycle across release cycles.</li>
+</ul>
+
+<div class="row">
+  <span class="role">Security Test Engineer Intern</span>
+  <span class="meta">Apr 2025 &ndash; Dec 2025</span>
+</div>
+<div class="row">
+  <span class="org">Wizzybox Private Limited</span>
+  <span class="meta">Bengaluru, India &middot; Internship</span>
+</div>
+<ul>
+  <li>Performed Android application security testing with MobSF, JADX, Apktool, and Burp Suite &mdash; static analysis, configuration review, and Android
+  security-control testing on production applications.</li>
+  <li>Identified insecure data storage, hardcoded credentials, exported Android components, and misconfigured broadcast receivers; documented findings with
+  reproduction steps and remediation recommendations.</li>
+  <li>Supported API security testing and dynamic analysis before converting to the full-time Security Test Engineer role.</li>
+</ul>
+
+<h2>Certifications</h2>
+<p class="certs">
+Ethical Hacking &amp; CTF &mdash; IIT (ISM) Dhanbad, ChES (2024) &nbsp;&middot;&nbsp;
+Cybersecurity and Cloud Fundamentals 1.0 &mdash; Fortinet Training Institute (2026) &nbsp;&middot;&nbsp;
+Introduction to Critical Infrastructure Protection &mdash; OPSWAT Academy (2026) &nbsp;&middot;&nbsp;
+Penetration Testing and Ethical Hacking; Learning the OWASP Top 10; OWASP API Security Top 10 &mdash; LinkedIn Learning (2026) &nbsp;&middot;&nbsp;
+Cybersecurity Fundamentals &mdash; IBM (2025) &nbsp;&middot;&nbsp;
+Introduction to Cybersecurity &mdash; Cisco Networking Academy (2025)
+</p>
+
+<h2>Education</h2>
+<div class="row edu">
+  <span><b>B.E., Computer Science &amp; Engineering</b> &nbsp;&middot;&nbsp; Maharaja Institute of Technology, Mysuru (VTU)</span>
+  <span class="meta">2021 &ndash; 2025 &middot; CGPA 7.2 / 10</span>
+</div>
+
+</body>
+</html>

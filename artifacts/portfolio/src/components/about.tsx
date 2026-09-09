@@ -31,13 +31,13 @@ export default function About() {
             </h2>
             <div className="flex flex-col gap-5 max-w-xl">
               <p className="text-body text-[var(--text-ink-muted)]">
-                I'm a Security Engineer specializing in Application Security, Android & Mobile Security, API Security, Web Application Security, and VAPT.
+                I'm an Android & Mobile Application Security Engineer, with hands-on API and web application security testing alongside. Across 100+ production Android APK assessments I've covered static analysis, APK reverse engineering, dynamic analysis, and Frida-based runtime instrumentation on live banking and financial applications.
               </p>
               <p className="text-body text-[var(--text-ink-muted)]">
-                I'm passionate about understanding how applications work, thinking like an attacker, finding security weaknesses, and helping engineering teams build more secure products. I enjoy going beyond automated scanning by combining manual testing, reverse engineering, dynamic analysis, runtime instrumentation, and practical vulnerability validation.
+                I go beyond automated scanning — combining manual testing, reverse engineering, runtime instrumentation, and practical vulnerability validation, then working directly with development teams to get findings understood, fixed, retested, and formally closed.
               </p>
               <p className="text-body text-[var(--text-ink-muted)]">
-                Currently, I work as a Security Test Engineer at WizzyBox Private Limited, where I perform security assessments for banking and financial applications.
+                I currently work as a Security Test Engineer at Wizzybox Private Limited, performing security assessments for a banking and financial services client.
               </p>
               <div className="mt-2 inline-flex items-center gap-3 border border-[var(--accent-gold-border)] bg-[var(--accent-gold-muted)] px-5 py-3 self-start">
                 <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)]" />
@@ -60,11 +60,11 @@ export default function About() {
               <p className="text-label text-[var(--accent-gold)] font-medium mb-5">Domain Expertise</p>
               <ul className="flex flex-col">
                 {[
-                  "Application Security",
-                  "Android & Mobile Security",
-                  "API Security",
+                  "Android & Mobile Application Security",
+                  "APK Reverse Engineering",
+                  "Frida & Runtime Instrumentation",
+                  "API Security Testing",
                   "Web Application Security",
-                  "Reverse Engineering",
                   "Vulnerability Reporting & Remediation",
                 ].map((item, i) => (
                   <li key={i} className="group py-3.5 border-b border-[var(--border-thin)] text-base text-[var(--text-ink-muted)] flex items-center justify-between hover:text-[var(--text-ink)] transition-colors cursor-default">

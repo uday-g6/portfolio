@@ -47,3 +47,7 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+
+# local working files (not for the public repo)
+photo.png
+/Uday_G.pdf

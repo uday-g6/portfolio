@@ -2,12 +2,13 @@ import { motion } from "framer-motion";
 
 const TOPICS = [
   "Web Application Penetration Testing",
-  "API Security Testing",
+  "REST API Security Testing",
   "Authentication & Authorization Testing",
+  "BOLA / IDOR & Broken Access Control",
+  "Injection & Session Security",
   "Vulnerability Discovery & Validation",
   "Burp Suite",
-  "OWASP ZAP",
-  "Nmap",
+  "OWASP ZAP & Postman",
 ];
 
 export default function OffensiveSecurity() {
@@ -22,7 +23,7 @@ export default function OffensiveSecurity() {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-16"
         >
-          <span className="text-label text-[var(--accent-gold)]">03 — Offensive Security</span>
+          <span className="text-label text-[var(--accent-gold)]">03 — Web & API Security</span>
           <div className="h-px w-16 bg-[var(--accent-gold-border)]" />
         </motion.div>
 
@@ -34,14 +35,14 @@ export default function OffensiveSecurity() {
             className="flex flex-col gap-6"
           >
             <h3 className="font-display font-light text-4xl md:text-5xl leading-[1.1] tracking-tight text-[var(--text-ink)]">
-              Offensive Security
+              Web & API Security
             </h3>
             <p className="text-body text-[var(--text-ink-muted)] max-w-xl">
-              My offensive security approach focuses on understanding attack surfaces, identifying weaknesses, validating exploitability in authorized environments, and communicating risk clearly.
+              Alongside Android work, I run OWASP-aligned web and API penetration testing on the banking backends behind the mobile apps — authentication and authorization, broken access control, BOLA/IDOR, injection, and session security — then validate and report every finding.
             </p>
             <div className="border border-[var(--accent-gold-border)] bg-[var(--accent-gold-muted)] px-5 py-4 self-start">
               <p className="text-label text-[var(--accent-gold)] font-medium">
-                All offensive security activities are performed only in authorized environments.
+                All security testing is performed only in authorized environments.
               </p>
             </div>
           </motion.div>
