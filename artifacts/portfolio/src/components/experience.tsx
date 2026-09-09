@@ -26,7 +26,7 @@ const EXPERIENCES = [
     company: "Wizzybox Private Limited",
     type: "Internship",
     domain: "",
-    period: "Apr 2025 – Dec 2025",
+    period: "Apr 2025 – Aug 2025",
     callout: "",
     bullets: [
       "Performed Android application security testing using MobSF, JADX, Apktool, and Burp Suite.",
