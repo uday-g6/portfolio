@@ -27,6 +27,13 @@ export default function Hero() {
         aria-hidden="true"
         className="pointer-events-none absolute -top-40 right-[-10%] h-[520px] w-[520px] rounded-full bg-[radial-gradient(closest-side,rgba(45,212,191,0.12),transparent)]"
       />
+      {/* Decorative watermark — very low contrast, behind all content */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-[38%] -translate-y-1/2 select-none overflow-hidden whitespace-nowrap text-center font-semibold uppercase leading-none tracking-[0.04em] text-white/[0.035] text-[clamp(2.25rem,9.5vw,8.75rem)] lg:top-[46%]"
+      >
+        Cybersecurity
+      </span>
       <div className="container-x relative pt-28 pb-14 md:pt-36 md:pb-20">
         <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
           <div>

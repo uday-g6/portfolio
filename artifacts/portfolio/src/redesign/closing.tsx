@@ -69,7 +69,7 @@ export function Contact() {
     { icon: SiGithub, label: "GitHub", value: "github.com/uday-g6", href: GITHUB_URL, external: true },
   ];
 
-  const field = "w-full rounded-lg border border-[var(--border-strong)] bg-[var(--card)] px-3.5 py-2.5 text-[var(--ink)] placeholder:text-[var(--ink-3)] transition-colors hover:border-[var(--ink-3)] focus:border-[var(--teal)] focus:outline-none";
+  const field = "w-full rounded-lg border border-[var(--border-strong)] bg-[var(--card)] px-3.5 py-2.5 text-[var(--ink)] placeholder:text-[var(--ink-3)] transition-colors hover:border-[var(--ink-3)] focus:border-[var(--teal)]";
 
   return (
     <section id="contact" aria-labelledby="contact-title" className="section">
