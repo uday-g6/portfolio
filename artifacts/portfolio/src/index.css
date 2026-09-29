@@ -11,20 +11,20 @@
      ============================================================ */
 
   /* Backgrounds */
-  --bg-paper: #FDFBF7;           /* Warm cream/paper base */
-  --bg-paper-light: #F8F5EF;     /* Light cream — section backgrounds */
-  --bg-paper-dark: #F5F1E8;      /* Medium cream — accents */
-  --bg-paper-darker: #EDE6D6;    /* Darker cream — section backgrounds */
+  --bg-paper: #FAF6EE;           /* Warm cream/paper base */
+  --bg-paper-light: #F5F0E6;     /* Light cream — section backgrounds */
+  --bg-paper-dark: #F0EADD;      /* Medium cream — accents */
+  --bg-paper-darker: #E9E1CF;    /* Darker cream — section backgrounds */
   --bg-card: #FFFFFF;            /* Pure white cards */
-  --bg-card-hover: #FAF8F3;      /* Card hover state */
+  --bg-card-hover: #F8F4EC;      /* Card hover state */
   --bg-dark: #111111;            /* Deep charcoal surfaces */
   --bg-dark-elevated: #1A1A1A;   /* Elevated dark */
   --bg-dark-hover: #1F1F1F;      /* Dark hover */
 
   /* Text */
   --text-ink: #111111;           /* Deep charcoal/ink — primary */
-  --text-ink-muted: #4A4A4A;     /* Muted ink */
-  --text-ink-light: #6B6B6B;     /* Light ink */
+  --text-ink-muted: #383838;     /* Muted ink */
+  --text-ink-light: #575757;     /* Light ink */
   --text-white: #FFFFFF;
   --text-white-muted: #E8E8E8;
   --text-white-dim: #B8B8B8;
@@ -36,12 +36,12 @@
   --accent-gold-muted: #B8892F33; /* Gold with opacity (20%) */
   --accent-gold-subtle: #B8892F1A; /* Gold with opacity (10%) */
   --accent-gold-border: #B8892F4D; /* Gold with opacity (30%) */
-  --accent-gold-text: #826121;   /* Same gold, deeper — gold TEXT on cream surfaces (≥4.5:1) */
+  --accent-gold-text: #7F5F20;   /* Same gold, deeper — gold TEXT on cream surfaces (≥4.5:1) */
 
   /* Borders & Lines */
-  --border-thin: #D4D0C8;        /* Thin technical borders (light) */
+  --border-thin: #CCC5B7;        /* Thin technical borders (light) */
   --border-thin-dark: #3D3D3D;   /* Thin technical borders (dark) */
-  --border-medium: #C4C0B8;      /* Medium borders */
+  --border-medium: #BCB5A7;      /* Medium borders */
   --border-focus: var(--accent-gold);       /* Focus ring */
   --border-error: #E86C5A;       /* Error border */
 
