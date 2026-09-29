@@ -21,8 +21,8 @@ export default function Hero() {
         className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
         aria-hidden="true"
       >
-        <span className="serif font-bold text-[22vw] leading-none text-[var(--text-ink)]/[0.04] uppercase tracking-tighter">
-          SECURITY
+        <span className="serif font-bold text-[13vw] leading-none text-[var(--text-ink)]/[0.04] uppercase tracking-tighter whitespace-nowrap">
+          CYBERSECURITY
         </span>
       </div>
 
