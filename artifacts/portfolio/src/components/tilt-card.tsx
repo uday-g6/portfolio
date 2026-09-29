@@ -18,7 +18,7 @@ export default function TiltCard({
   const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-maxTilt, maxTilt]), { stiffness: 300, damping: 22 });
   const glowX = useTransform(x, [-0.5, 0.5], [0, 100]);
   const glowY = useTransform(y, [-0.5, 0.5], [0, 100]);
-  const background = useMotionTemplate`radial-gradient(circle at ${glowX}% ${glowY}%, rgba(184,137,47,0.15), transparent 60%)`;
+  const background = useMotionTemplate`radial-gradient(circle at ${glowX}% ${glowY}%, rgba(127,214,210,0.12), transparent 60%)`;
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     const rect = ref.current?.getBoundingClientRect();

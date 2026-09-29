@@ -23,7 +23,7 @@ export default function ProgressBar() {
   return (
     <div className="fixed top-0 left-0 right-0 z-[60] h-[2px] bg-transparent pointer-events-none">
       <motion.div
-        className="h-full bg-[#B8892F] origin-left"
+        className="h-full bg-[#7FD6D2] origin-left"
         style={{ scaleX: spring }}
       />
     </div>

@@ -6,43 +6,44 @@
 
 :root {
   /* ============================================================
-     COLOR PALETTE — Field Notebook + Terminal + Workbench
-     Gold/Amber accent system (implemented design)
+     COLOR PALETTE — Dark teal / midnight system
+     Token names are kept from the original gold system so the
+     layout and components stay untouched; only the values changed.
      ============================================================ */
 
   /* Backgrounds */
-  --bg-paper: #FDFBF7;           /* Warm cream/paper base */
-  --bg-paper-light: #F8F5EF;     /* Light cream — section backgrounds */
-  --bg-paper-dark: #F5F1E8;      /* Medium cream — accents */
-  --bg-paper-darker: #EDE6D6;    /* Darker cream — section backgrounds */
-  --bg-card: #FFFFFF;            /* Pure white cards */
-  --bg-card-hover: #FAF8F3;      /* Card hover state */
-  --bg-dark: #111111;            /* Deep charcoal surfaces */
-  --bg-dark-elevated: #1A1A1A;   /* Elevated dark */
-  --bg-dark-hover: #1F1F1F;      /* Dark hover */
+  --bg-paper: #1B3A4B;           /* Charcoal blue — main background */
+  --bg-paper-light: #1B3A4B;     /* Charcoal blue — section backgrounds */
+  --bg-paper-dark: #144552;      /* Teal-blue — accent panels */
+  --bg-paper-darker: #212F45;    /* Deep space blue — section backgrounds */
+  --bg-card: #144552;            /* Teal-blue cards */
+  --bg-card-hover: #0B525B;      /* Deep teal card hover */
+  --bg-dark: #272640;            /* Space indigo — dark sections */
+  --bg-dark-elevated: #312244;   /* Midnight violet — elevated dark */
+  --bg-dark-hover: #312244;      /* Midnight violet — dark hover */
 
   /* Text */
-  --text-ink: #111111;           /* Deep charcoal/ink — primary */
-  --text-ink-muted: #4A4A4A;     /* Muted ink */
-  --text-ink-light: #6B6B6B;     /* Light ink */
+  --text-ink: #F1F6F7;           /* Primary text — near white */
+  --text-ink-muted: #CFDDE1;     /* Muted text */
+  --text-ink-light: #A8C0C6;     /* Light text (≥4.5:1 on every surface) */
   --text-white: #FFFFFF;
   --text-white-muted: #E8E8E8;
   --text-white-dim: #B8B8B8;
 
-  /* Accents — Gold/Amber system */
-  --accent-gold: #B8892F;        /* Primary gold/amber */
-  --accent-gold-dim: #A07628;    /* Dimmed gold */
-  --accent-gold-light: #D4A84B;  /* Light gold for hover */
-  --accent-gold-muted: #B8892F33; /* Gold with opacity (20%) */
-  --accent-gold-subtle: #B8892F1A; /* Gold with opacity (10%) */
-  --accent-gold-border: #B8892F4D; /* Gold with opacity (30%) */
-  --accent-gold-text: #826121;   /* Same gold, deeper — gold TEXT on cream surfaces (≥4.5:1) */
+  /* Accents — Teal system */
+  --accent-gold: #006466;        /* Stormy teal — primary accent, buttons, lines */
+  --accent-gold-dim: #065A60;    /* Secondary dark teal */
+  --accent-gold-light: #065A60;  /* Hover state for teal fills */
+  --accent-gold-muted: #0064664D; /* Teal with opacity (30%) */
+  --accent-gold-subtle: #0064661A; /* Teal with opacity (10%) */
+  --accent-gold-border: #006466;  /* Teal lines and borders */
+  --accent-gold-text: #7FD6D2;   /* Light teal — accent TEXT on dark surfaces (≥4.5:1) */
 
   /* Borders & Lines */
-  --border-thin: #D4D0C8;        /* Thin technical borders (light) */
-  --border-thin-dark: #3D3D3D;   /* Thin technical borders (dark) */
-  --border-medium: #C4C0B8;      /* Medium borders */
-  --border-focus: var(--accent-gold);       /* Focus ring */
+  --border-thin: #2E5A6B;        /* Subtle teal-blue borders */
+  --border-thin-dark: #3A3960;   /* Borders on indigo surfaces */
+  --border-medium: #3B6B7C;      /* Medium borders */
+  --border-focus: var(--accent-gold-text);  /* Focus ring */
   --border-error: #E86C5A;       /* Error border */
 
   /* Semantic mappings for Tailwind */
@@ -531,7 +532,7 @@
 
 .card-gold-hover:hover {
   background-color: var(--accent-gold-light);
-  box-shadow: 0 20px 40px -15px rgba(184,137,47,0.4);
+  box-shadow: 0 20px 40px -15px rgba(0,100,102,0.4);
 }
 
 /* Accent border left */
@@ -713,7 +714,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background-color: var(--bg-dark);
+  background-color: var(--accent-gold);
   color: var(--text-white);
   font-family: var(--font-mono);
   text-transform: uppercase;
@@ -727,7 +728,7 @@
 }
 
 .btn-primary:hover {
-  background-color: var(--bg-dark-hover);
+  background-color: var(--accent-gold-dim);
   box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.4);
 }
 
@@ -784,7 +785,7 @@
 
 .btn-accent:hover {
   background-color: var(--accent-gold-light);
-  box-shadow: 0 8px 24px -8px rgba(184, 137, 47, 0.4);
+  box-shadow: 0 8px 24px -8px rgba(0, 100, 102, 0.4);
 }
 
 .btn-ghost {
@@ -851,7 +852,7 @@
 }
 
 .input-base:focus-visible {
-  outline: 2px solid var(--accent-gold);
+  outline: 2px solid var(--accent-gold-text);
   outline-offset: 2px;
 }
 
@@ -881,7 +882,7 @@
 }
 
 .textarea-base:focus-visible {
-  outline: 2px solid var(--accent-gold);
+  outline: 2px solid var(--accent-gold-text);
   outline-offset: 2px;
 }
 
@@ -948,17 +949,23 @@
 }
 /* ============================================================
    READABILITY
-   Small gold text on cream uses a deeper shade of the same gold;
-   charcoal surfaces keep the original gold. Gold borders, lines
-   and decorative accents are unchanged.
+   Accent text uses the light teal shade on every surface so it
+   stays readable; teal fills, borders and lines use #006466.
    ============================================================ */
 [class*="bg-[var(--bg-dark)]"] {
-  --accent-gold-text: var(--accent-gold);
+  --accent-gold-text: #7FD6D2;
 }
 
 @layer utilities {
   .text-\[var\(--accent-gold\)\] {
     color: var(--accent-gold-text);
+  }
+  /* Faint decorative accent numerals keep their original opacity */
+  .text-\[var\(--accent-gold\)\]\/40 {
+    color: rgb(127 214 210 / 0.4);
+  }
+  .text-\[var\(--accent-gold\)\]\/25 {
+    color: rgb(127 214 210 / 0.25);
   }
   @media (hover: hover) {
     .hover\:text-\[var\(--accent-gold\)\]:hover,

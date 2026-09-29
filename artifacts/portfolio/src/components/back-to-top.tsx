@@ -27,9 +27,9 @@ export default function BackToTop() {
           className="fixed bottom-8 right-8 z-50 group flex flex-col items-center gap-2"
         >
           {/* Vertical line with rising dot */}
-          <div className="relative w-px h-10 bg-[#B8892F]/25 overflow-hidden">
+          <div className="relative w-px h-10 bg-[#7FD6D2]/25 overflow-hidden">
             <motion.div
-              className="absolute bottom-0 left-0 w-full bg-[#B8892F]"
+              className="absolute bottom-0 left-0 w-full bg-[#7FD6D2]"
               style={{ height: "40%" }}
               animate={{ y: ["0%", "-250%", "-250%"] }}
               transition={{
@@ -43,7 +43,7 @@ export default function BackToTop() {
           </div>
 
           {/* Label */}
-          <span className="text-[10px] tracking-[0.25em] uppercase text-[#111]/40 group-hover:text-[#B8892F] transition-colors font-medium leading-none">
+          <span className="text-[10px] tracking-[0.25em] uppercase text-[#A8C0C6] group-hover:text-[#7FD6D2] transition-colors font-medium leading-none">
             Top
           </span>
         </motion.button>

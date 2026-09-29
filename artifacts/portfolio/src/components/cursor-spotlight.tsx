@@ -46,7 +46,7 @@ export default function CursorSpotlight() {
           translateX: "-50%",
           translateY: "-50%",
           background:
-            "radial-gradient(circle, rgba(184,137,47,0.13) 0%, rgba(184,137,47,0.05) 45%, transparent 68%)",
+            "radial-gradient(circle, rgba(127,214,210,0.10) 0%, rgba(0,100,102,0.06) 45%, transparent 68%)",
         }}
         className="absolute w-[560px] h-[560px] rounded-full"
       />

@@ -157,7 +157,7 @@ export default function Hero() {
           <TiltCard
             key={i}
             maxTilt={12}
-            className={`px-6 md:px-8 py-6 flex flex-col gap-1 hover:bg-white/[0.03] hover:shadow-[0_20px_40px_-15px_rgba(184,137,47,0.35)] ${i < 3 ? "border-r border-white/10" : ""}`}
+            className={`px-6 md:px-8 py-6 flex flex-col gap-1 hover:bg-white/[0.03] hover:shadow-[0_20px_40px_-15px_rgba(0,100,102,0.45)] ${i < 3 ? "border-r border-white/10" : ""}`}
           >
             <span className="serif text-3xl md:text-4xl font-light text-[var(--accent-gold)] leading-none">{s.num}</span>
             <span className="text-label text-white/65">{s.label}</span>
