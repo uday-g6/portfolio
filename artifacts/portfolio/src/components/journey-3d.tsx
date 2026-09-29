@@ -242,9 +242,9 @@ const MOTION: Record<ShapeId, { spin: number; tilt: number; scale: number }> = {
 
 // ---------- the journey ----------
 const SECTIONS = ["hero", "about", "experience", "skills", "mobile-security", "web-api-security", "assessments", "methodology", "projects", "certifications", "contact"];
-// Horizontal anchor on large screens (fraction of width). Follows the section-number side,
-// except API & Web, whose right-hand cards are opaque and would hide the structure.
-const ANCHOR = [0.83, 0.74, 0.26, 0.74, 0.26, 0.26, 0.26, 0.74, 0.26, 0.74, 0.26];
+// Which side each state sits on: the same side as that section's big 01–10 number,
+// so the section's information stays on the opposite side.
+const SIDE: ("L" | "R")[] = ["R", "R", "L", "R", "L", "R", "L", "R", "L", "R", "L"];
 
 function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
   const ctx = canvas.getContext("2d");
@@ -297,9 +297,10 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
       if (W >= 1280) { const w = W * 0.46, h = Math.min(H * 0.78, 680); return { x: W * 1.06 - w / 2, y: 64 + h / 2, R: Math.min(w, h) * 0.42, a: 1 }; }
       const h = H * 0.46; return { x: W / 2, y: 64 + h / 2, R: Math.min(W, h) * 0.42, a: 0.45 };
     }
-    const sc = MOTION[ORDER[k]].scale;
-    if (W >= 1024) return { x: W * ANCHOR[k], y: H / 2, R: Math.min(W * 0.5, H) * sc, a: 0.7 };
-    return { x: W / 2, y: H / 2, R: Math.min(W, H * 0.6) * sc, a: 0.45 };
+    // Centred on the section number's zone at the edge, not the middle of the screen.
+    const sc = MOTION[ORDER[k]].scale, right = SIDE[k] === "R";
+    if (W >= 1024) return { x: W * (right ? 0.86 : 0.14), y: H / 2, R: Math.min(W * 0.3, H) * sc, a: 0.7 };
+    return { x: W * (right ? 0.8 : 0.2), y: H / 2, R: Math.min(W * 0.45, H * 0.4) * sc, a: 0.45 };
   }
 
   function pointsOf(k: number): V[] {
