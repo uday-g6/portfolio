@@ -1,33 +1,37 @@
-import { MotionConfig } from "framer-motion";
-import Nav from "@/redesign/nav";
-import Hero from "@/redesign/hero";
-import Summary from "@/redesign/summary";
-import Experience from "@/redesign/experience";
-import Expertise from "@/redesign/expertise";
-import Toolkit from "@/redesign/toolkit";
-import Work from "@/redesign/work";
-import Process from "@/redesign/process";
-import { Certifications, Education } from "@/redesign/credentials";
-import { Contact, Footer, ResumeCta } from "@/redesign/closing";
+import Navbar from "@/components/navbar";
+import Hero from "@/components/hero";
+import Marquee from "@/components/marquee";
+import About from "@/components/about";
+import Skills from "@/components/skills";
+import WebApiSecurity from "@/components/web-api-security";
+import Experience from "@/components/experience";
+import Projects from "@/components/projects";
+import Certifications from "@/components/certifications";
+import Contact from "@/components/contact";
+import Footer from "@/components/footer";
+import BackToTop from "@/components/back-to-top";
+import ProgressBar from "@/components/progress-bar";
+import CursorSpotlight from "@/components/cursor-spotlight";
 
 export default function Home() {
   return (
-    <MotionConfig reducedMotion="user">
-      <Nav />
-      <main id="main">
+    <div className="min-h-[100dvh] text-foreground font-sans bg-[var(--bg-paper-light)]">
+      <ProgressBar />
+      <CursorSpotlight />
+      <Navbar />
+      <main>
         <Hero />
-        <Summary />
+        <Marquee />
+        <About />
         <Experience />
-        <Expertise />
-        <Toolkit />
-        <Work />
-        <Process />
+        <Skills />
+        <WebApiSecurity />
+        <Projects />
         <Certifications />
-        <Education />
-        <ResumeCta />
         <Contact />
       </main>
       <Footer />
-    </MotionConfig>
+      <BackToTop />
+    </div>
   );
 }
