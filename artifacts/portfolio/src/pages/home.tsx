@@ -14,6 +14,7 @@ import Footer from "@/components/footer";
 import BackToTop from "@/components/back-to-top";
 import ProgressBar from "@/components/progress-bar";
 import CursorSpotlight from "@/components/cursor-spotlight";
+import { Preview3DToggle } from "@/components/section-3d";
 
 export default function Home() {
   return (
@@ -37,6 +38,7 @@ export default function Home() {
       </main>
       <Footer />
       <BackToTop />
+      <Preview3DToggle />
     </div>
   );
 }

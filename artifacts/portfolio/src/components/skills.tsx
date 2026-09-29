@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import Section3D from "./section-3d";
 
 const SKILL_TIPS: Record<string, string> = {
   "Android APK Security Testing": "Full-lifecycle security testing of production Android apps — static, dynamic, runtime, and API layers",
@@ -156,6 +157,10 @@ export default function Skills() {
     setActive(CATEGORIES[idx].id);
   });
 
+  useEffect(() => {
+    window.dispatchEvent(new CustomEvent("skills:category", { detail: CATEGORIES.findIndex((c) => c.id === active) }));
+  }, [active]);
+
   const selectCategory = (id: string) => {
     const section = sectionRef.current;
     if (!pinned || !section) return setActive(id);
@@ -170,11 +175,12 @@ export default function Skills() {
     <section
       id="skills"
       ref={sectionRef}
-      className={`bg-[var(--bg-dark)] text-white relative ${pinned ? "" : "overflow-hidden"}`}
+      className={`bg-[var(--bg-dark)] text-white relative ${pinned ? "" : "overflow-clip"}`}
       style={pinned ? { height: `${100 + (CATEGORIES.length - 1) * STEP_VH}vh` } : undefined}
     >
       <div className={pinned ? "sticky top-0 h-screen overflow-hidden flex items-center" : "contents"}>
       <div className="absolute right-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-white/[0.03] leading-none select-none pointer-events-none" aria-hidden="true">03</div>
+      <Section3D shape="matrix" side="right" />
 
       <div className="relative z-10 w-full px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
         <motion.div
