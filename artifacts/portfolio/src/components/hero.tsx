@@ -38,17 +38,17 @@ export default function Hero() {
             initial={{ opacity: 0, x: -16 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-label text-[var(--accent-gold)]"
+            className="text-label text-[var(--accent-gold)] max-w-[70%]"
           >
-            Security Test Engineer | Android & Mobile Application Security | VAPT | API Security
+            Security Test Engineer · Android & Mobile Application Security · Mobile VAPT · API Security
           </motion.p>
           <motion.div
             initial={{ opacity: 0, x: 16 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-label text-[var(--text-ink-muted)]"
+            className="text-label text-[var(--text-ink-muted)] text-right shrink-0"
           >
-            Bengaluru, India
+            Bengaluru · Remote
           </motion.div>
         </div>
 
@@ -69,7 +69,7 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.35 }}
             className="mt-6 text-[var(--text-ink-muted)] text-xl md:text-2xl font-light tracking-wide max-w-2xl"
           >
-            Security Test Engineer (Product & Mobile Application Security)
+            Security Test Engineer — Android & Mobile Application Security
           </motion.p>
 
           <motion.p
@@ -78,7 +78,7 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.45 }}
             className="mt-5 text-[var(--text-ink-muted)] text-lg md:text-xl font-light tracking-wide max-w-3xl"
           >
-            Android APK Security Testing | Mobile VAPT / Penetration Testing | Frida & Runtime Instrumentation | APK Reverse Engineering | API Security Testing | Burp Suite | OWASP MASVS
+            Mobile VAPT · API Security · Android APK Security Testing · APK Reverse Engineering · Frida · Burp Suite · MobSF · JADX
           </motion.p>
         </div>
 
@@ -90,22 +90,24 @@ export default function Hero() {
           className="flex flex-col md:flex-row items-start md:items-end justify-between gap-8 border-t border-[var(--border-thin)] pt-8"
         >
           <p className="text-[var(--text-ink-muted)] text-sm md:text-base leading-[1.85] font-light max-w-md">
-            I'm a Security Test Engineer working across product and mobile application security, with API and web application security testing alongside. My work covers the full VAPT lifecycle — testing to find and validate vulnerabilities, coordinating fixes with developers, retesting to verify closure, and preparing the final CVSS-rated report — combining APK reverse engineering, static and dynamic analysis, and Frida-based runtime instrumentation for banking and financial applications.
+            Security Test Engineer at Wizzybox Private Limited with 1+ years of hands-on experience in Android/mobile application security, Mobile VAPT and API security for banking and financial applications. I own the complete VAPT lifecycle — testing, vulnerability validation, remediation support, retesting and CVSS-rated reporting. Open to Application Security, Mobile Security and Security Test Engineer roles in Bengaluru or remote.
           </p>
 
           <div className="flex flex-col gap-4 items-start md:items-end shrink-0">
             <div className="flex gap-3">
               <a href="#experience" className="btn-primary">
-                View My Work
+                View Experience
               </a>
-              <a href="/resume.pdf" download className="btn-secondary">
+              <a href="/Uday_G_Application_Security_Resume.pdf" download="Uday_G_Application_Security_Resume.pdf" className="btn-secondary">
                 Download Resume
               </a>
             </div>
-            <div className="flex gap-4 text-label text-[var(--text-white-dim)] tracking-widest uppercase">
+            <div className="flex gap-4 text-label text-[var(--text-ink-muted)] tracking-widest uppercase">
               <a href="#contact" className="hover:text-[var(--accent-gold)] transition-colors">Contact Me</a>
               <span className="opacity-40">·</span>
-              <a href="https://linkedin.com/in/uday-g-" target="_blank" rel="noreferrer" className="hover:text-[var(--accent-gold)] transition-colors">LinkedIn</a>
+              <a href="https://github.com/uday-g6" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--accent-gold)] transition-colors">GitHub</a>
+              <span className="opacity-40">·</span>
+              <a href="https://linkedin.com/in/uday-g-" target="_blank" rel="noopener noreferrer" className="hover:text-[var(--accent-gold)] transition-colors">LinkedIn</a>
             </div>
           </div>
         </motion.div>
@@ -147,10 +149,10 @@ export default function Hero() {
         className="relative z-10 grid grid-cols-2 md:grid-cols-4 bg-[var(--bg-dark)] text-white"
       >
         {[
-          { num: "100+", label: "Android Applications Assessed" },
-          { num: "60+", label: "Applications Tested with Frida" },
-          { num: "50+", label: "Vulnerability Reports" },
-          { num: "10+", label: "Development Teams Supported" },
+          { num: "100+", label: "Android APK Security Assessments" },
+          { num: "60+", label: "Applications Tested Using Frida" },
+          { num: "50+", label: "CVSS-Rated Vulnerability Reports" },
+          { num: "10+", label: "Developers Worked With Daily" },
         ].map((s, i) => (
           <TiltCard
             key={i}

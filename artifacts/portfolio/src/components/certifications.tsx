@@ -23,7 +23,7 @@ export default function Certifications() {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-16"
         >
-          <span className="text-label text-[var(--accent-gold)]">06 — Certifications</span>
+          <h2 className="text-label text-[var(--accent-gold)]">06 — Certifications</h2>
           <div className="h-px w-16 bg-[var(--accent-gold-border)]" />
         </motion.div>
 
@@ -43,7 +43,10 @@ export default function Certifications() {
               transition={{ duration: 0.3, delay: idx * 0.04 }}
               className="group grid grid-cols-[1fr_auto_auto] gap-6 items-center py-5 border-b border-[var(--border-thin)] last:border-0 hover:bg-[var(--bg-paper-dark)] -mx-4 px-4 transition-colors"
             >
-              <p className="text-body text-[var(--text-ink-muted)] font-medium group-hover:text-[var(--text-ink)] transition-colors leading-snug">{cert.title}</p>
+              <div>
+                <p className="text-body text-[var(--text-ink-muted)] font-medium group-hover:text-[var(--text-ink)] transition-colors leading-snug">{cert.title}</p>
+                <p className="sm:hidden text-sm text-[var(--text-ink-light)] mt-1">{cert.issuer}</p>
+              </div>
               <p className="text-sm text-[var(--text-ink-light)] hidden sm:block w-44 text-right group-hover:text-[var(--accent-gold)] transition-colors">{cert.issuer}</p>
               <p className="text-sm text-[var(--text-ink-light)] w-10 text-right">{cert.year}</p>
             </motion.div>

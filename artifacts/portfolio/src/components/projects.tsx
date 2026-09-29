@@ -3,23 +3,25 @@ import { motion } from "framer-motion";
 const PROJECTS = [
   {
     num: "01",
-    title: "Production Android APK Security Assessments — Banking & Financial",
-    desc: "Ongoing security assessment programme covering 100+ production Android applications for a banking and financial services client. Each assessment maps to the OWASP MASVS / MASTG and Mobile Top 10 — static analysis, APK reverse engineering, dynamic analysis, and Frida-based runtime instrumentation — followed by CVSS-rated reporting and remediation support with the development teams.",
-    tools: ["MobSF", "JADX", "Apktool", "Frida", "Objection", "Drozer", "Genymotion", "Burp Suite"],
-    findings: ["SSL pinning bypass", "Root & emulator detection bypass", "Anti-hooking & integrity checks", "Insecure data storage", "Hardcoded secrets & API keys", "Exported components & IPC", "Weak cryptography", "Client-side control gaps"],
+    title: "Production Android APK Security Assessments",
+    context: "Professional work · Wizzybox Private Limited · Client: Finacus Solutions Pvt. Ltd. (Banking & Financial Domain)",
+    desc: "100+ production Android APK security assessments aligned to OWASP MASVS / MASTG and the OWASP Mobile Top 10 — static analysis, APK reverse engineering, dynamic/runtime testing and Frida-based dynamic testing (60+ applications), followed by CVSS-rated reporting, remediation support, retesting and closure.",
+    tools: ["MobSF", "JADX", "Apktool", "Frida", "Burp Suite", "ADB", "Android Studio"],
+    coverage: ["SSL pinning testing & bypass", "Root & emulator detection", "Certificate validation", "Debugging, developer mode & proxy/VPN detection", "App integrity & anti-hooking protections", "Insecure data storage & hardcoded secrets", "Android component configuration", "Cryptographic implementations"],
   },
   {
     num: "02",
-    title: "API & Web Application VAPT — Banking Backends",
-    desc: "OWASP-aligned penetration testing of the REST APIs and web applications behind the mobile banking apps: authentication and authorization logic, broken access control, BOLA/IDOR, injection, session security, and request manipulation — with every finding manually validated and reported.",
+    title: "API & Web Application VAPT",
+    context: "Professional work · Wizzybox Private Limited · Client: Finacus Solutions Pvt. Ltd. (Banking & Financial Domain)",
+    desc: "Intercepting API traffic of the banking applications with Burp Suite to test the REST APIs behind them, plus web application VAPT with Burp Suite and OWASP ZAP against OWASP Top 10 risk areas — every finding validated with reproducible PoC steps and reported with CVSS and CWE.",
     tools: ["Burp Suite", "OWASP ZAP", "Postman"],
-    findings: ["BOLA / IDOR in account & transaction endpoints", "Authentication & authorization bypass testing", "Broken access control", "Injection & input-validation flaws", "Session lifecycle & token security"],
+    coverage: ["Authentication & authorization", "BOLA / IDOR", "Injection vulnerabilities", "Session handling", "Insecure data handling", "OWASP Top 10 & OWASP API Security Top 10"],
   },
 ];
 
 export default function Projects() {
   return (
-    <section id="projects" className="relative overflow-hidden bg-[var(--bg-paper-dark)]">
+    <section id="assessments" className="relative overflow-hidden bg-[var(--bg-paper-dark)]">
       <div className="absolute right-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[var(--text-ink)]/[0.05] leading-none select-none pointer-events-none" aria-hidden="true">05</div>
 
       <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
@@ -29,7 +31,7 @@ export default function Projects() {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-16"
         >
-          <span className="text-label text-[var(--accent-gold)]">05 — Projects</span>
+          <h2 className="text-label text-[var(--accent-gold)]">05 — Assessment Work</h2>
           <div className="h-px w-16 bg-[var(--accent-gold-border)]" />
         </motion.div>
 
@@ -51,12 +53,13 @@ export default function Projects() {
                   <span className="md:hidden text-label text-[var(--accent-gold)] font-medium">{p.num}.</span>
                   <h3 className="text-2xl md:text-3xl font-semibold text-[var(--text-ink)] tracking-tight leading-tight">{p.title}</h3>
                 </div>
+                <p className="text-label text-[var(--text-ink-light)] mb-4">{p.context}</p>
                 <p className="text-body text-[var(--text-ink-muted)] mb-8 max-w-2xl">{p.desc}</p>
                 <div className="grid md:grid-cols-2 gap-8">
                   <div>
-                    <p className="text-label text-[var(--accent-gold)] font-medium mb-4">Key Findings</p>
+                    <p className="text-label text-[var(--accent-gold)] font-medium mb-4">Test Coverage</p>
                     <ul className="flex flex-col gap-2.5">
-                      {p.findings.map((f, i) => (
+                      {p.coverage.map((f, i) => (
                         <li key={i} className="flex gap-2.5 text-body text-[var(--text-ink-muted)] leading-[1.8]">
                           <span className="text-[var(--accent-gold)] shrink-0 mt-0.5 text-xs">—</span>
                           {f}

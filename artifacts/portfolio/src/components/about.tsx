@@ -31,18 +31,18 @@ export default function About() {
             </h2>
             <div className="flex flex-col gap-5 max-w-xl">
               <p className="text-body text-[var(--text-ink-muted)]">
-                I'm a Security Test Engineer working on product and mobile application security, with hands-on API and web application security testing alongside. Across 100+ production Android APK assessments I've covered static analysis, APK reverse engineering, dynamic analysis, and Frida-based runtime instrumentation on live banking and financial applications.
+                I'm a Security Test Engineer specializing in Android and mobile application security, Mobile VAPT and API security, with 1+ years of hands-on security testing experience. I've completed 100+ production Android APK security assessments — covering static analysis with MobSF, JADX and Apktool, APK reverse engineering, dynamic/runtime testing and API security testing — and performed Frida-based dynamic testing across 60+ applications.
               </p>
               <p className="text-body text-[var(--text-ink-muted)]">
-                I go beyond automated scanning — combining manual testing, reverse engineering, runtime instrumentation, and practical vulnerability validation, then working directly with development teams to get findings understood, fixed, retested, and formally closed.
+                I go beyond automated scanning: every finding is validated manually with reproducible PoC steps, CVSS scoring and CWE classification. I've authored 50+ CVSS-rated vulnerability reports and work with 10+ developers daily on remediation, retesting of fixed builds and formal closure.
               </p>
               <p className="text-body text-[var(--text-ink-muted)]">
-                I currently work as a Security Test Engineer at Wizzybox Private Limited, performing security assessments for a banking and financial services client.
+                I work at Wizzybox Private Limited (employer), testing applications for the client Finacus Solutions Pvt. Ltd. in the banking and financial domain. I'm open to Application Security, Mobile Security and Security Test Engineer roles in Bengaluru or remote.
               </p>
               <div className="mt-2 inline-flex items-center gap-3 border border-[var(--accent-gold-border)] bg-[var(--accent-gold-muted)] px-5 py-3 self-start">
                 <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)]" />
                 <span className="text-sm text-[var(--accent-gold)] tracking-wide font-medium">
-                  Progressed from Security Test Engineer Intern to full-time Security Test Engineer based on performance and technical delivery.
+                  Completed a Security Test Engineer internship at Wizzybox Private Limited and later joined the company as a full-time Security Test Engineer.
                 </span>
               </div>
             </div>
@@ -61,8 +61,9 @@ export default function About() {
               <ul className="flex flex-col">
                 {[
                   "Android & Mobile Application Security",
+                  "Mobile VAPT",
                   "APK Reverse Engineering",
-                  "Frida & Runtime Instrumentation",
+                  "Frida-Based Dynamic Testing",
                   "API Security Testing",
                   "Web Application Security",
                   "Vulnerability Reporting & Remediation",

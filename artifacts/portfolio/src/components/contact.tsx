@@ -42,7 +42,7 @@ export default function Contact() {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-16"
         >
-          <span className="text-label text-[var(--accent-gold)]">07 — Contact</span>
+          <p className="text-label text-[var(--accent-gold)]">07 — Contact</p>
           <div className="h-px w-16 bg-[var(--accent-gold-border)]" />
         </motion.div>
 
@@ -58,7 +58,7 @@ export default function Contact() {
               Let's Connect
             </h2>
             <p className="text-body text-white/70 mb-12 max-w-sm">
-              Hiring for Android / mobile application security, VAPT, or application security in Bengaluru? I'm open to connecting with recruiters, security teams, and engineering leaders. Available on a 90-day notice period.
+              Hiring for Application Security, Mobile Security, Mobile VAPT or Security Test Engineer roles in Bengaluru or remote? I'm open to connecting with recruiters, security teams and engineering leaders. Available on a 90-day notice period.
             </p>
 
             <div className="flex flex-col gap-0">
@@ -81,8 +81,8 @@ export default function Contact() {
                 <a href="https://github.com/uday-g6" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/50 hover:text-[var(--accent-gold)] transition-colors text-label tracking-widest uppercase">
                   <SiGithub className="h-3.5 w-3.5" /> GitHub
                 </a>
-                <a href="https://udayg.netlify.app" target="_blank" rel="noopener noreferrer" className="text-white/50 hover:text-[var(--accent-gold)] transition-colors text-label tracking-widest uppercase">
-                  Portfolio
+                <a href="/Uday_G_Application_Security_Resume.pdf" download="Uday_G_Application_Security_Resume.pdf" className="text-white/50 hover:text-[var(--accent-gold)] transition-colors text-label tracking-widest uppercase">
+                  Resume (PDF)
                 </a>
               </div>
             </div>
@@ -117,14 +117,14 @@ export default function Contact() {
                     { id: "email", label: "Email", type: "email", ph: "jane@company.com" },
                   ].map(f => (
                     <div key={f.id} className="flex flex-col gap-2">
-                      <label className="label-base text-white/50">{f.label}</label>
-                      <input name={f.id} type={f.type} required placeholder={f.ph} className="border-b border-white/15 bg-transparent py-2.5 text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-[var(--accent-gold)] transition-colors" />
+                      <label htmlFor={`contact-${f.id}`} className="label-base text-white/50">{f.label}</label>
+                      <input id={`contact-${f.id}`} autoComplete={f.id} name={f.id} type={f.type} required placeholder={f.ph} className="border-b border-white/15 bg-transparent py-2.5 text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-[var(--accent-gold)] transition-colors" />
                     </div>
                   ))}
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label className="label-base text-white/50">Message</label>
-                  <textarea name="message" required rows={5} placeholder="Hi Uday, I'm reaching out about..." className="border-b border-white/15 bg-transparent py-2.5 text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-[var(--accent-gold)] transition-colors resize-none" />
+                  <label htmlFor="contact-message" className="label-base text-white/50">Message</label>
+                  <textarea id="contact-message" name="message" required rows={5} placeholder="Hi Uday, I'm reaching out about..." className="border-b border-white/15 bg-transparent py-2.5 text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-[var(--accent-gold)] transition-colors resize-none" />
                 </div>
                 {error && (
                   <p className="text-sm text-red-400">Something went wrong sending your message — please email me directly instead.</p>

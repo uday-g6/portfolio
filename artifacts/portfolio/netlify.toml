@@ -1,4 +1,22 @@
+# Old resume links (LinkedIn, past applications) keep working and get the current resume.
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+  from = "/resume.pdf"
+  to = "/Uday_G_Application_Security_Resume.pdf"
+  status = 301
+  force = true
+
+# No SPA catch-all: the site is a single page, so unknown paths get a real 404 (public/404.html).
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'"
+
+[[headers]]
+  for = "/Uday_G_Application_Security_Resume.pdf"
+  [headers.values]
+    Content-Disposition = "inline; filename=\"Uday_G_Application_Security_Resume.pdf\""

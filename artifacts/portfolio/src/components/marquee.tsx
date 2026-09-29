@@ -1,6 +1,6 @@
 const items = [
-  "Android APK Security", "Mobile VAPT", "Frida Instrumentation", "Objection",
-  "SSL Pinning Bypass", "Root Detection Bypass", "OWASP MASVS / MASTG", "Drozer",
+  "Android APK Security", "Mobile VAPT", "Frida", "SSL Pinning Testing",
+  "Root & Emulator Detection", "OWASP MASVS / MASTG", "Postman",
   "APK Reverse Engineering", "JADX", "Apktool", "MobSF", "Burp Suite",
   "API Security Testing", "BOLA / IDOR", "CVSS Reporting", "Static Analysis", "Dynamic Analysis",
 ];
@@ -8,7 +8,7 @@ const items = [
 export default function Marquee() {
   const doubled = [...items, ...items];
   return (
-    <div className="overflow-hidden border-y border-[var(--border-thin)] bg-[var(--bg-dark)] py-4 select-none">
+    <div aria-hidden="true" className="overflow-hidden border-y border-[var(--border-thin)] bg-[var(--bg-dark)] py-4 select-none">
       <div className="marquee-track">
         {doubled.map((item, i) => (
           <span key={i} className="inline-flex items-center gap-6 px-6">

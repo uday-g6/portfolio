@@ -6,18 +6,9 @@ const SKILL_TIPS: Record<string, string> = {
   "Mobile VAPT": "Vulnerability assessment and penetration testing of Android applications against MASVS / Mobile Top 10",
   "OWASP MASVS / MASTG": "Assessments mapped to the Mobile Application Security Verification Standard and Testing Guide",
   "APK Reverse Engineering": "Decompile APKs with JADX & Apktool to expose logic, keys, and hidden endpoints",
-  "Smali / Bytecode Analysis": "Read and patch Dalvik bytecode via Apktool to understand and modify app behaviour",
   "Static Analysis": "Source- and bytecode-level review for insecure storage, hardcoded secrets, and dangerous permissions",
   "Dynamic Analysis": "Runtime testing with live traffic interception and behavioural observation on device / emulator",
-  "Frida": "Dynamic instrumentation toolkit — core tool for Android runtime hooking",
-  "Frida Instrumentation": "Custom JavaScript hooks to observe and modify app behaviour at runtime",
-  "Objection": "Frida-powered runtime mobile exploration — bypasses, storage inspection, and method hooking",
-  "Drozer": "Android attack-surface framework for exported components, IPC, and content-provider testing",
-  "Genymotion": "Android emulator used for dynamic testing and instrumentation",
-  "Runtime Instrumentation": "Inject logic into running processes without modifying the APK",
-  "SSL Pinning Bypass": "Custom Frida / Objection hooks to defeat certificate pinning and intercept HTTPS traffic",
-  "Root Detection Bypass": "Hook root-check routines at runtime to enable testing on rooted devices",
-  "Certificate Pinning Testing": "Verify pinning implementation and test its resilience to runtime tampering",
+  "Frida": "Frida-based dynamic testing across 60+ applications for runtime security testing and validation",
   "MobSF": "Automated static & dynamic analysis framework for mobile applications",
   "JADX": "Java decompiler for reading APK source code and identifying vulnerabilities",
   "Apktool": "Decode and rebuild APKs for deep inspection and smali-level analysis",
@@ -32,9 +23,7 @@ const SKILL_TIPS: Record<string, string> = {
   "Authentication Testing": "Credential handling, token entropy, session fixation, and MFA logic checks",
   "Authorization Testing": "Verify role and object-level access controls across users and endpoints",
   "Session Security": "Analyse session lifecycle, expiry, fixation, and cookie flags",
-  "IDOR Testing": "Identify insecure direct object references that expose other users' data",
   "BOLA / IDOR": "Broken Object Level Authorisation — the top API security risk per OWASP",
-  "BOLA Testing": "Broken Object Level Authorisation — the top API security risk per OWASP",
   "API Security": "Auth, access-control, and data-exposure testing of REST APIs",
   "API Security Testing": "REST endpoint enumeration, auth bypass, and data-exposure checks",
   "REST API Security": "Test API contracts for over-exposure, auth gaps, and injection points",
@@ -49,36 +38,50 @@ const SKILL_TIPS: Record<string, string> = {
   "Vulnerability Validation": "Manual confirmation and proof-of-concept for every reported finding",
   "Security Reporting": "CVSS-rated, reproducible vulnerability reports with remediation guidance",
   "Developer Remediation Support": "Explain findings, guide fixes, retest, and formally close vulnerabilities",
-  "Secure SDLC": "Embedding security checkpoints across the software development lifecycle",
   "Web Application Security": "Manual, OWASP-aligned testing of web applications and their APIs",
   "Application Security": "Finding, validating, and helping remediate vulnerabilities in applications",
   "Security Misconfiguration": "Identify weak defaults, exposed interfaces, and missing hardening",
+  "SSL Pinning Testing & Bypass": "Test certificate-pinning implementations and their resilience to runtime bypass using Frida",
+  "Root Detection Testing": "Verify root-detection controls and how they respond to runtime tampering",
+  "Emulator Detection Testing": "Verify that emulator-detection controls work as intended",
+  "Certificate Validation": "Check how the app validates server certificates and handles untrusted ones",
+  "Android Runtime Security Controls": "Debugging, developer mode, proxy/VPN detection, screen overlay/recording protections, app integrity, installation source and anti-hooking checks",
+  "JWT Security Testing": "Review token handling, signature validation and claims in API authentication",
+  "XXE": "Test XML parsers for external entity injection",
+  "File Upload Security": "Test upload handling for type, content and storage weaknesses",
+  "Vulnerability Validation & PoC": "Reproducible proof-of-concept steps for every reported finding",
+  "Retesting & Remediation": "Retest fixed builds and formally close vulnerabilities",
+  "Nmap": "Network and service discovery",
+  "Wireshark": "Packet capture and traffic analysis",
+  "SQLmap": "Automated SQL injection detection and validation",
+  "Android Studio": "Android tooling for device/emulator setup and app inspection",
+  "Kali Linux": "Primary testing distribution",
+  "JavaScript": "Frida scripts and web testing",
   "Python": "Scripting for automation, custom checks, and data processing",
   "Bash": "Automate enumeration, reporting, and test workflows",
-  "Linux CLI": "Command-line proficiency for tooling, log analysis, and automation",
   "Git": "Version control for scripts, reports, and configuration",
 };
 
 const CATEGORIES = [
   {
     id: "mobile", label: "Android & Mobile Security",
-    skills: ["Android APK Security Testing", "Mobile VAPT", "OWASP MASVS / MASTG", "APK Reverse Engineering", "Frida", "Objection", "Drozer", "Genymotion", "SSL Pinning Bypass", "Root Detection Bypass", "Certificate Pinning Testing", "Android Component Security", "Static Analysis", "Dynamic Analysis", "JADX", "Apktool", "MobSF", "ADB"],
-  },
-  {
-    id: "reverse", label: "Reverse Engineering & Instrumentation",
-    skills: ["APK Reverse Engineering", "Smali / Bytecode Analysis", "Frida", "Frida Instrumentation", "Objection", "Runtime Instrumentation", "JADX", "Apktool"],
+    skills: ["Android APK Security Testing", "Mobile VAPT", "OWASP MASVS / MASTG", "OWASP Mobile Top 10", "APK Reverse Engineering", "Static Analysis", "Dynamic Analysis", "Frida", "SSL Pinning Testing & Bypass", "Root Detection Testing", "Emulator Detection Testing", "Certificate Validation", "Android Runtime Security Controls", "Android Component Security"],
   },
   {
     id: "api", label: "API Security",
-    skills: ["API Security", "API Security Testing", "REST API Security", "OWASP API Security Top 10", "BOLA / IDOR", "Authentication Testing", "Authorization Testing", "Broken Access Control", "Session Security"],
+    skills: ["API Security Testing", "REST API Security", "OWASP API Security Top 10", "Authentication Testing", "Authorization Testing", "BOLA / IDOR", "JWT Security Testing", "Session Security", "Broken Access Control"],
   },
   {
     id: "vapt", label: "Web Application VAPT",
-    skills: ["Web Application Penetration Testing", "Web Application Security", "OWASP Top 10", "SQL Injection", "Cross-Site Scripting (XSS)", "CSRF Testing", "Security Misconfiguration", "Vulnerability Assessment", "Vulnerability Validation"],
+    skills: ["Web Application Security", "OWASP Top 10", "SQL Injection", "Cross-Site Scripting (XSS)", "XXE", "CSRF Testing", "File Upload Security"],
   },
   {
     id: "reporting", label: "Assessment & Reporting",
-    skills: ["Vulnerability Assessment", "Vulnerability Validation", "CVSS Scoring", "CWE Classification", "Security Reporting", "Developer Remediation Support", "Secure SDLC", "Burp Suite", "OWASP ZAP", "Postman", "Python", "Bash"],
+    skills: ["Vulnerability Validation & PoC", "CVSS Scoring", "CWE Classification", "Security Reporting", "Retesting & Remediation", "Developer Remediation Support"],
+  },
+  {
+    id: "tools", label: "Tools",
+    skills: ["Frida", "Burp Suite", "MobSF", "JADX", "Apktool", "OWASP ZAP", "Postman", "Nmap", "Wireshark", "SQLmap", "Android Studio", "ADB", "Kali Linux", "Python", "JavaScript", "Bash", "Git"],
   },
 ];
 
@@ -125,7 +128,7 @@ export default function Skills() {
 
   return (
     <section id="skills" className="bg-[var(--bg-dark)] text-white relative overflow-hidden">
-      <div className="absolute right-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-white/[0.03] leading-none select-none pointer-events-none" aria-hidden="true">02</div>
+      <div className="absolute right-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-white/[0.03] leading-none select-none pointer-events-none" aria-hidden="true">03</div>
 
       <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
         <motion.div
@@ -134,7 +137,7 @@ export default function Skills() {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-16"
         >
-          <span className="text-label text-[var(--accent-gold)]">02 — Skills</span>
+          <h2 className="text-label text-[var(--accent-gold)]">03 — Skills</h2>
           <div className="h-px w-16 bg-[var(--accent-gold-border)]" />
         </motion.div>
 
@@ -145,6 +148,7 @@ export default function Skills() {
               <button
                 key={c.id}
                 onClick={() => setActive(c.id)}
+                aria-pressed={active === c.id}
                 className={`flex w-full min-h-[72px] items-center justify-between gap-4 text-left py-4 pr-6 border-b border-white/10 last:border-0 transition-all shrink-0 ${
                   active === c.id ? "text-[var(--accent-gold)]" : "text-white/60 hover:text-white/90"
                 }`}
@@ -179,7 +183,7 @@ export default function Skills() {
                     <SkillTag key={`${active}-${i}`} skill={skill} />
                   ))}
                 </div>
-                <p className="mt-6 text-label text-white/25">Hover a skill for details</p>
+                <p className="mt-6 text-label text-white/40">Hover a skill for details</p>
               </motion.div>
             </AnimatePresence>
           </div>

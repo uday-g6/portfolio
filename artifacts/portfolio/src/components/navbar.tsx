@@ -4,9 +4,10 @@ import { Menu, X } from "lucide-react";
 
 const LINKS = [
   { name: "About", href: "#about", id: "about" },
-  { name: "Skills", href: "#skills", id: "skills" },
   { name: "Experience", href: "#experience", id: "experience" },
-  { name: "Projects", href: "#projects", id: "projects" },
+  { name: "Skills", href: "#skills", id: "skills" },
+  { name: "Assessments", href: "#assessments", id: "assessments" },
+  { name: "Certifications", href: "#certifications", id: "certifications" },
   { name: "Contact", href: "#contact", id: "contact" },
 ];
 
@@ -88,15 +89,15 @@ export default function Navbar() {
             Open to Work
           </div>
           <a
-            href="/resume.pdf"
-            download
+            href="/Uday_G_Application_Security_Resume.pdf"
+            download="Uday_G_Application_Security_Resume.pdf"
             className="text-label border border-[var(--accent-gold)] text-[var(--accent-gold)] px-5 py-2 hover:bg-[var(--accent-gold)] hover:text-white transition-all duration-300 font-medium"
           >
-            Download CV
+            Download Resume
           </a>
         </div>
 
-        <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)}>
+        <button className="md:hidden p-2 -mr-2" onClick={() => setMobileOpen(!mobileOpen)} aria-label={mobileOpen ? "Close menu" : "Open menu"} aria-expanded={mobileOpen}>
           {mobileOpen ? <X size={20} className="text-[var(--text-ink)]" /> : <Menu size={20} className="text-[var(--text-ink)]" />}
         </button>
       </div>
@@ -123,6 +124,14 @@ export default function Navbar() {
                 {l.name}
               </a>
             ))}
+            <a
+              href="/Uday_G_Application_Security_Resume.pdf"
+              download="Uday_G_Application_Security_Resume.pdf"
+              onClick={() => setMobileOpen(false)}
+              className="text-sm tracking-widest uppercase text-[var(--accent-gold)]"
+            >
+              Download Resume
+            </a>
             <div className="pt-4 border-t border-[var(--border-thin)] flex items-center gap-2 text-label text-[var(--text-ink-light)] uppercase tracking-widest">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               Open to Work

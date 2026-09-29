@@ -3,7 +3,7 @@ import Hero from "@/components/hero";
 import Marquee from "@/components/marquee";
 import About from "@/components/about";
 import Skills from "@/components/skills";
-import OffensiveSecurity from "@/components/offensive-security";
+import WebApiSecurity from "@/components/web-api-security";
 import Experience from "@/components/experience";
 import Projects from "@/components/projects";
 import Certifications from "@/components/certifications";
@@ -23,9 +23,9 @@ export default function Home() {
         <Hero />
         <Marquee />
         <About />
-        <Skills />
-        <OffensiveSecurity />
         <Experience />
+        <Skills />
+        <WebApiSecurity />
         <Projects />
         <Certifications />
         <Contact />

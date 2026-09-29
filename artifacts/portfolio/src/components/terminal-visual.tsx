@@ -6,7 +6,7 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 const TERMINAL_LINES = [
   { type: "prompt", text: "$ whoami" },
   { type: "output", text: "uday@security:~$ role" },
-  { type: "output", text: "Security Test Engineer · Product & Mobile Application Security" },
+  { type: "output", text: "Security Test Engineer · Android & Mobile Application Security" },
   { type: "prompt", text: "uday@security:~$ focus" },
   { type: "output", text: "Android APK Security Testing" },
   { type: "output", text: "Mobile VAPT · Frida · Reverse Engineering" },

@@ -5,11 +5,11 @@ export default function Footer() {
   return (
     <footer className="bg-[var(--bg-dark)] border-t border-white/6">
       <div className="max-w-7xl mx-auto px-6 md:px-16 py-8 flex flex-col sm:flex-row items-center justify-between gap-5">
-        <div className="flex items-center gap-4">
-          <span className="font-display text-lg font-light text-white">Uday G</span>
-          <span className="text-white/15">·</span>
+        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
+          <span className="font-display text-lg font-light text-white whitespace-nowrap">Uday G</span>
+          <span className="hidden sm:inline text-white/15">·</span>
           <span className="text-label text-white/50 font-medium">
-            Android & Mobile Application Security | VAPT | Application Security
+            Security Test Engineer · Android & Mobile Application Security · API Security
           </span>
         </div>
         <p className="text-label text-white/40 tracking-widest uppercase order-last sm:order-none">

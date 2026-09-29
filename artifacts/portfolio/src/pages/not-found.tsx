@@ -1,21 +1,14 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { AlertCircle } from "lucide-react";
-
 export default function NotFound() {
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-      <Card className="w-full max-w-md mx-4">
-        <CardContent className="pt-6">
-          <div className="flex mb-4 gap-2">
-            <AlertCircle className="h-8 w-8 text-red-500" />
-            <h1 className="text-2xl font-bold text-gray-900">404 Page Not Found</h1>
-          </div>
-
-          <p className="mt-4 text-sm text-gray-600">
-            Did you forget to add the page to the router?
-          </p>
-        </CardContent>
-      </Card>
-    </div>
+    <main className="min-h-[100dvh] w-full flex items-center justify-center bg-[var(--bg-paper-light)] px-6">
+      <div className="max-w-md text-center flex flex-col items-center gap-5">
+        <p className="text-label text-[var(--accent-gold)]">404 — Page not found</p>
+        <h1 className="font-display font-light text-4xl text-[var(--text-ink)]">This page doesn't exist.</h1>
+        <p className="text-body text-[var(--text-ink-muted)]">
+          Uday G — Security Test Engineer · Android &amp; Mobile Application Security
+        </p>
+        <a href="/" className="btn-primary">Back to portfolio</a>
+      </div>
+    </main>
   );
 }
