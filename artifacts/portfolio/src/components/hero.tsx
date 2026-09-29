@@ -21,7 +21,7 @@ export default function Hero() {
         className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
         aria-hidden="true"
       >
-        <span className="serif font-bold text-[13vw] leading-none text-[var(--text-ink)]/[0.04] uppercase tracking-tighter whitespace-nowrap">
+        <span className="serif font-bold text-[11.5vw] leading-none text-[var(--text-ink)]/[0.04] uppercase tracking-tighter whitespace-nowrap">
           CYBERSECURITY
         </span>
       </div>
@@ -58,7 +58,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            className="font-display font-light leading-[0.92] tracking-[-0.03em] text-[var(--text-ink)] text-[clamp(5.5rem,15vw,14rem)]"
+            className="font-display font-light leading-[1.08] tracking-[-0.03em] text-[var(--text-ink)] text-[clamp(5.5rem,15vw,14rem)]"
           >
             Uday G
           </motion.h1>

@@ -78,9 +78,9 @@
   /* ============================================================
      TYPOGRAPHY
      ============================================================ */
-  --font-display: 'Space Grotesk', sans-serif;  /* Headings */
-  --font-body: 'Manrope', sans-serif;           /* Body text */
-  --font-mono: 'DM Mono', monospace;            /* Technical/mono */
+  --font-display: 'Merriweather', Georgia, serif;  /* Headings */
+  --font-body: 'Merriweather', Georgia, serif;     /* Body text */
+  --font-mono: 'Merriweather', Georgia, serif;     /* Labels (was mono) */
 
   /* Radius — minimal, technical */
   --radius: 0px;
