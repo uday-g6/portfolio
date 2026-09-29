@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
 
 const SKILL_TIPS: Record<string, string> = {
   "Android APK Security Testing": "Full-lifecycle security testing of production Android apps — static, dynamic, runtime, and API layers",
@@ -122,15 +122,61 @@ function SkillTag({ skill }: { skill: string }) {
   );
 }
 
+// On large screens the section pins while scrolling steps through each category,
+// then releases to the next section. Each category gets this much scroll distance.
+const STEP_VH = 60;
+
+function usePinnedScroll() {
+  const [pinned, setPinned] = useState(false);
+  useEffect(() => {
+    const wide = window.matchMedia("(min-width: 1024px) and (min-height: 760px)");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setPinned(wide.matches && !reduced.matches);
+    update();
+    wide.addEventListener("change", update);
+    reduced.addEventListener("change", update);
+    return () => {
+      wide.removeEventListener("change", update);
+      reduced.removeEventListener("change", update);
+    };
+  }, []);
+  return pinned;
+}
+
 export default function Skills() {
   const [active, setActive] = useState("mobile");
   const cat = CATEGORIES.find(c => c.id === active)!;
+  const pinned = usePinnedScroll();
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
+
+  useMotionValueEvent(scrollYProgress, "change", (p) => {
+    if (!pinned) return;
+    const idx = Math.min(CATEGORIES.length - 1, Math.max(0, Math.floor(p * CATEGORIES.length)));
+    setActive(CATEGORIES[idx].id);
+  });
+
+  const selectCategory = (id: string) => {
+    const section = sectionRef.current;
+    if (!pinned || !section) return setActive(id);
+    // Scroll to the middle of that category's step so the pinned view shows it.
+    const idx = CATEGORIES.findIndex(c => c.id === id);
+    const top = section.getBoundingClientRect().top + window.scrollY;
+    const travel = section.offsetHeight - window.innerHeight;
+    window.scrollTo({ top: top + ((idx + 0.5) / CATEGORIES.length) * travel, behavior: "smooth" });
+  };
 
   return (
-    <section id="skills" className="bg-[var(--bg-dark)] text-white relative overflow-hidden">
+    <section
+      id="skills"
+      ref={sectionRef}
+      className={`bg-[var(--bg-dark)] text-white relative ${pinned ? "" : "overflow-hidden"}`}
+      style={pinned ? { height: `${100 + (CATEGORIES.length - 1) * STEP_VH}vh` } : undefined}
+    >
+      <div className={pinned ? "sticky top-0 h-screen overflow-hidden flex items-center" : "contents"}>
       <div className="absolute right-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-white/[0.03] leading-none select-none pointer-events-none" aria-hidden="true">03</div>
 
-      <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
+      <div className="relative z-10 w-full px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -147,7 +193,7 @@ export default function Skills() {
             {CATEGORIES.map((c) => (
               <button
                 key={c.id}
-                onClick={() => setActive(c.id)}
+                onClick={() => selectCategory(c.id)}
                 aria-pressed={active === c.id}
                 className={`flex w-full min-h-[72px] items-center justify-between gap-4 text-left py-4 pr-6 border-b border-white/10 last:border-0 transition-all shrink-0 ${
                   active === c.id ? "text-[var(--accent-gold)]" : "text-white/60 hover:text-white/90"
@@ -188,6 +234,7 @@ export default function Skills() {
             </AnimatePresence>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );
