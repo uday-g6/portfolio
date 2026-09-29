@@ -12,7 +12,7 @@ export default function Footer() {
             Security Test Engineer · Android & Mobile Application Security · API Security
           </span>
         </div>
-        <p className="text-label text-white/40 tracking-widest uppercase order-last sm:order-none">
+        <p className="text-label text-white/55 tracking-widest uppercase order-last sm:order-none">
           Built with a security-first mindset.
         </p>
         <div className="flex items-center gap-5">

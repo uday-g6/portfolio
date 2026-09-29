@@ -63,15 +63,15 @@ export default function Contact() {
 
             <div className="flex flex-col gap-0">
               <a href="tel:+917899169395" className="group py-6 border-b border-white/10 hover:border-[var(--accent-gold)]/50 transition-colors flex flex-col gap-1">
-                <span className="text-label text-white/45 font-medium">Phone / WhatsApp</span>
+                <span className="text-label text-white/55 font-medium">Phone / WhatsApp</span>
                 <span className="font-display font-light text-3xl md:text-4xl text-white group-hover:text-[var(--accent-gold)] transition-colors tracking-tight">+91 78991-69395</span>
               </a>
               <a href="mailto:udaygopalakrishna@gmail.com" className="group py-6 border-b border-white/10 hover:border-[var(--accent-gold)]/50 transition-colors flex flex-col gap-1">
-                <span className="text-label text-white/45 font-medium">Email</span>
+                <span className="text-label text-white/55 font-medium">Email</span>
                 <span className="text-xl md:text-2xl font-light text-white group-hover:text-[var(--accent-gold)] transition-colors tracking-tight break-all">udaygopalakrishna@gmail.com</span>
               </a>
               <div className="py-6 border-b border-white/10 flex flex-col gap-1">
-                <span className="text-label text-white/45 font-medium">Location</span>
+                <span className="text-label text-white/55 font-medium">Location</span>
                 <span className="text-xl font-light text-white/80">Bengaluru, India</span>
               </div>
               <div className="pt-6 flex items-center gap-6">
@@ -117,14 +117,14 @@ export default function Contact() {
                     { id: "email", label: "Email", type: "email", ph: "jane@company.com" },
                   ].map(f => (
                     <div key={f.id} className="flex flex-col gap-2">
-                      <label htmlFor={`contact-${f.id}`} className="label-base text-white/50">{f.label}</label>
-                      <input id={`contact-${f.id}`} autoComplete={f.id} name={f.id} type={f.type} required placeholder={f.ph} className="border-b border-white/15 bg-transparent py-2.5 text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-[var(--accent-gold)] transition-colors" />
+                      <label htmlFor={`contact-${f.id}`} className="label-base text-white/60!">{f.label}</label>
+                      <input id={`contact-${f.id}`} autoComplete={f.id} name={f.id} type={f.type} required placeholder={f.ph} className="border-b border-white/15 bg-transparent py-2.5 text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[var(--accent-gold)] transition-colors" />
                     </div>
                   ))}
                 </div>
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="contact-message" className="label-base text-white/50">Message</label>
-                  <textarea id="contact-message" name="message" required rows={5} placeholder="Hi Uday, I'm reaching out about..." className="border-b border-white/15 bg-transparent py-2.5 text-sm text-white placeholder:text-white/25 focus:outline-none focus:border-[var(--accent-gold)] transition-colors resize-none" />
+                  <label htmlFor="contact-message" className="label-base text-white/60!">Message</label>
+                  <textarea id="contact-message" name="message" required rows={5} placeholder="Hi Uday, I'm reaching out about..." className="border-b border-white/15 bg-transparent py-2.5 text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[var(--accent-gold)] transition-colors resize-none" />
                 </div>
                 {error && (
                   <p className="text-sm text-red-400">Something went wrong sending your message — please email me directly instead.</p>

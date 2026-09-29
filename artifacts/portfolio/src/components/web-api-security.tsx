@@ -42,7 +42,7 @@ export default function WebApiSecurity() {
             <p className="text-body text-[var(--text-ink-muted)] max-w-xl">
               Alongside Android work, I intercept the API traffic of banking applications with Burp Suite and Postman to test authentication and authorization, BOLA/IDOR, insecure data handling, injection and session handling, and run web application VAPT with Burp Suite and OWASP ZAP against OWASP Top 10 risk areas. Every finding is validated with reproducible PoC steps and reported with CVSS and CWE.
             </p>
-            <div className="border border-[var(--accent-gold-border)] bg-[var(--accent-gold-muted)] px-5 py-4 self-start">
+            <div className="border border-[var(--accent-gold-border)] bg-[var(--bg-paper)] px-5 py-4 self-start">
               <p className="text-label text-[var(--accent-gold)] font-medium">
                 All security testing is performed only in authorized environments.
               </p>

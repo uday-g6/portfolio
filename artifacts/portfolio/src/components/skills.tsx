@@ -157,7 +157,7 @@ export default function Skills() {
                   {active === c.id && <span className="w-6 h-px bg-[var(--accent-gold)] shrink-0" />}
                   <span className="text-sm tracking-wide whitespace-nowrap">{c.label}</span>
                 </div>
-                <span className={`w-8 text-right text-xs ${active === c.id ? "text-[var(--accent-gold)]" : "text-white/35"}`}>{c.skills.length}</span>
+                <span className={`w-8 text-right text-xs ${active === c.id ? "text-[var(--accent-gold)]" : "text-white/50"}`}>{c.skills.length}</span>
               </button>
             ))}
           </div>
@@ -183,7 +183,7 @@ export default function Skills() {
                     <SkillTag key={`${active}-${i}`} skill={skill} />
                   ))}
                 </div>
-                <p className="mt-6 text-label text-white/40">Hover a skill for details</p>
+                <p className="mt-6 text-label text-white/55">Hover a skill for details</p>
               </motion.div>
             </AnimatePresence>
           </div>

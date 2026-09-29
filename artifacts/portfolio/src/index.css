@@ -36,6 +36,7 @@
   --accent-gold-muted: #B8892F33; /* Gold with opacity (20%) */
   --accent-gold-subtle: #B8892F1A; /* Gold with opacity (10%) */
   --accent-gold-border: #B8892F4D; /* Gold with opacity (30%) */
+  --accent-gold-text: #826121;   /* Same gold, deeper — gold TEXT on cream surfaces (≥4.5:1) */
 
   /* Borders & Lines */
   --border-thin: #D4D0C8;        /* Thin technical borders (light) */
@@ -735,7 +736,7 @@
 .btn-accent:focus-visible,
 .btn-ghost:focus-visible,
 .focus-visible-ring:focus-visible {
-  outline: 2px solid var(--accent-gold);
+  outline: 2px solid var(--accent-gold-text);
   outline-offset: 2px;
 }
 
@@ -759,7 +760,7 @@
 
 .btn-secondary:hover {
   border-color: var(--accent-gold);
-  color: var(--accent-gold);
+  color: var(--accent-gold-text);
   background-color: var(--accent-gold-muted);
 }
 
@@ -944,4 +945,33 @@
   .no-print { display: none !important; }
   body { background: white !important; color: black !important; }
   a { text-decoration: none; color: black !important; }
+}
+/* ============================================================
+   READABILITY
+   Small gold text on cream uses a deeper shade of the same gold;
+   charcoal surfaces keep the original gold. Gold borders, lines
+   and decorative accents are unchanged.
+   ============================================================ */
+[class*="bg-[var(--bg-dark)]"] {
+  --accent-gold-text: var(--accent-gold);
+}
+
+@layer utilities {
+  .text-\[var\(--accent-gold\)\] {
+    color: var(--accent-gold-text);
+  }
+  @media (hover: hover) {
+    .hover\:text-\[var\(--accent-gold\)\]:hover,
+    .group:hover .group-hover\:text-\[var\(--accent-gold\)\] {
+      color: var(--accent-gold-text);
+    }
+  }
+}
+
+@layer base {
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--accent-gold-text);
+    outline-offset: 3px;
+  }
 }
