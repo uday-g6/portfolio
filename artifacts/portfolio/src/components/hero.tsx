@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
 import TiltCard from "./tilt-card";
+import HeroNetwork from "./hero-network";
 
 export default function Hero() {
   const [scrolled, setScrolled] = useState(false);
@@ -25,6 +26,9 @@ export default function Hero() {
           CYBERSECURITY
         </span>
       </div>
+
+      {/* 3D network — lives inside the hero, behind the content */}
+      <HeroNetwork />
 
       {/* Circle accents */}
       <div className="absolute top-[-120px] right-[-120px] w-[480px] h-[480px] rounded-full border border-[var(--accent-gold)]/15 pointer-events-none" aria-hidden="true" />
