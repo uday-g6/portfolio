@@ -94,7 +94,7 @@ export default function Hero() {
           </p>
 
           <div className="flex flex-col gap-4 items-start md:items-end shrink-0">
-            <div className="flex gap-3">
+            <div className="flex flex-wrap gap-3">
               <a href="#experience" className="btn-primary">
                 View Experience
               </a>
