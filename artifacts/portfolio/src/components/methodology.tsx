@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import Section3D from "./section-3d";
 
 const STEPS = [
   {
@@ -36,9 +35,8 @@ const STEPS = [
 
 export default function Methodology() {
   return (
-    <section id="methodology" className="bg-[var(--bg-dark)] text-white relative overflow-clip">
+    <section id="methodology" className="bg-[var(--bg-dark)] text-white relative overflow-hidden">
       <div className="absolute right-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-white/[0.03] leading-none select-none pointer-events-none" aria-hidden="true">07</div>
-      <Section3D shape="pipeline" side="right" />
 
       <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
         <motion.div

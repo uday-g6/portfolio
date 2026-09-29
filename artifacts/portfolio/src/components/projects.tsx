@@ -1,4 +1,3 @@
-import Section3D, { type ShapeId } from "./section-3d";
 import { motion } from "framer-motion";
 
 type Project = { num: string; title: string; context: string; desc: string; tools: string[]; coverage: string[] };
@@ -33,13 +32,12 @@ const LAB_PROJECTS: Project[] = [
   },
 ];
 
-type SectionProps = { id: string; num: string; label: string; side: "left" | "right"; bg: string; items: Project[]; shape: ShapeId };
+type SectionProps = { id: string; num: string; label: string; side: "left" | "right"; bg: string; items: Project[] };
 
-function ProjectSection({ id, num, label, side, bg, items, shape }: SectionProps) {
+function ProjectSection({ id, num, label, side, bg, items }: SectionProps) {
   return (
-    <section id={id} className={`relative overflow-clip ${bg}`}>
+    <section id={id} className={`relative overflow-hidden ${bg}`}>
       <div className={`absolute ${side === "left" ? "left-[-1rem]" : "right-[-1rem]"} top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[var(--text-ink)]/[0.05] leading-none select-none pointer-events-none`} aria-hidden="true">{num}</div>
-      <Section3D shape={shape} side={side} />
 
       <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
         <motion.div
@@ -105,9 +103,9 @@ function ProjectSection({ id, num, label, side, bg, items, shape }: SectionProps
 }
 
 export default function Projects() {
-  return <ProjectSection id="assessments" num="06" label="Security Assessments (VAPT)" side="left" bg="bg-[var(--bg-paper)]" items={ASSESSMENTS} shape="graph" />;
+  return <ProjectSection id="assessments" num="06" label="Security Assessments (VAPT)" side="left" bg="bg-[var(--bg-paper)]" items={ASSESSMENTS} />;
 }
 
 export function LabProjects() {
-  return <ProjectSection id="projects" num="08" label="Projects" side="left" bg="bg-[var(--bg-paper)]" items={LAB_PROJECTS} shape="constellation" />;
+  return <ProjectSection id="projects" num="08" label="Projects" side="left" bg="bg-[var(--bg-paper)]" items={LAB_PROJECTS} />;
 }

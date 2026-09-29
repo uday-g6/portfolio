@@ -1,7 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useEffect, useState } from "react";
 import TiltCard from "./tilt-card";
-import Section3D from "./section-3d";
 
 export default function Hero() {
   const [scrolled, setScrolled] = useState(false);
@@ -26,9 +25,6 @@ export default function Hero() {
           CYBERSECURITY
         </span>
       </div>
-
-      {/* 3D network — lives inside the hero, behind the content */}
-      <Section3D shape="sphere" side="hero" />
 
       {/* Circle accents */}
       <div className="absolute top-[-120px] right-[-120px] w-[480px] h-[480px] rounded-full border border-[var(--accent-gold)]/15 pointer-events-none" aria-hidden="true" />

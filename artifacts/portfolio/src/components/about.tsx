@@ -1,13 +1,11 @@
 import { motion } from "framer-motion";
 import TiltCard from "./tilt-card";
-import Section3D from "./section-3d";
 
 export default function About() {
   return (
-    <section id="about" className="relative overflow-clip bg-[var(--bg-paper)]">
+    <section id="about" className="relative overflow-hidden bg-[var(--bg-paper)]">
       <div className="absolute top-0 right-0 w-[35vw] h-full bg-[var(--bg-paper-dark)] pointer-events-none" aria-hidden="true" />
       <div className="absolute right-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[var(--text-ink)]/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">01</div>
-      <Section3D shape="core" side="right" />
 
       <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
         <motion.div

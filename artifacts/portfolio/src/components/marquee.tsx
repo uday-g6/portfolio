@@ -8,7 +8,7 @@ const items = [
 export default function Marquee() {
   const doubled = [...items, ...items];
   return (
-    <div aria-hidden="true" className="overflow-hidden border-y border-[var(--border-thin)] bg-[var(--bg-dark)] py-4 select-none">
+    <div aria-hidden="true" className="relative z-10 overflow-hidden border-y border-[var(--border-thin)] bg-[var(--bg-dark)] py-4 select-none">
       <div className="marquee-track">
         {doubled.map((item, i) => (
           <span key={i} className="inline-flex items-center gap-6 px-6">

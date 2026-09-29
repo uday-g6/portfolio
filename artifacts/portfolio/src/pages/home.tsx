@@ -14,7 +14,7 @@ import Footer from "@/components/footer";
 import BackToTop from "@/components/back-to-top";
 import ProgressBar from "@/components/progress-bar";
 import CursorSpotlight from "@/components/cursor-spotlight";
-import { Preview3DToggle } from "@/components/section-3d";
+import Journey3D, { Preview3DToggle } from "@/components/journey-3d";
 
 export default function Home() {
   return (
@@ -23,6 +23,8 @@ export default function Home() {
       <CursorSpotlight />
       <Navbar />
       <main>
+        {/* One continuous 3D system travels through Hero → Contact */}
+        <div className="relative">
         <Hero />
         <Marquee />
         <About />
@@ -35,6 +37,8 @@ export default function Home() {
         <LabProjects />
         <Certifications />
         <Contact />
+        <Journey3D />
+        </div>
       </main>
       <Footer />
       <BackToTop />

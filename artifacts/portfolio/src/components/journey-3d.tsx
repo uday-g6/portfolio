@@ -1,9 +1,11 @@
 import { useEffect, useRef } from "react";
 
-// Scroll-driven 3D security visuals. Each section owns its own canvas (never
-// position: fixed): the canvas sits behind that section's content and scrolls
-// away with it. As a section scrolls in, its structure morphs out of the
-// previous section's structure, so the page reads as one system transforming.
+// One continuous, scroll-driven 3D security system for the whole portfolio.
+// A single set of nodes morphs through eleven structures (Hero → 01 … 10) as
+// the page scrolls: scroll position maps to a continuous state value, so
+// scrolling down advances the transformation and scrolling up reverses it.
+// The canvas is sticky inside a track that spans Hero → Contact (it is never
+// position: fixed) and sits above section backgrounds, below section content.
 // Canvas 2D + perspective projection — no library, CSP-safe.
 
 export type ShapeId =
@@ -237,30 +239,30 @@ const MOTION: Record<ShapeId, { spin: number; tilt: number; scale: number }> = {
   converge: { spin: 0.0026, tilt: 0.3, scale: 0.44 },
 };
 
-// ---------- renderer ----------
-function mount(wrap: HTMLDivElement, canvas: HTMLCanvasElement, id: ShapeId) {
+
+// ---------- the journey ----------
+const SECTIONS = ["hero", "about", "experience", "skills", "mobile-security", "web-api-security", "assessments", "methodology", "projects", "certifications", "contact"];
+// Horizontal anchor on large screens (fraction of width). Follows the section-number side,
+// except API & Web, whose right-hand cards are opaque and would hide the structure.
+const ANCHOR = [0.83, 0.74, 0.26, 0.74, 0.26, 0.26, 0.26, 0.74, 0.26, 0.74, 0.26];
+
+function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
   const ctx = canvas.getContext("2d");
   if (!ctx) return () => {};
-  const section = wrap.closest("section") as HTMLElement;
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const small = window.matchMedia("(max-width: 767px)").matches;
   const N = small ? 56 : 120;
-  const prevId = ORDER[ORDER.indexOf(id) - 1];
-  const from0 = prevId ? build(prevId, N) : null;
-  let to = build(id, N);
-  let from = from0 ?? to;
-  let swapStart = -1, swapFrom: V[] | null = null, swapEdges: [number, number][] = [];
-  const cur: V[] = to.pts.map((p) => ({ ...p }));
-  const m = MOTION[id];
-  let W = 0, H = 0, raf = 0, visible = false, enabled = preview3dEnabled(), t = 0;
-  let px = 0, py = 0, tx = 0, ty = 0;
+  const shapes: Shape[] = ORDER.map((id) => build(id, N));
+  let swap: { from: Shape; start: number } | null = null; // Skills category change
+  const cur: V[] = shapes[0].pts.map((p) => ({ ...p }));
+  let W = 0, H = 0, raf = 0, visible = false, enabled = preview3dEnabled(), t = 0, spin = 0;
+  let px = 0, py = 0, tx = 0, ty = 0, lastDominant = -1;
   const packets = Array.from({ length: small ? 5 : 12 }, () => ({ e: 0, u: Math.random(), v: 0.004 + Math.random() * 0.006, dir: Math.random() < 0.5 ? 1 : -1, lane: 0 }));
-  packets.forEach((k) => { k.e = (Math.random() * to.edges.length) | 0; k.lane = (Math.random() * (to.lanes?.length ?? 1)) | 0; });
   const dust = Array.from({ length: small ? 18 : 48 }, () => ({ x: (Math.random() * 2 - 1) * 1.8, y: (Math.random() * 2 - 1) * 1.4, z: (Math.random() * 2 - 1) * 1.5, s: 0.0006 + Math.random() * 0.0012 }));
   const pulses: { i: number; a: number }[] = [];
   const assessed = new Map<number, number>();
-
   const rgba = (c: string, a: number) => `rgba(${c},${clamp(a)})`;
+
   const resize = () => {
     const dpr = Math.min(window.devicePixelRatio || 1, small ? 1.5 : 2);
     const rect = canvas.getBoundingClientRect(); W = rect.width; H = rect.height;
@@ -269,42 +271,71 @@ function mount(wrap: HTMLDivElement, canvas: HTMLCanvasElement, id: ShapeId) {
     if (!raf) draw();
   };
 
-  function progress() {
-    const rect = section.getBoundingClientRect(), vh = window.innerHeight;
-    return {
-      enter: prevId ? clamp((vh - rect.top) / (vh * 0.75)) : 1,
-      through: clamp(-rect.top / Math.max(1, rect.height - vh)),
-    };
+  // Scroll → continuous state s ∈ [0, 10]. Each section→next transition runs while
+  // the section's bottom travels from 95% to 15% of the viewport height.
+  function state() {
+    const vh = window.innerHeight, y = window.scrollY;
+    let s = 0, prevEnd = -Infinity;
+    const through: number[] = [];
+    SECTIONS.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (!el) { through.push(0); return; }
+      const r = el.getBoundingClientRect(), top = r.top + y, bottom = top + r.height;
+      through.push(clamp((y - top) / Math.max(1, r.height - vh)));
+      if (i === SECTIONS.length - 1) return;
+      let a = bottom - vh * 0.95, b = bottom - vh * 0.15;
+      if (a < prevEnd) a = prevEnd;
+      if (b < a + vh * 0.3) b = a + vh * 0.3;
+      s += ease(clamp((y - a) / (b - a))); prevEnd = b;
+    });
+    return { s: Math.min(s, SECTIONS.length - 1), through };
+  }
+
+  // Where the structure sits (and how strong it is) for each state.
+  function layout(k: number) {
+    if (k === 0) {
+      if (W >= 1280) { const w = W * 0.46, h = Math.min(H * 0.78, 680); return { x: W * 1.06 - w / 2, y: 64 + h / 2, R: Math.min(w, h) * 0.42, a: 1 }; }
+      const h = H * 0.46; return { x: W / 2, y: 64 + h / 2, R: Math.min(W, h) * 0.42, a: 0.45 };
+    }
+    const sc = MOTION[ORDER[k]].scale;
+    if (W >= 1024) return { x: W * ANCHOR[k], y: H / 2, R: Math.min(W * 0.5, H) * sc, a: 0.7 };
+    return { x: W / 2, y: H / 2, R: Math.min(W, H * 0.6) * sc, a: 0.45 };
+  }
+
+  function pointsOf(k: number): V[] {
+    if (k !== 3 || !swap) return shapes[k].pts;
+    const u = ease(clamp((performance.now() - swap.start) / 900));
+    if (u >= 1) { swap = null; return shapes[3].pts; }
+    return shapes[3].pts.map((p, i) => { const q = swap!.from.pts[i]; return { x: q.x + (p.x - q.x) * u, y: q.y + (p.y - q.y) * u, z: q.z + (p.z - q.z) * u }; });
   }
 
   function draw() {
     if (!W || !H) return;
-    t += 1;
-    const { enter, through } = reduced ? { enter: 1, through: 0.5 } : progress();
-    const mix = ease(enter);
+    if (!reduced) t += 1;
+    const { s, through } = state();
+    const k = Math.min(SECTIONS.length - 2, Math.floor(s)), e = s - k;
+    track.dataset.state = s.toFixed(3); // 0 = Hero … 10 = Contact (inspectable)
+    const A = shapes[k], B = shapes[k + 1], pa = pointsOf(k), pb = pointsOf(k + 1);
+    const LA = layout(k), LB = layout(k + 1), mA = MOTION[ORDER[k]], mB = MOTION[ORDER[k + 1]];
+    const lx = LA.x + (LB.x - LA.x) * e, ly = LA.y + (LB.y - LA.y) * e, R = LA.R + (LB.R - LA.R) * e;
+    if (!reduced) spin += mA.spin + (mB.spin - mA.spin) * e;
     px += (tx - px) * 0.04; py += (ty - py) * 0.04;
-    const ry = t * m.spin + px * 0.3 + (id === "constellation" || id === "timeline" ? through * 1.2 : 0);
-    const rx = m.tilt + py * 0.15;
-    const R = Math.min(W, H) * m.scale;
+    const ry = spin + s * 0.9 + px * 0.3, rx = mA.tilt + (mB.tilt - mA.tilt) * e + py * 0.15;
     const cy = Math.cos(ry), sy = Math.sin(ry), cx = Math.cos(rx), sx = Math.sin(rx);
-    const project = (p: V, s = 1) => {
+    const project = (p: V) => {
       const x = p.x * cy - p.z * sy; let z = p.x * sy + p.z * cy;
-      const y = p.y * cx - z * sx; z = p.y * sx + z * cx;
+      const yy = p.y * cx - z * sx; z = p.y * sx + z * cx;
       const f = 2.6 / (2.6 + z);
-      return { x: W / 2 + x * R * f * s, y: H / 2 + y * R * f * s, z, f };
+      return { x: lx + x * R * f, y: ly + yy * R * f, z, f };
     };
-
-    // in-section category swaps (Skills)
-    let swap = 1;
-    if (swapFrom) { swap = ease(clamp((performance.now() - swapStart) / 900)); if (swap >= 1) swapFrom = null; }
-    for (let i = 0; i < cur.length; i++) {
-      const a = swapFrom ? swapFrom[i] : from.pts[i], b = to.pts[i], k = swapFrom ? swap : mix;
-      cur[i].x = a.x + (b.x - a.x) * k;
-      cur[i].y = a.y + (b.y - a.y) * k;
-      cur[i].z = a.z + (b.z - a.z) * k;
+    for (let i = 0; i < N; i++) {
+      cur[i].x = pa[i].x + (pb[i].x - pa[i].x) * e;
+      cur[i].y = pa[i].y + (pb[i].y - pa[i].y) * e;
+      cur[i].z = pa[i].z + (pb[i].z - pa[i].z) * e;
     }
-    const P = cur.map((p) => project(p));
+    const P = cur.map(project);
     ctx!.clearRect(0, 0, W, H);
+    ctx!.globalAlpha = LA.a + (LB.a - LA.a) * e;
 
     for (const d of dust) {
       if (!reduced) { d.y -= d.s; if (d.y < -1.4) d.y = 1.4; }
@@ -312,7 +343,6 @@ function mount(wrap: HTMLDivElement, canvas: HTMLCanvasElement, id: ShapeId) {
       ctx!.fillStyle = rgba(LINE, 0.06 + 0.14 * (1 - (p.z + 1.5) / 3));
       ctx!.beginPath(); ctx!.arc(p.x, p.y, 0.8 * p.f, 0, 7); ctx!.fill();
     }
-
     const drawEdges = (edges: [number, number][], w: number) => {
       if (w <= 0.01) return;
       for (const [i, j] of edges) {
@@ -323,8 +353,12 @@ function mount(wrap: HTMLDivElement, canvas: HTMLCanvasElement, id: ShapeId) {
         ctx!.beginPath(); ctx!.moveTo(a.x, a.y); ctx!.lineTo(b.x, b.y); ctx!.stroke();
       }
     };
-    if (swapFrom) { drawEdges(swapEdges, 1 - swap); drawEdges(to.edges, swap); }
-    else { drawEdges(from.edges, from === to ? 0 : 1 - mix); drawEdges(to.edges, mix); }
+    const skillsU = swap ? ease(clamp((performance.now() - swap.start) / 900)) : 1;
+    const edgesOf = (idx: number, w: number) => {
+      if (idx === 3 && swap) { drawEdges(swap.from.edges, w * (1 - skillsU)); drawEdges(shapes[3].edges, w * skillsU); }
+      else drawEdges(shapes[idx].edges, w);
+    };
+    edgesOf(k, 1 - e); edgesOf(k + 1, e);
 
     const glow = (x: number, y: number, a: number, rad = 6) => {
       const g = ctx!.createRadialGradient(x, y, 0, x, y, rad);
@@ -332,44 +366,46 @@ function mount(wrap: HTMLDivElement, canvas: HTMLCanvasElement, id: ShapeId) {
       ctx!.fillStyle = g; ctx!.beginPath(); ctx!.arc(x, y, rad, 0, 7); ctx!.fill();
     };
     const along = (ids: number[], u: number) => {
-      const f = u * (ids.length - 1), i = Math.min(ids.length - 2, Math.floor(f)), k = f - i;
+      const f = u * (ids.length - 1), i = Math.min(ids.length - 2, Math.floor(f)), q = f - i;
       const a = P[ids[i]], b = P[ids[i + 1]];
-      return { x: a.x + (b.x - a.x) * k, y: a.y + (b.y - a.y) * k, z: (a.z + b.z) / 2 };
+      return { x: a.x + (b.x - a.x) * q, y: a.y + (b.y - a.y) * q };
     };
 
-    // section-specific motion (only once the structure has formed)
-    const formed = mix > 0.85;
-    if (formed && !reduced) {
+    // The dominant structure's own motion, once it has (nearly) formed.
+    const dom = e < 0.5 ? k : k + 1, strength = e < 0.5 ? 1 - e : e, id = ORDER[dom], to = shapes[dom], thr = through[dom] ?? 0;
+    if (dom !== lastDominant) {
+      packets.forEach((p) => { p.e = (Math.random() * to.edges.length) | 0; p.lane = (Math.random() * (to.lanes?.length ?? 1)) | 0; p.u = Math.random(); });
+      pulses.length = 0; assessed.clear(); lastDominant = dom;
+    }
+    if (strength > 0.85 && !reduced) {
       if (id === "flow" && to.lanes) {
-        for (const k of packets) {
-          k.u += k.v * k.dir; if (k.u > 1 || k.u < 0) { k.u = k.dir > 0 ? 0 : 1; k.lane = (Math.random() * to.lanes.length) | 0; }
-          const p = along(to.lanes[k.lane], clamp(k.u)); glow(p.x, p.y, 0.55, 7);
+        for (const p of packets) {
+          p.u += p.v * p.dir; if (p.u > 1 || p.u < 0) { p.u = p.dir > 0 ? 0 : 1; p.lane = (Math.random() * to.lanes.length) | 0; }
+          const q = along(to.lanes[p.lane], clamp(p.u)); glow(q.x, q.y, 0.55, 7);
         }
       } else if (id === "timeline" && to.lanes) {
-        const p = along(to.lanes[0], through); glow(p.x, p.y, 0.7, 10);
+        const q = along(to.lanes[0], thr); glow(q.x, q.y, 0.7, 10);
       } else if (id === "pipeline" && to.stages) {
-        const s = Math.min(5, Math.floor(through * 6)), c = P[to.stages[s][0]];
-        glow(c.x, c.y, 0.5, 26);
-        const nxt = to.stages[Math.min(5, s + 1)][0], u = (t % 120) / 120, a = P[to.stages[s][0]], b = P[nxt];
-        if (s < 5) glow(a.x + (b.x - a.x) * u, a.y + (b.y - a.y) * u, 0.55, 7);
+        const st = Math.min(5, Math.floor(thr * 6)), a = P[to.stages[st][0]];
+        glow(a.x, a.y, 0.5, 26);
+        if (st < 5) { const b = P[to.stages[st + 1][0]], u = (t % 120) / 120; glow(a.x + (b.x - a.x) * u, a.y + (b.y - a.y) * u, 0.55, 7); }
       } else if (id === "device") {
-        const sy2 = -0.95 + ((t % 240) / 240) * 1.9;
-        const a = project({ x: -0.62, y: sy2, z: 0.07 }), b = project({ x: 0.62, y: sy2, z: 0.07 });
+        const scanY = -0.95 + ((t % 240) / 240) * 1.9, a = project({ x: -0.62, y: scanY, z: 0.07 }), b = project({ x: 0.62, y: scanY, z: 0.07 });
         ctx!.strokeStyle = rgba(LINE, 0.35); ctx!.lineWidth = 1; ctx!.beginPath(); ctx!.moveTo(a.x, a.y); ctx!.lineTo(b.x, b.y); ctx!.stroke();
-        cur.forEach((q, i) => { if (Math.abs(q.y - sy2) < 0.05) glow(P[i].x, P[i].y, 0.5, 6); });
+        cur.forEach((q, i) => { if (Math.abs(q.y - scanY) < 0.05) glow(P[i].x, P[i].y, 0.5, 6); });
       } else if (id === "graph") {
         const sweep = ((t * 0.012) % (Math.PI * 2)) - Math.PI;
-        cur.forEach((q, i) => { const a = Math.atan2(q.z, q.x); if (Math.abs(a - sweep) < 0.05) assessed.set(i, t); });
+        cur.forEach((q, i) => { if (Math.abs(Math.atan2(q.z, q.x) - sweep) < 0.05) assessed.set(i, t); });
         assessed.forEach((at, i) => {
           const age = (t - at) / 150; if (age > 1) { assessed.delete(i); return; }
           ctx!.strokeStyle = rgba(LINE, 0.5 * (1 - age)); ctx!.lineWidth = 1;
           ctx!.beginPath(); ctx!.arc(P[i].x, P[i].y, 4 + 3 * age, 0, 7); ctx!.stroke();
         });
       } else if (id === "sphere" || id === "core" || id === "matrix" || id === "constellation") {
-        for (const k of packets) {
-          k.u += k.v; if (k.u > 1) { k.u = 0; k.e = (Math.random() * to.edges.length) | 0; }
-          const [i, j] = to.edges[k.e], a = P[i], b = P[j];
-          glow(a.x + (b.x - a.x) * k.u, a.y + (b.y - a.y) * k.u, 0.45, 6);
+        for (const p of packets) {
+          p.u += p.v; if (p.u > 1) { p.u = 0; p.e = (Math.random() * to.edges.length) | 0; }
+          const edge = to.edges[p.e]; if (!edge) continue;
+          const a = P[edge[0]], b = P[edge[1]]; glow(a.x + (b.x - a.x) * p.u, a.y + (b.y - a.y) * p.u, 0.45, 6);
         }
       }
       if ((id === "sphere" || id === "converge" || id === "badge") && t % (id === "converge" ? 150 : 90) === 0) {
@@ -384,38 +420,37 @@ function mount(wrap: HTMLDivElement, canvas: HTMLCanvasElement, id: ShapeId) {
       if (q.a >= 1) pulses.splice(n, 1);
     }
 
-    // nodes, back to front
-    const activeStage = id === "pipeline" && to.stages ? new Set(to.stages[Math.min(5, Math.floor(through * 6))]) : null;
-    P.map((p, i) => i).sort((a, b) => P[b].z - P[a].z).forEach((i) => {
-      const p = P[i], depth = 1 - (p.z + 1) / 2, hub = to.hubs[i] && mix > 0.5;
-      const lit = activeStage?.has(i);
+    const activeStage = id === "pipeline" && to.stages && strength > 0.85 ? new Set(to.stages[Math.min(5, Math.floor(thr * 6))]) : null;
+    P.map((_, i) => i).sort((a, b) => P[b].z - P[a].z).forEach((i) => {
+      const p = P[i], depth = 1 - (p.z + 1) / 2;
+      const hub = (A.hubs[i] ? 1 - e : 0) + (B.hubs[i] ? e : 0) > 0.5, lit = activeStage?.has(i);
       const r = (hub ? 2.6 : 1.5) * p.f * (lit ? 1.4 : 1);
       if (hub) { ctx!.fillStyle = rgba(CORE, 0.9); ctx!.beginPath(); ctx!.arc(p.x, p.y, r + 2.2, 0, 7); ctx!.fill(); }
       ctx!.fillStyle = rgba(LINE, (0.25 + 0.6 * depth) * (activeStage && !lit ? 0.6 : 1));
       ctx!.beginPath(); ctx!.arc(p.x, p.y, r, 0, 7); ctx!.fill();
     });
+    ctx!.globalAlpha = 1;
   }
 
   const loop = () => { draw(); raf = requestAnimationFrame(loop); };
   const start = () => { if (enabled && visible && !document.hidden && !raf) { if (reduced) draw(); else raf = requestAnimationFrame(loop); } };
   const stop = () => { cancelAnimationFrame(raf); raf = 0; };
-  const apply = () => { wrap.style.display = enabled ? "" : "none"; if (enabled) { resize(); start(); } else stop(); };
+  const apply = () => { track.style.display = enabled ? "" : "none"; if (enabled) { resize(); start(); } else stop(); };
 
-  const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) start(); else stop(); });
+  const io = new IntersectionObserver(([en]) => { visible = en.isIntersecting; if (visible) start(); else stop(); });
   const ro = new ResizeObserver(resize);
   const onVis = () => (document.hidden ? stop() : start());
-  const onMove = (e: PointerEvent) => { tx = (e.clientX / window.innerWidth) * 2 - 1; ty = (e.clientY / window.innerHeight) * 2 - 1; };
-  const onPreview = (e: Event) => { enabled = (e as CustomEvent<boolean>).detail; apply(); };
-  const onScroll = () => { if (reduced && visible && enabled) draw(); };
-  const onCategory = (e: Event) => {
-    if (id !== "matrix") return;
-    swapFrom = cur.map((p) => ({ ...p })); swapEdges = to.edges; swapStart = performance.now();
-    to = build("matrix", N, (e as CustomEvent<number>).detail); from = from0 ?? to;
+  const onMove = (ev: PointerEvent) => { tx = (ev.clientX / window.innerWidth) * 2 - 1; ty = (ev.clientY / window.innerHeight) * 2 - 1; };
+  const onPreview = (ev: Event) => { enabled = (ev as CustomEvent<boolean>).detail; apply(); };
+  const onScroll = () => { if (reduced && visible && enabled) draw(); }; // reduced motion: follow scroll, no autonomous motion
+  const onCategory = (ev: Event) => {
+    swap = { from: shapes[3], start: reduced ? -1e9 : performance.now() };
+    shapes[3] = build("matrix", N, (ev as CustomEvent<number>).detail);
     if (reduced) draw();
   };
 
   apply();
-  io.observe(wrap); ro.observe(canvas);
+  io.observe(track); ro.observe(canvas);
   window.addEventListener("pointermove", onMove, { passive: true });
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener(PREVIEW_EVENT, onPreview);
@@ -432,21 +467,14 @@ function mount(wrap: HTMLDivElement, canvas: HTMLCanvasElement, id: ShapeId) {
 }
 
 // ---------- components ----------
-export default function Section3D({ shape, side }: { shape: ShapeId; side: "left" | "right" | "hero" }) {
-  const wrap = useRef<HTMLDivElement>(null);
+// Place inside a relatively positioned wrapper that spans Hero → Contact.
+export default function Journey3D() {
+  const track = useRef<HTMLDivElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
-  useEffect(() => (wrap.current && canvas.current ? mount(wrap.current, canvas.current, shape) : undefined), [shape]);
-
-  if (side === "hero") {
-    return (
-      <div ref={wrap} data-3d={shape} aria-hidden="true" className="absolute pointer-events-none left-0 right-0 top-16 h-[46vh] w-full opacity-45 xl:left-auto xl:right-[-6%] xl:w-[46%] xl:h-[min(78vh,680px)] xl:opacity-100">
-        <canvas ref={canvas} className="block h-full w-full" />
-      </div>
-    );
-  }
+  useEffect(() => (track.current && canvas.current ? mount(track.current, canvas.current) : undefined), []);
   return (
-    <div ref={wrap} data-3d={shape} aria-hidden="true" className={`absolute inset-y-0 pointer-events-none w-full opacity-45 lg:w-1/2 lg:opacity-70 ${side === "left" ? "left-0" : "right-0"}`}>
-      <canvas ref={canvas} className="sticky top-0 block w-full" style={{ height: "min(100svh, 100%)" }} />
+    <div ref={track} data-3d-track aria-hidden="true" className="pointer-events-none absolute inset-0 z-[5]">
+      <canvas ref={canvas} className="sticky top-0 block h-[100svh] w-full" />
     </div>
   );
 }
@@ -454,13 +482,16 @@ export default function Section3D({ shape, side }: { shape: ShapeId; side: "left
 export function Preview3DToggle() {
   const ref = useRef<HTMLButtonElement>(null);
   useEffect(() => {
-    const b = ref.current!; const paint = () => { const on = preview3dEnabled(); b.textContent = `3D Preview: ${on ? "ON" : "OFF"}`; b.setAttribute("aria-pressed", String(on)); };
-    paint(); window.addEventListener(PREVIEW_EVENT, paint); return () => window.removeEventListener(PREVIEW_EVENT, paint);
+    const b = ref.current!;
+    const paint = () => { const on = preview3dEnabled(); b.textContent = `3D Preview: ${on ? "ON" : "OFF"}`; b.setAttribute("aria-pressed", String(on)); };
+    paint(); window.addEventListener(PREVIEW_EVENT, paint);
+    return () => window.removeEventListener(PREVIEW_EVENT, paint);
   }, []);
   return (
     <button
       ref={ref}
       type="button"
+      data-preview-3d-toggle
       onClick={() => setPreview3d(!preview3dEnabled())}
       className="fixed bottom-5 left-5 z-[60] border border-[var(--accent-gold)] bg-[var(--bg-dark)]/90 px-4 py-2 text-label text-[var(--accent-gold)] backdrop-blur-sm hover:bg-[var(--accent-gold)] hover:text-white transition-colors"
     >
