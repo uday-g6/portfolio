@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 
-const PROJECTS = [
+type Project = { num: string; title: string; context: string; desc: string; tools: string[]; coverage: string[] };
+
+const ASSESSMENTS: Project[] = [
   {
     num: "01",
     title: "Production Android APK Security Assessments",
@@ -19,10 +21,23 @@ const PROJECTS = [
   },
 ];
 
-export default function Projects() {
+const LAB_PROJECTS: Project[] = [
+  {
+    num: "01",
+    title: "Web Application Penetration Testing Lab",
+    context: "Lab project · Deliberately vulnerable applications (DVWA, WebGoat)",
+    desc: "Tested deliberately vulnerable web applications (DVWA, WebGoat) across the OWASP Top 10, and practised authentication and session testing — login bypass, session token analysis, privilege escalation and request manipulation — using Burp Suite and OWASP ZAP.",
+    tools: ["Burp Suite", "OWASP ZAP", "SQLmap", "DVWA", "WebGoat"],
+    coverage: ["SQL injection", "Cross-site scripting (XSS)", "CSRF", "Broken authentication", "Session management flaws", "Broken access control"],
+  },
+];
+
+type SectionProps = { id: string; num: string; label: string; side: "left" | "right"; bg: string; items: Project[] };
+
+function ProjectSection({ id, num, label, side, bg, items }: SectionProps) {
   return (
-    <section id="assessments" className="relative overflow-hidden bg-[var(--bg-paper-darker)]">
-      <div className="absolute right-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[var(--text-ink)]/[0.05] leading-none select-none pointer-events-none" aria-hidden="true">05</div>
+    <section id={id} className={`relative overflow-hidden ${bg}`}>
+      <div className={`absolute ${side === "left" ? "left-[-1rem]" : "right-[-1rem]"} top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[var(--text-ink)]/[0.05] leading-none select-none pointer-events-none`} aria-hidden="true">{num}</div>
 
       <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
         <motion.div
@@ -31,12 +46,12 @@ export default function Projects() {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-16"
         >
-          <h2 className="text-label text-[var(--accent-gold)]">05 — Assessment Work</h2>
+          <h2 className="text-label text-[var(--accent-gold)]">{num} — {label}</h2>
           <div className="h-px w-16 bg-[var(--accent-gold-border)]" />
         </motion.div>
 
         <div className="flex flex-col gap-0">
-          {PROJECTS.map((p, idx) => (
+          {items.map((p, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 24 }}
@@ -85,4 +100,12 @@ export default function Projects() {
       </div>
     </section>
   );
+}
+
+export default function Projects() {
+  return <ProjectSection id="assessments" num="06" label="Security Assessments (VAPT)" side="left" bg="bg-[var(--bg-paper)]" items={ASSESSMENTS} />;
+}
+
+export function LabProjects() {
+  return <ProjectSection id="projects" num="08" label="Projects" side="left" bg="bg-[var(--bg-paper)]" items={LAB_PROJECTS} />;
 }

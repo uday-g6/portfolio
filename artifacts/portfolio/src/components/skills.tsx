@@ -183,7 +183,7 @@ export default function Skills() {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-16"
         >
-          <h2 className="text-label text-[var(--accent-gold)]">03 — Skills</h2>
+          <h2 className="text-label text-[var(--accent-gold)]">03 — Skills &amp; Tools</h2>
           <div className="h-px w-16 bg-[var(--accent-gold-border)]" />
         </motion.div>
 

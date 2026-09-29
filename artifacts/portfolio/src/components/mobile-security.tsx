@@ -1,22 +1,22 @@
 import { motion } from "framer-motion";
 
 const TOPICS = [
-  "Web Application Penetration Testing",
-  "REST API Security Testing",
-  "Authentication & Authorization Testing",
-  "BOLA / IDOR & Broken Access Control",
-  "Injection & Session Security",
-  "PoC-Based Vulnerability Validation",
-  "Burp Suite",
-  "OWASP ZAP & Postman",
-  "OWASP Top 10 & API Security Top 10",
-  "CVSS & CWE Reporting",
+  "Android APK Security Testing",
+  "Static Analysis — MobSF, JADX & Apktool",
+  "APK Reverse Engineering",
+  "Frida-Based Dynamic Testing",
+  "SSL Pinning Testing & Bypass",
+  "Root & Emulator Detection Testing",
+  "Certificate Validation",
+  "Android Runtime Security Controls",
+  "Android Component Security",
+  "Insecure Data Storage & Hardcoded Secrets",
 ];
 
-export default function WebApiSecurity() {
+export default function MobileSecurity() {
   return (
-    <section id="web-api-security" className="relative overflow-hidden bg-[var(--bg-paper-darker)]">
-      <div className="absolute right-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[var(--text-ink)]/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">05</div>
+    <section id="mobile-security" className="relative overflow-hidden bg-[var(--bg-paper)]">
+      <div className="absolute left-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[var(--text-ink)]/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">04</div>
 
       <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
         <motion.div
@@ -25,7 +25,7 @@ export default function WebApiSecurity() {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-16"
         >
-          <p className="text-label text-[var(--accent-gold)]">05 — API &amp; Web Application Security</p>
+          <p className="text-label text-[var(--accent-gold)]">04 — Mobile Application Security</p>
           <div className="h-px w-16 bg-[var(--accent-gold-border)]" />
         </motion.div>
 
@@ -37,14 +37,14 @@ export default function WebApiSecurity() {
             className="flex flex-col gap-6"
           >
             <h2 className="font-display font-light text-4xl md:text-5xl leading-[1.1] tracking-tight text-[var(--text-ink)]">
-              API &amp; Web Application Security
+              Mobile Application Security
             </h2>
             <p className="text-body text-[var(--text-ink-muted)] max-w-xl">
-              Alongside Android work, I intercept the API traffic of banking applications with Burp Suite and Postman to test authentication and authorization, BOLA/IDOR, insecure data handling, injection and session handling, and run web application VAPT with Burp Suite and OWASP ZAP against OWASP Top 10 risk areas. Every finding is validated with reproducible PoC steps and reported with CVSS and CWE.
+              My core work is security testing of production Android banking applications: 100+ APK security assessments combining static analysis with MobSF, JADX and Apktool, APK reverse engineering and Frida-based dynamic testing across 60+ applications. I test Android runtime security controls — debugging, developer mode, proxy/VPN detection, screen overlay and recording protections, app integrity, installation source validation and anti-hooking — and review component configurations, data storage and cryptographic implementations.
             </p>
             <div className="border border-[var(--accent-gold-border)] bg-[var(--bg-paper)] px-5 py-4 self-start">
               <p className="text-label text-[var(--accent-gold)] font-medium">
-                All security testing is performed only in authorized environments.
+                Aligned to OWASP MASVS / MASTG and the OWASP Mobile Top 10.
               </p>
             </div>
           </motion.div>
