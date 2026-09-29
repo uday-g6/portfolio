@@ -64,7 +64,7 @@ export default function Navbar() {
           Uday G
         </a>
 
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden xl:flex items-center gap-8">
           {LINKS.map((l) => (
             <a
               key={l.name}
@@ -87,7 +87,7 @@ export default function Navbar() {
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center gap-5">
+        <div className="hidden xl:flex items-center gap-5">
           <div className="flex items-center gap-2 text-label text-[var(--text-ink-muted)] font-medium">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
             Open to Work
@@ -101,7 +101,7 @@ export default function Navbar() {
           </a>
         </div>
 
-        <button className="md:hidden p-2 -mr-2" onClick={() => setMobileOpen(!mobileOpen)} aria-label={mobileOpen ? "Close menu" : "Open menu"} aria-expanded={mobileOpen}>
+        <button className="xl:hidden p-2 -mr-2" onClick={() => setMobileOpen(!mobileOpen)} aria-label={mobileOpen ? "Close menu" : "Open menu"} aria-expanded={mobileOpen}>
           {mobileOpen ? <X size={20} className="text-[var(--text-ink)]" /> : <Menu size={20} className="text-[var(--text-ink)]" />}
         </button>
       </div>
@@ -112,7 +112,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
-            className="md:hidden bg-[var(--bg-paper-light)]/98 backdrop-blur border-b border-[var(--border-thin)] px-6 py-6 flex flex-col gap-4"
+            className="xl:hidden bg-[var(--bg-paper-light)]/98 backdrop-blur border-b border-[var(--border-thin)] px-6 py-6 flex flex-col gap-4"
           >
             {LINKS.map((l) => (
               <a
