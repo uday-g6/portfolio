@@ -3,12 +3,10 @@ import Hero from "@/components/hero";
 import Marquee from "@/components/marquee";
 import About from "@/components/about";
 import Skills from "@/components/skills";
-import WebApiSecurity from "@/components/web-api-security";
 import Experience from "@/components/experience";
 import Projects, { LabProjects } from "@/components/projects";
-import MobileSecurity from "@/components/mobile-security";
-import Methodology from "@/components/methodology";
 import Certifications from "@/components/certifications";
+import Education from "@/components/education";
 import Contact from "@/components/contact";
 import Footer from "@/components/footer";
 import BackToTop from "@/components/back-to-top";
@@ -30,12 +28,10 @@ export default function Home() {
         <About />
         <Experience />
         <Skills />
-        <MobileSecurity />
-        <WebApiSecurity />
         <Projects />
-        <Methodology />
         <LabProjects />
         <Certifications />
+        <Education />
         <Contact />
         <Journey3D />
         </div>

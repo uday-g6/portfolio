@@ -1,5 +1,6 @@
 import { FolderLock, ScanSearch, type LucideIcon } from "lucide-react";
 import SectionIcon from "./section-icon";
+import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 
 type Project = { num: string; title: string; context: string; desc: string; tools: string[]; coverage: string[] };
@@ -34,9 +35,9 @@ const LAB_PROJECTS: Project[] = [
   },
 ];
 
-type SectionProps = { id: string; num: string; label: string; side: "left" | "right"; bg: string; items: Project[]; icon: LucideIcon };
+type SectionProps = { id: string; num: string; label: string; side: "left" | "right"; bg: string; items: Project[]; icon: LucideIcon; intro?: ReactNode };
 
-function ProjectSection({ id, num, label, side, bg, items, icon }: SectionProps) {
+function ProjectSection({ id, num, label, side, bg, items, icon, intro }: SectionProps) {
   return (
     <section id={id} className={`relative overflow-hidden ${bg}`}>
       <div className={`absolute ${side === "left" ? "left-[-1rem]" : "right-[-1rem]"} top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[var(--text-ink)]/[0.05] leading-none select-none pointer-events-none`} aria-hidden="true">{num}</div>
@@ -52,6 +53,8 @@ function ProjectSection({ id, num, label, side, bg, items, icon }: SectionProps)
           <h2 className="text-label text-[var(--accent-gold)]">{num} — {label}</h2>
           <div className="h-px w-16 bg-[var(--accent-gold-border)]" />
         </motion.div>
+
+        {intro}
 
         <div className="flex flex-col gap-0">
           {items.map((p, idx) => (
@@ -106,9 +109,24 @@ function ProjectSection({ id, num, label, side, bg, items, icon }: SectionProps)
 }
 
 export default function Projects() {
-  return <ProjectSection id="assessments" num="06" label="Security Assessments (VAPT)" side="left" bg="bg-[var(--bg-paper)]" items={ASSESSMENTS} icon={ScanSearch} />;
+  return (
+    <ProjectSection
+      id="assessments" num="04" label="Security Assessments / VAPT" side="left" bg="bg-[var(--bg-paper)]" items={ASSESSMENTS} icon={ScanSearch}
+      intro={
+        <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="flex flex-col gap-5">
+          <p className="text-body text-[var(--text-ink-muted)] max-w-2xl">
+            <span className="text-label text-[var(--accent-gold)] mr-3">VAPT lifecycle</span>
+            Static analysis → Dynamic &amp; runtime testing → API &amp; web testing → Validation (PoC, CVSS, CWE) → Reporting → Remediation &amp; closure
+          </p>
+          <div className="border border-[var(--accent-gold-border)] px-5 py-4 self-start">
+            <p className="text-label text-[var(--accent-gold)] font-medium">All security testing is performed only in authorized environments.</p>
+          </div>
+        </motion.div>
+      }
+    />
+  );
 }
 
 export function LabProjects() {
-  return <ProjectSection id="projects" num="08" label="Projects" side="left" bg="bg-[var(--bg-paper)]" items={LAB_PROJECTS} icon={FolderLock} />;
+  return <ProjectSection id="projects" num="05" label="Projects" side="right" bg="bg-[var(--bg-paper-darker)]" items={LAB_PROJECTS} icon={FolderLock} />;
 }

@@ -33,7 +33,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="bg-[var(--bg-dark)] text-white relative overflow-hidden">
-      <div className="absolute left-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-white/[0.03] leading-none select-none pointer-events-none" aria-hidden="true">10</div>
+      <div className="absolute left-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-white/[0.03] leading-none select-none pointer-events-none" aria-hidden="true">08</div>
       <SectionIcon icon={LockKeyhole} />
       <div className="absolute -bottom-32 -left-32 w-64 h-64 rounded-full border border-[var(--accent-gold)]/15 pointer-events-none" />
 
@@ -44,7 +44,7 @@ export default function Contact() {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-16"
         >
-          <p className="text-label text-[var(--accent-gold)]">10 — Contact</p>
+          <p className="text-label text-[var(--accent-gold)]">08 — Contact</p>
           <div className="h-px w-16 bg-[var(--accent-gold-border)]" />
         </motion.div>
 
@@ -60,7 +60,7 @@ export default function Contact() {
               Let's Connect
             </h2>
             <p className="text-body text-white/70 mb-12 max-w-sm">
-              Hiring for Application Security, Mobile Security, Mobile VAPT or Security Test Engineer roles in Bengaluru or remote? I'm open to connecting with recruiters, security teams and engineering leaders. Available on a 90-day notice period.
+              Hiring for Application Security, Mobile Security, Mobile VAPT or Security Test Engineer roles in Bengaluru or remote? I'm open to connecting with recruiters, security teams and engineering leaders.
             </p>
 
             <div className="flex flex-col gap-0">

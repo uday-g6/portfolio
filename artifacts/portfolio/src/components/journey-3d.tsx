@@ -9,13 +9,13 @@ import { useEffect, useRef } from "react";
 // Canvas 2D + perspective projection — no library, CSP-safe.
 
 export type ShapeId =
-  | "sphere" | "core" | "timeline" | "matrix" | "device" | "flow"
-  | "graph" | "pipeline" | "constellation" | "badge" | "converge";
+  | "sphere" | "core" | "timeline" | "matrix" | "graph"
+  | "constellation" | "badge" | "stack" | "converge";
 
-const ORDER: ShapeId[] = ["sphere", "core", "timeline", "matrix", "device", "flow", "graph", "pipeline", "constellation", "badge", "converge"];
+const ORDER: ShapeId[] = ["sphere", "core", "timeline", "matrix", "graph", "constellation", "badge", "stack", "converge"];
 
 type V = { x: number; y: number; z: number };
-type Shape = { pts: V[]; edges: [number, number][]; hubs: boolean[]; lanes?: number[][]; stages?: number[][] };
+type Shape = { pts: V[]; edges: [number, number][]; hubs: boolean[]; lanes?: number[][] };
 
 const LINE = "127,214,210"; // #7FD6D2
 const CORE = "0,100,102"; // #006466
@@ -35,7 +35,7 @@ const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2
 
 class Builder {
   pts: V[] = []; hubs: boolean[] = []; edges: [number, number][] = [];
-  lanes?: number[][]; stages?: number[][];
+  lanes?: number[][];
   add(v: V, hub = false) { this.pts.push(v); this.hubs.push(hub); return this.pts.length - 1; }
   link(a: number, b: number) { if (a !== b) this.edges.push([a, b]); }
   knn(k: number, only?: number[]) {
@@ -67,7 +67,7 @@ function finalize(b: Builder, N: number, r: () => number): Shape {
   return {
     pts: keep.map((i) => b.pts[i]), hubs: keep.map((i) => b.hubs[i]),
     edges: b.edges.filter(([a, c]) => map.has(a) && map.has(c)).map(([a, c]) => [map.get(a)!, map.get(c)!] as [number, number]),
-    lanes: b.lanes?.map(remap), stages: b.stages?.map(remap),
+    lanes: b.lanes?.map(remap),
   };
 }
 
@@ -138,34 +138,6 @@ function build(id: ShapeId, N: number, variant = 0): Shape {
       }
       centres.forEach((c, i) => b.link(c, centres[(i + 1) % 5])); break;
     }
-    case "device": { // Mobile — device-inspired structure with a scanning plane
-      const hw = 0.5, hh = 0.95, cols = N > 80 ? 4 : 3, rows = N > 80 ? 7 : 5;
-      const ring = Math.floor((N - cols * rows) / 2);
-      const edge = (t: number) => { const a = t * Math.PI * 2, c = Math.cos(a), s = Math.sin(a); return { x: hw * Math.sign(c) * Math.abs(c) ** 0.25, y: hh * Math.sign(s) * Math.abs(s) ** 0.25 }; };
-      const faces = [0.07, -0.07].map((z) => { const ids: number[] = []; for (let i = 0; i < ring; i++) { const p = edge(i / ring); ids.push(b.add({ ...p, z })); if (i) b.link(ids[i - 1], ids[i]); } b.link(ids[ring - 1], ids[0]); return ids; });
-      for (let i = 0; i < ring; i += Math.max(1, Math.floor(ring / 8))) b.link(faces[0][i], faces[1][i]);
-      const grid: number[][] = [];
-      for (let y = 0; y < rows; y++) { grid.push([]); for (let x = 0; x < cols; x++) {
-        const idx = b.add({ x: -hw + 0.16 + (x / (cols - 1)) * (2 * hw - 0.32), y: -hh + 0.22 + (y / (rows - 1)) * (2 * hh - 0.44), z: 0.07 }, (x + y * 3) % 7 === 0);
-        grid[y].push(idx); if (x) b.link(grid[y][x - 1], idx); if (y) b.link(grid[y - 1][x], idx);
-      } }
-      break;
-    }
-    case "flow": { // API & web — client ⇄ server data pathways
-      const client = b.add({ x: 0, y: -1.35, z: 0 }, true), server = b.add({ x: 0, y: 1.35, z: 0 }, true);
-      const L = 4, per = Math.floor((N - 2) / L); b.lanes = [];
-      for (let l = 0; l < L; l++) {
-        const lane: number[] = [];
-        for (let i = 0; i < per; i++) {
-          const s = i / (per - 1);
-          const idx = b.add({ x: -0.54 + 0.36 * l + 0.06 * Math.sin(Math.PI * 2 * s + l), y: -1.1 + 2.2 * s, z: 0.28 * Math.sin(Math.PI * s * 1.5 + l) });
-          if (lane.length) b.link(lane[lane.length - 1], idx); lane.push(idx);
-        }
-        b.link(client, lane[0]); b.link(lane[lane.length - 1], server);
-        b.lanes.push([client, ...lane, server]);
-      }
-      break;
-    }
     case "graph": { // Assessments — clusters that get swept and assessed
       const centres = [{ x: -0.62, y: 0.18, z: 0.1 }, { x: 0.58, y: 0.32, z: -0.22 }, { x: 0.08, y: -0.5, z: 0.3 }].map((c) => b.add(c, true));
       const per = Math.floor((N - 3) / 3);
@@ -173,15 +145,6 @@ function build(id: ShapeId, N: number, variant = 0): Shape {
         const g = () => (r() + r() + r() - 1.5) * 0.36; b.add({ x: o.x + g(), y: o.y + g(), z: o.z + g() });
       } });
       b.knn(3); b.link(centres[0], centres[1]); b.link(centres[1], centres[2]); b.link(centres[2], centres[0]); break;
-    }
-    case "pipeline": { // Methodology — six connected stages
-      const m = Math.floor((N - 6) / 6); b.stages = []; let prevC = -1;
-      for (let s = 0; s < 6; s++) {
-        const cy = -1.25 + s * 0.5, c = b.add({ x: 0, y: cy, z: 0 }, true), ring: number[] = [];
-        for (let k = 0; k < m; k++) { const a = (2 * Math.PI * k) / m; const idx = b.add({ x: 0.2 * Math.cos(a), y: cy + 0.2 * Math.sin(a), z: 0 }); if (k) b.link(ring[k - 1], idx); if (k % 2 === 0) b.link(c, idx); ring.push(idx); }
-        b.link(ring[m - 1], ring[0]); if (prevC >= 0) b.link(prevC, c); prevC = c; b.stages.push([c, ...ring]);
-      }
-      break;
     }
     case "constellation": { // Projects — a hub with orbiting connected nodes
       const hub = b.add({ x: 0, y: 0, z: 0 }, true), k1 = Math.floor(N * 0.3), k2 = N - 1 - k1;
@@ -206,6 +169,22 @@ function build(id: ShapeId, N: number, variant = 0): Shape {
       inner.forEach((n, i) => { b.link(c, n); b.link(outer[i], n); b.link(n, outer[(i + 1) % 8]); });
       break;
     }
+    case "stack": { // Education — layered foundation (four linked hexagonal layers)
+      const layers = 4, per = Math.floor((N - layers) / layers), rings: number[][] = [];
+      for (let l = 0; l < layers; l++) {
+        const y = -0.75 + l * 0.5, rad = 0.9 - l * 0.12, c = b.add({ x: 0, y, z: 0 }, true), ring: number[] = [];
+        for (let k = 0; k < per; k++) {
+          const a = (k / per) * Math.PI * 2, corner = Math.floor(a / (Math.PI / 3)), f = a / (Math.PI / 3) - corner;
+          const a0 = corner * (Math.PI / 3), a1 = a0 + Math.PI / 3; // points along hexagon edges
+          const idx = b.add({ x: rad * (Math.cos(a0) + (Math.cos(a1) - Math.cos(a0)) * f), y, z: rad * (Math.sin(a0) + (Math.sin(a1) - Math.sin(a0)) * f) });
+          if (k) b.link(ring[k - 1], idx); if (k % Math.max(1, Math.floor(per / 6)) === 0) b.link(c, idx); ring.push(idx);
+        }
+        b.link(ring[per - 1], ring[0]);
+        if (l) { const below = rings[l - 1]; ring.forEach((i, k) => { if (k % Math.max(1, Math.floor(per / 6)) === 0) b.link(i, below[k]); }); }
+        rings.push(ring);
+      }
+      break;
+    }
     case "converge": { // Contact — network converges into one secure connection
       const c = b.add({ x: 0, y: 0, z: 0 }, true); const M = N - 1, shell: number[] = [];
       for (let i = 0; i < M; i++) { const y = 1 - (i / (M - 1)) * 2, rad = Math.sqrt(1 - y * y), th = i * 2.399963; shell.push(b.add({ x: Math.cos(th) * rad * 0.55, y: y * 0.55, z: Math.sin(th) * rad * 0.55 })); }
@@ -224,21 +203,19 @@ const MOTION: Record<ShapeId, { spin: number; tilt: number; scale: number }> = {
   core: { spin: 0.0028, tilt: 0.3, scale: 0.42 },
   timeline: { spin: 0.0012, tilt: 0.25, scale: 0.36 },
   matrix: { spin: 0.0016, tilt: 0.28, scale: 0.4 },
-  device: { spin: 0.0022, tilt: 0.12, scale: 0.4 },
-  flow: { spin: 0.0012, tilt: 0.3, scale: 0.35 },
   graph: { spin: 0.002, tilt: 0.3, scale: 0.42 },
-  pipeline: { spin: 0.0008, tilt: 0.3, scale: 0.34 },
   constellation: { spin: 0.0024, tilt: 0.45, scale: 0.42 },
   badge: { spin: 0.0018, tilt: 0.2, scale: 0.42 },
+  stack: { spin: 0.0022, tilt: 0.42, scale: 0.42 },
   converge: { spin: 0.0026, tilt: 0.3, scale: 0.44 },
 };
 
 
 // ---------- the journey ----------
-const SECTIONS = ["hero", "about", "experience", "skills", "mobile-security", "web-api-security", "assessments", "methodology", "projects", "certifications", "contact"];
+const SECTIONS = ["hero", "about", "experience", "skills", "assessments", "projects", "certifications", "education", "contact"];
 // Which side each state sits on: the same side as that section's big 01–10 number,
 // so the section's information stays on the opposite side.
-const SIDE: ("L" | "R")[] = ["R", "R", "L", "R", "L", "R", "L", "R", "L", "R", "L"];
+const SIDE: ("L" | "R")[] = ["R", "R", "L", "R", "L", "R", "L", "R", "L"];
 
 function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
   const ctx = canvas.getContext("2d");
@@ -251,7 +228,7 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
   const cur: V[] = shapes[0].pts.map((p) => ({ ...p }));
   let W = 0, H = 0, raf = 0, visible = false, t = 0, spin = 0;
   let px = 0, py = 0, tx = 0, ty = 0, lastDominant = -1;
-  const packets = Array.from({ length: small ? 5 : 12 }, () => ({ e: 0, u: Math.random(), v: 0.004 + Math.random() * 0.006, dir: Math.random() < 0.5 ? 1 : -1, lane: 0 }));
+  const packets = Array.from({ length: small ? 5 : 12 }, () => ({ e: 0, u: Math.random(), v: 0.004 + Math.random() * 0.006 }));
   const dust = Array.from({ length: small ? 18 : 48 }, () => ({ x: (Math.random() * 2 - 1) * 1.8, y: (Math.random() * 2 - 1) * 1.4, z: (Math.random() * 2 - 1) * 1.5, s: 0.0006 + Math.random() * 0.0012 }));
   const pulses: { i: number; a: number }[] = [];
   const assessed = new Map<number, number>();
@@ -327,11 +304,11 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
     const R = (LA.R + (LB.R - LA.R) * e) * (0.82 + 0.18 * end);
     if (!reduced) spin += mA.spin + (mB.spin - mA.spin) * e;
     px += (tx - px) * 0.04; py += (ty - py) * 0.04;
-    // Flat structures (device, badge) sway gently facing the viewer instead of spinning edge-on;
+    // Flat or long structures sway gently facing the viewer instead of spinning edge-on;
     // the weight blends continuously during transitions so the motion never jumps.
     // Flat or long structures sway facing the viewer at a readable angle instead of turning edge-on;
     // the weight blends continuously during transitions so the motion never jumps.
-    const FACING: Partial<Record<ShapeId, number>> = { device: 0, badge: 0, timeline: 0.35, flow: 0.3, pipeline: 0.25, constellation: 0 };
+    const FACING: Partial<Record<ShapeId, number>> = { badge: 0, timeline: 0.35, constellation: 0 };
     const wA = ORDER[k] in FACING ? 1 - e : 0, wB = ORDER[k + 1] in FACING ? e : 0, flat = wA + wB;
     const base = (FACING[ORDER[k]] ?? 0) * wA + (FACING[ORDER[k + 1]] ?? 0) * wB;
     const turn = spin + s * 0.9, sway = base + 0.4 * Math.sin(spin * 1.5);
@@ -390,25 +367,12 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
     // The dominant structure's own motion, once it has (nearly) formed.
     const dom = e < 0.5 ? k : k + 1, strength = e < 0.5 ? 1 - e : e, id = ORDER[dom], to = shapes[dom], thr = through[dom] ?? 0;
     if (dom !== lastDominant) {
-      packets.forEach((p) => { p.e = (Math.random() * to.edges.length) | 0; p.lane = (Math.random() * (to.lanes?.length ?? 1)) | 0; p.u = Math.random(); });
+      packets.forEach((p) => { p.e = (Math.random() * to.edges.length) | 0; p.u = Math.random(); });
       pulses.length = 0; assessed.clear(); lastDominant = dom;
     }
     if (strength > 0.85 && !reduced) {
-      if (id === "flow" && to.lanes) {
-        for (const p of packets) {
-          p.u += p.v * p.dir; if (p.u > 1 || p.u < 0) { p.u = p.dir > 0 ? 0 : 1; p.lane = (Math.random() * to.lanes.length) | 0; }
-          const q = along(to.lanes[p.lane], clamp(p.u)); glow(q.x, q.y, 0.55, 7);
-        }
-      } else if (id === "timeline" && to.lanes) {
+      if (id === "timeline" && to.lanes) {
         const q = along(to.lanes[0], thr); glow(q.x, q.y, 0.7, 10);
-      } else if (id === "pipeline" && to.stages) {
-        const st = Math.min(5, Math.floor(thr * 6)), a = P[to.stages[st][0]];
-        glow(a.x, a.y, 0.5, 26);
-        if (st < 5) { const b = P[to.stages[st + 1][0]], u = (t % 120) / 120; glow(a.x + (b.x - a.x) * u, a.y + (b.y - a.y) * u, 0.55, 7); }
-      } else if (id === "device") {
-        const scanY = -0.95 + ((t % 240) / 240) * 1.9, a = project({ x: -0.62, y: scanY, z: 0.07 }), b = project({ x: 0.62, y: scanY, z: 0.07 });
-        ctx!.strokeStyle = rgba(LINE, 0.35); ctx!.lineWidth = 1; ctx!.beginPath(); ctx!.moveTo(a.x, a.y); ctx!.lineTo(b.x, b.y); ctx!.stroke();
-        cur.forEach((q, i) => { if (Math.abs(q.y - scanY) < 0.05) glow(P[i].x, P[i].y, 0.5, 6); });
       } else if (id === "graph") {
         const sweep = ((t * 0.012) % (Math.PI * 2)) - Math.PI;
         cur.forEach((q, i) => { if (Math.abs(Math.atan2(q.z, q.x) - sweep) < 0.05) assessed.set(i, t); });
@@ -436,16 +400,15 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
       if (q.a >= 1) pulses.splice(n, 1);
     }
 
-    const activeStage = id === "pipeline" && to.stages && strength > 0.85 ? new Set(to.stages[Math.min(5, Math.floor(thr * 6))]) : null;
     P.map((_, i) => i).sort((a, b) => P[b].z - P[a].z).forEach((i) => {
       const p = P[i], depth = 1 - (p.z + 1) / 2;
-      const hub = (A.hubs[i] ? 1 - e : 0) + (B.hubs[i] ? e : 0), lit = activeStage?.has(i);
-      const r = Math.max(0, (1.8 + 1.2 * hub) * p.f * (lit ? 1.4 : 1));
+      const hub = (A.hubs[i] ? 1 - e : 0) + (B.hubs[i] ? e : 0);
+      const r = Math.max(0, (1.8 + 1.2 * hub) * p.f);
       if (hub > 0.01) {
         glow(p.x, p.y, (0.22 + 0.25 * depth) * hub, r * 5); // soft highlight on key nodes
         ctx!.fillStyle = rgba(CORE, 0.95 * hub); ctx!.beginPath(); ctx!.arc(p.x, p.y, r + 2.4 * hub, 0, 7); ctx!.fill();
       }
-      ctx!.fillStyle = shade(depth, (0.7 + 0.3 * depth) * (activeStage && !lit ? 0.6 : 1));
+      ctx!.fillStyle = shade(depth, 0.7 + 0.3 * depth);
       ctx!.beginPath(); ctx!.arc(p.x, p.y, r, 0, 7); ctx!.fill();
       if (hub > 0.5) { ctx!.fillStyle = `rgba(241,246,247,${0.85 * hub})`; ctx!.beginPath(); ctx!.arc(p.x, p.y, r * 0.45, 0, 7); ctx!.fill(); } // #F1F6F7 centre
     });

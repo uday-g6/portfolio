@@ -15,7 +15,7 @@ const SKILL_TIPS: Record<string, string> = {
   "JADX": "Java decompiler for reading APK source code and identifying vulnerabilities",
   "Apktool": "Decode and rebuild APKs for deep inspection and smali-level analysis",
   "ADB": "Android Debug Bridge for device interaction, log capture, and file extraction",
-  "Android Component Security": "Test exported activities, services, receivers, providers, and deep links",
+  "Android Component Security": "Review Android component configurations, exported components and broadcast receivers",
   "Web Application Penetration Testing": "End-to-end OWASP-aligned testing of web apps and their backends",
   "OWASP Top 10": "Systematic coverage of the 10 most critical web application risks",
   "SQL Injection": "Payload crafting to extract data or bypass authentication via SQL flaws",
@@ -57,11 +57,12 @@ const SKILL_TIPS: Record<string, string> = {
   "Wireshark": "Packet capture and traffic analysis",
   "SQLmap": "Automated SQL injection detection and validation",
   "Android Studio": "Android tooling for device/emulator setup and app inspection",
-  "Kali Linux": "Primary testing distribution",
-  "JavaScript": "Frida scripts and web testing",
-  "Python": "Scripting for automation, custom checks, and data processing",
-  "Bash": "Automate enumeration, reporting, and test workflows",
-  "Git": "Version control for scripts, reports, and configuration",
+  "Kali Linux": "Linux distribution for security testing",
+  "Linux": "Linux operating system",
+  "JavaScript": "Programming language",
+  "Python": "Programming language",
+  "Bash": "Unix shell and scripting language",
+  "Git": "Version control system",
 };
 
 const CATEGORIES = [
@@ -83,7 +84,7 @@ const CATEGORIES = [
   },
   {
     id: "tools", label: "Tools",
-    skills: ["Frida", "Burp Suite", "MobSF", "JADX", "Apktool", "OWASP ZAP", "Postman", "Nmap", "Wireshark", "SQLmap", "Android Studio", "ADB", "Kali Linux", "Python", "JavaScript", "Bash", "Git"],
+    skills: ["Frida", "Burp Suite", "MobSF", "JADX", "Apktool", "OWASP ZAP", "Postman", "Nmap", "Wireshark", "SQLmap", "Android Studio", "ADB", "Kali Linux", "Linux", "Python", "JavaScript", "Bash", "Git"],
   },
 ];
 

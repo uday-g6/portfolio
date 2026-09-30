@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import TiltCard from "./tilt-card";
 import { Fingerprint } from "lucide-react";
 import SectionIcon from "./section-icon";
 
@@ -17,7 +16,7 @@ export default function About() {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-16"
         >
-          <span className="text-label text-[var(--accent-gold)]">01 — About</span>
+          <span className="text-label text-[var(--accent-gold)]">01 — About Me</span>
           <div className="h-px w-16 bg-[var(--accent-gold-border)]" />
         </motion.div>
 
@@ -79,19 +78,6 @@ export default function About() {
                 ))}
               </ul>
             </div>
-
-            <TiltCard className="card-dark-hover bg-[var(--bg-dark)] text-white p-8">
-              <div className="absolute top-4 right-4 w-8 h-8 border-t border-r border-[var(--accent-gold-border)]" />
-              <div className="absolute bottom-4 left-4 w-8 h-8 border-b border-l border-[var(--accent-gold-border)]" />
-              <p className="text-label text-[var(--accent-gold)] font-medium mb-4">Education</p>
-              <p className="text-xl font-medium leading-snug mb-1 text-white">B.E. Computer Science</p>
-              <p className="text-sm text-white/70 mb-0.5">Maharaja Institute of Technology, Mysuru</p>
-              <p className="text-sm text-white/60 mb-5">Visvesvaraya Technological University</p>
-              <div className="flex justify-between items-center text-label text-white/50 tracking-widest uppercase">
-                <span>2021 – 2025</span>
-                <span className="text-[var(--accent-gold)] font-medium">CGPA 7.2 / 10</span>
-              </div>
-            </TiltCard>
           </motion.div>
         </div>
       </div>
