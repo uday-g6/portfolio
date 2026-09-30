@@ -327,15 +327,31 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
     }
     const P = cur.map(project);
     ctx!.clearRect(0, 0, W, H);
+    // Keep the drawing inside its own section: the formed section only, or — while handing off —
+    // the two sections involved. Nothing (including particles and glows) spills into other sections.
+    const cRect = canvas.getBoundingClientRect();
+    const rectOf = (i: number) => document.getElementById(SECTIONS[i])?.getBoundingClientRect();
+    // Near either end of a hand-off the structure has effectively arrived, so clip to that one section.
+    const secA = rectOf(e >= 0.97 ? k + 1 : k), secB = rectOf(e <= 0.03 ? k : k + 1);
+    const clipTop = clamp((secA?.top ?? 0) - cRect.top, 0, H), clipBottom = clamp((secB?.bottom ?? H) - cRect.top, 0, H);
+    ctx!.save();
+    ctx!.beginPath(); ctx!.rect(0, clipTop, W, Math.max(0, clipBottom - clipTop)); ctx!.clip();
     ctx!.globalAlpha = (LA.a + (LB.a - LA.a) * e) * end;
     track.dataset.pose = `${lx.toFixed(1)},${ly.toFixed(1)},${R.toFixed(1)},${ctx!.globalAlpha.toFixed(3)}`; // inspectable
 
+    // On-screen vertical extent of everything drawn (node glows reach ~18px beyond a node) — inspectable.
+    let extTop = Infinity, extBottom = -Infinity;
+    for (const q of P) { extTop = Math.min(extTop, q.y - 18); extBottom = Math.max(extBottom, q.y + 18); }
     for (const d of dust) {
       if (!reduced) { d.y -= d.s; if (d.y < -1.4) d.y = 1.4; }
       const p = project(d);
+      extTop = Math.min(extTop, p.y - 2); extBottom = Math.max(extBottom, p.y + 2);
       ctx!.fillStyle = rgba(LINE, 0.06 + 0.14 * (1 - (p.z + 1.5) / 3));
       ctx!.beginPath(); ctx!.arc(p.x, p.y, Math.max(0, 0.8 * p.f), 0, 7); ctx!.fill();
     }
+    // Painted extent in page coordinates (after clipping) — inspectable.
+    const paintTop = Math.max(extTop, clipTop) + cRect.top, paintBottom = Math.min(extBottom, clipBottom) + cRect.top;
+    track.dataset.extent = `${paintTop.toFixed(0)},${paintBottom.toFixed(0)}`;
     const drawEdges = (edges: [number, number][], w: number) => {
       if (w <= 0.01) return;
       for (const [i, j] of edges) {
@@ -412,6 +428,7 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
       ctx!.beginPath(); ctx!.arc(p.x, p.y, r, 0, 7); ctx!.fill();
       if (hub > 0.5) { ctx!.fillStyle = `rgba(241,246,247,${0.85 * hub})`; ctx!.beginPath(); ctx!.arc(p.x, p.y, r * 0.45, 0, 7); ctx!.fill(); } // #F1F6F7 centre
     });
+    ctx!.restore();
     ctx!.globalAlpha = 1;
   }
 
