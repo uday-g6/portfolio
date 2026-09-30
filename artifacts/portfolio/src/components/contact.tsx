@@ -35,7 +35,7 @@ export default function Contact() {
       <div className="absolute left-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-white/[0.03] leading-none select-none pointer-events-none" aria-hidden="true">10</div>
       <div className="absolute -bottom-32 -left-32 w-64 h-64 rounded-full border border-[var(--accent-gold)]/15 pointer-events-none" />
 
-      <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
+      <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto lg:pl-[max(4rem,calc(28vw_-_max(0px,(100vw_-_80rem)/2)))]">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}

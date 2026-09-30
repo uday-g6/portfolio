@@ -181,7 +181,7 @@ export default function Skills() {
       <div className={pinned ? "sticky top-0 z-10 h-screen overflow-hidden flex items-center" : "contents"}>
       <div className="absolute right-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-white/[0.03] leading-none select-none pointer-events-none" aria-hidden="true">03</div>
 
-      <div className="relative z-10 w-full px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
+      <div className="relative z-10 w-full px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto lg:pr-[max(4rem,calc(28vw_-_max(0px,(100vw_-_80rem)/2)))]">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -206,7 +206,7 @@ export default function Skills() {
               >
                 <div className="flex min-w-0 flex-1 items-center gap-3">
                   {active === c.id && <span className="w-6 h-px bg-[var(--accent-gold)] shrink-0" />}
-                  <span className="text-sm tracking-wide whitespace-nowrap">{c.label}</span>
+                  <span className="text-sm tracking-wide whitespace-nowrap lg:whitespace-normal">{c.label}</span>
                 </div>
                 <span className={`w-8 text-right text-xs ${active === c.id ? "text-[var(--accent-gold)]" : "text-white/50"}`}>{c.skills.length}</span>
               </button>

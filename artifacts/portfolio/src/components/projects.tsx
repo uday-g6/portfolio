@@ -39,7 +39,7 @@ function ProjectSection({ id, num, label, side, bg, items }: SectionProps) {
     <section id={id} className={`relative overflow-hidden ${bg}`}>
       <div className={`absolute ${side === "left" ? "left-[-1rem]" : "right-[-1rem]"} top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[var(--text-ink)]/[0.05] leading-none select-none pointer-events-none`} aria-hidden="true">{num}</div>
 
-      <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto">
+      <div className={`relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto ${side === "left" ? "lg:pl-[max(4rem,calc(28vw_-_max(0px,(100vw_-_80rem)/2)))]" : "lg:pr-[max(4rem,calc(28vw_-_max(0px,(100vw_-_80rem)/2)))]"}`}>
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}

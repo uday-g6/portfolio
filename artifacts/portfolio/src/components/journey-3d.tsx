@@ -326,7 +326,7 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
     const project = (p: V) => {
       const x = p.x * cy - p.z * sy; let z = p.x * sy + p.z * cy;
       const yy = p.y * cx - z * sx; z = p.y * sx + z * cx;
-      const f = 2.6 / (2.6 + z);
+      const f = 2.6 / Math.max(0.3, 2.6 + z); // never divide by ~0 or flip behind the camera
       return { x: lx + x * R * f, y: ly + yy * R * f, z, f };
     };
     for (let i = 0; i < N; i++) {
@@ -342,7 +342,7 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
       if (!reduced) { d.y -= d.s; if (d.y < -1.4) d.y = 1.4; }
       const p = project(d);
       ctx!.fillStyle = rgba(LINE, 0.06 + 0.14 * (1 - (p.z + 1.5) / 3));
-      ctx!.beginPath(); ctx!.arc(p.x, p.y, 0.8 * p.f, 0, 7); ctx!.fill();
+      ctx!.beginPath(); ctx!.arc(p.x, p.y, Math.max(0, 0.8 * p.f), 0, 7); ctx!.fill();
     }
     const drawEdges = (edges: [number, number][], w: number) => {
       if (w <= 0.01) return;
@@ -417,7 +417,7 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
     for (let n = pulses.length - 1; n >= 0; n--) {
       const q = pulses[n], p = P[q.i]; q.a += 0.012;
       ctx!.strokeStyle = rgba(LINE, 0.45 * (1 - q.a)); ctx!.lineWidth = 1;
-      ctx!.beginPath(); ctx!.arc(p.x, p.y, 4 + q.a * (id === "converge" ? 60 : 22), 0, 7); ctx!.stroke();
+      ctx!.beginPath(); ctx!.arc(p.x, p.y, Math.max(0, 4 + q.a * (id === "converge" ? 60 : 22)), 0, 7); ctx!.stroke();
       if (q.a >= 1) pulses.splice(n, 1);
     }
 
@@ -425,7 +425,7 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
     P.map((_, i) => i).sort((a, b) => P[b].z - P[a].z).forEach((i) => {
       const p = P[i], depth = 1 - (p.z + 1) / 2;
       const hub = (A.hubs[i] ? 1 - e : 0) + (B.hubs[i] ? e : 0) > 0.5, lit = activeStage?.has(i);
-      const r = (hub ? 2.6 : 1.5) * p.f * (lit ? 1.4 : 1);
+      const r = Math.max(0, (hub ? 2.6 : 1.5) * p.f * (lit ? 1.4 : 1));
       if (hub) { ctx!.fillStyle = rgba(CORE, 0.9); ctx!.beginPath(); ctx!.arc(p.x, p.y, r + 2.2, 0, 7); ctx!.fill(); }
       ctx!.fillStyle = rgba(LINE, (0.25 + 0.6 * depth) * (activeStage && !lit ? 0.6 : 1));
       ctx!.beginPath(); ctx!.arc(p.x, p.y, r, 0, 7); ctx!.fill();
