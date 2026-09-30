@@ -115,7 +115,7 @@ function build(id: ShapeId, N: number, variant = 0): Shape {
     }
     case "timeline": { // Experience — network path
       const pathN = Math.floor(N * 0.5), path: number[] = [];
-      const at = (s: number) => ({ x: -1.25 + 2.5 * s, y: 0.2 * Math.sin(s * Math.PI * 2.2), z: 0.35 * Math.cos(s * Math.PI * 1.6) });
+      const at = (s: number) => ({ x: 0.22 * Math.sin(s * Math.PI * 2.2), y: -1.25 + 2.5 * s, z: 0.35 * Math.cos(s * Math.PI * 1.6) });
       for (let i = 0; i < pathN; i++) { const idx = b.add(at(i / (pathN - 1))); if (path.length) b.link(path[path.length - 1], idx); path.push(idx); }
       const miles = [0.1, 0.37, 0.63, 0.9].map((m) => path[Math.round(m * (pathN - 1))]);
       miles.forEach((m) => (b.hubs[m] = true));
@@ -124,7 +124,7 @@ function build(id: ShapeId, N: number, variant = 0): Shape {
         let prev = m; const o = b.pts[m];
         for (let k = 0; k < per; k++) {
           const a = r() * Math.PI * 2, rad = 0.1 + r() * 0.2;
-          const idx = b.add({ x: o.x + (r() - 0.5) * 0.18, y: o.y + Math.cos(a) * rad, z: o.z + Math.sin(a) * rad });
+          const idx = b.add({ x: o.x + Math.cos(a) * rad, y: o.y + (r() - 0.5) * 0.18, z: o.z + Math.sin(a) * rad });
           b.link(k % 3 === 0 ? m : prev, idx); prev = idx;
         }
       });
@@ -162,13 +162,13 @@ function build(id: ShapeId, N: number, variant = 0): Shape {
       break;
     }
     case "flow": { // API & web — client ⇄ server data pathways
-      const client = b.add({ x: -1.35, y: 0, z: 0 }, true), server = b.add({ x: 1.35, y: 0, z: 0 }, true);
+      const client = b.add({ x: 0, y: -1.35, z: 0 }, true), server = b.add({ x: 0, y: 1.35, z: 0 }, true);
       const L = 4, per = Math.floor((N - 2) / L); b.lanes = [];
       for (let l = 0; l < L; l++) {
         const lane: number[] = [];
         for (let i = 0; i < per; i++) {
           const s = i / (per - 1);
-          const idx = b.add({ x: -1.1 + 2.2 * s, y: -0.54 + 0.36 * l + 0.06 * Math.sin(Math.PI * 2 * s + l), z: 0.28 * Math.sin(Math.PI * s * 1.5 + l) });
+          const idx = b.add({ x: -0.54 + 0.36 * l + 0.06 * Math.sin(Math.PI * 2 * s + l), y: -1.1 + 2.2 * s, z: 0.28 * Math.sin(Math.PI * s * 1.5 + l) });
           if (lane.length) b.link(lane[lane.length - 1], idx); lane.push(idx);
         }
         b.link(client, lane[0]); b.link(lane[lane.length - 1], server);
@@ -182,13 +182,13 @@ function build(id: ShapeId, N: number, variant = 0): Shape {
       centres.forEach((c) => { const o = b.pts[c]; for (let i = 0; i < per; i++) {
         const g = () => (r() + r() + r() - 1.5) * 0.36; b.add({ x: o.x + g(), y: o.y + g(), z: o.z + g() });
       } });
-      b.knn(2); b.link(centres[0], centres[1]); b.link(centres[1], centres[2]); break;
+      b.knn(3); b.link(centres[0], centres[1]); b.link(centres[1], centres[2]); b.link(centres[2], centres[0]); break;
     }
     case "pipeline": { // Methodology — six connected stages
       const m = Math.floor((N - 6) / 6); b.stages = []; let prevC = -1;
       for (let s = 0; s < 6; s++) {
-        const cx = -1.25 + s * 0.5, c = b.add({ x: cx, y: 0, z: 0 }, true), ring: number[] = [];
-        for (let k = 0; k < m; k++) { const a = (2 * Math.PI * k) / m; const idx = b.add({ x: cx, y: 0.2 * Math.cos(a), z: 0.2 * Math.sin(a) }); if (k) b.link(ring[k - 1], idx); if (k % 2 === 0) b.link(c, idx); ring.push(idx); }
+        const cy = -1.25 + s * 0.5, c = b.add({ x: 0, y: cy, z: 0 }, true), ring: number[] = [];
+        for (let k = 0; k < m; k++) { const a = (2 * Math.PI * k) / m; const idx = b.add({ x: 0.2 * Math.cos(a), y: cy + 0.2 * Math.sin(a), z: 0 }); if (k) b.link(ring[k - 1], idx); if (k % 2 === 0) b.link(c, idx); ring.push(idx); }
         b.link(ring[m - 1], ring[0]); if (prevC >= 0) b.link(prevC, c); prevC = c; b.stages.push([c, ...ring]);
       }
       break;
@@ -196,9 +196,9 @@ function build(id: ShapeId, N: number, variant = 0): Shape {
     case "constellation": { // Projects — a hub with orbiting connected nodes
       const hub = b.add({ x: 0, y: 0, z: 0 }, true), k1 = Math.floor(N * 0.3), k2 = N - 1 - k1;
       const o1: number[] = [], o2: number[] = [];
-      for (let i = 0; i < k1; i++) { const a = (i / k1) * Math.PI * 2; o1.push(b.add({ x: Math.cos(a) * 0.45, y: Math.sin(a) * 0.16, z: Math.sin(a) * 0.42 })); if (i) b.link(o1[i - 1], o1[i]); if (i % 3 === 0) b.link(hub, o1[i]); }
+      for (let i = 0; i < k1; i++) { const a = (i / k1) * Math.PI * 2; o1.push(b.add({ x: Math.cos(a) * 0.45, y: Math.sin(a) * 0.42, z: Math.sin(a) * 0.14 })); if (i) b.link(o1[i - 1], o1[i]); if (i % 3 === 0) b.link(hub, o1[i]); }
       b.link(o1[k1 - 1], o1[0]);
-      for (let i = 0; i < k2; i++) { const a = (i / k2) * Math.PI * 2; o2.push(b.add({ x: Math.cos(a) * 0.95, y: -Math.sin(a) * 0.3, z: Math.sin(a) * 0.8 }, i % Math.max(1, Math.floor(k2 / 3)) === 0)); if (i) b.link(o2[i - 1], o2[i]); }
+      for (let i = 0; i < k2; i++) { const a = (i / k2) * Math.PI * 2; o2.push(b.add({ x: Math.cos(a) * 0.95, y: Math.sin(a) * 0.82, z: -Math.cos(a) * 0.22 }, i % Math.max(1, Math.floor(k2 / 3)) === 0)); if (i) b.link(o2[i - 1], o2[i]); }
       b.link(o2[k2 - 1], o2[0]);
       o1.forEach((i, n) => { if (n % 2) return; let best = o2[0]; o2.forEach((j) => { if (d2(b.pts[i], b.pts[j]) < d2(b.pts[i], b.pts[best])) best = j; }); b.link(i, best); });
       break;
@@ -255,7 +255,7 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
   if (!ctx) return () => {};
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const small = window.matchMedia("(max-width: 767px)").matches;
-  const N = small ? 56 : 120;
+  const N = small ? 72 : 160;
   const shapes: Shape[] = ORDER.map((id) => build(id, N));
   let swap: { from: Shape; start: number } | null = null; // Skills category change
   const cur: V[] = shapes[0].pts.map((p) => ({ ...p }));
@@ -266,8 +266,8 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
   const pulses: { i: number; a: number }[] = [];
   const assessed = new Map<number, number>();
   const rgba = (c: string, a: number) => `rgba(${c},${clamp(a)})`;
-  // Depth shading inside the palette: back = #006466, front = #7FD6D2.
-  const shade = (d: number, a: number) => { d = clamp(d); return `rgba(${Math.round(127 * d)},${Math.round(100 + 114 * d)},${Math.round(102 + 108 * d)},${clamp(a)})`; };
+  // Depth shading inside the palette: back = a 60/40 mix of #7FD6D2 and #006466, front = #7FD6D2.
+  const shade = (d: number, a: number) => { d = clamp(d); return `rgba(${Math.round(76 + 51 * d)},${Math.round(168 + 46 * d)},${Math.round(167 + 43 * d)},${clamp(a)})`; };
 
   const resize = () => {
     const dpr = Math.min(window.devicePixelRatio || 1, small ? 1.5 : 2);
@@ -282,31 +282,33 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
   function state() {
     const vh = window.innerHeight, y = window.scrollY;
     let s = 0, prevEnd = -Infinity;
-    const through: number[] = [];
+    const through: number[] = [], bottoms: number[] = [];
     SECTIONS.forEach((id, i) => {
       const el = document.getElementById(id);
       if (!el) { through.push(0); return; }
       const r = el.getBoundingClientRect(), top = r.top + y, bottom = top + r.height;
       through.push(clamp((y - top) / Math.max(1, r.height - vh)));
+      bottoms.push(r.bottom);
       if (i === SECTIONS.length - 1) return;
       let a = bottom - vh * 0.95, b = bottom - vh * 0.15;
       if (a < prevEnd) a = prevEnd;
       if (b < a + vh * 0.3) b = a + vh * 0.3;
       s += ease(clamp((y - a) / (b - a))); prevEnd = b;
     });
-    return { s: Math.min(s, SECTIONS.length - 1), through };
+    const footerH = (document.querySelector("footer") as HTMLElement | null)?.offsetHeight ?? 0;
+    return { s: Math.min(s, SECTIONS.length - 1), through, bottoms, footerH };
   }
 
   // Where the structure sits (and how strong it is) for each state.
   function layout(k: number) {
     if (k === 0) {
       if (W >= 1280) { const w = W * 0.46, h = Math.min(H * 0.78, 680); return { x: W * 1.06 - w / 2, y: 64 + h / 2, R: Math.min(w, h) * 0.38, a: 1 }; }
-      const h = H * 0.46; return { x: W / 2, y: 64 + h / 2, R: Math.min(W, h) * 0.42, a: 0.6 };
+      const h = H * 0.46; return { x: W / 2, y: 64 + h / 2, R: Math.min(W, h) * 0.42, a: 0.45 };
     }
     // Centred on the section number's zone at the edge; the same screen-based size for every section.
     const right = SIDE[k] === "R";
     if (W >= 1024) return { x: W * (right ? 0.85 : 0.15), y: H / 2, R: Math.min(W * 0.16, H * 0.38), a: 1 };
-    return { x: W * (right ? 0.8 : 0.2), y: H / 2, R: Math.min(W * 0.34, H * 0.3), a: 0.6 };
+    return { x: W * (right ? 0.8 : 0.2), y: H / 2, R: Math.min(W * 0.34, H * 0.3), a: 0.4 }; // lighter behind text on small screens
   }
 
   function pointsOf(k: number): V[] {
@@ -319,19 +321,30 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
   function draw() {
     if (!W || !H) return;
     if (!reduced) t += 1;
-    const { s, through } = state();
+    const st = state(), through = st.through;
+    const s = reduced ? Math.round(st.s) : st.s; // reduced motion: static, finished structure per section
     const k = Math.min(SECTIONS.length - 2, Math.floor(s)), e = s - k;
     track.dataset.state = s.toFixed(3); // 0 = Hero … 10 = Contact (inspectable)
     const A = shapes[k], B = shapes[k + 1], pa = pointsOf(k), pb = pointsOf(k + 1);
     const LA = layout(k), LB = layout(k + 1), mA = MOTION[ORDER[k]], mB = MOTION[ORDER[k + 1]];
-    const lx = LA.x + (LB.x - LA.x) * e, ly = LA.y + (LB.y - LA.y) * e, R = LA.R + (LB.R - LA.R) * e;
+    // While handing off, the structure rides the boundary between the two sections:
+    // it drifts down towards the end of one section and continues up into the next.
+    const boundary = clamp(st.bottoms[k] ?? H / 2, H * 0.18, H * 0.82), ride = Math.sin(Math.PI * e);
+    const lx = LA.x + (LB.x - LA.x) * e;
+    const ly = LA.y + (LB.y - LA.y) * e + (boundary - (LA.y + (LB.y - LA.y) * e)) * ride * 0.9;
+    // After 10 Contact it settles (shrinks slightly) and fades out before the footer.
+    const end = clamp(((st.bottoms[SECTIONS.length - 1] ?? H) - (H - st.footerH)) / (H * 0.35));
+    const R = (LA.R + (LB.R - LA.R) * e) * (0.82 + 0.18 * end);
     if (!reduced) spin += mA.spin + (mB.spin - mA.spin) * e;
     px += (tx - px) * 0.04; py += (ty - py) * 0.04;
     // Flat structures (device, badge) sway gently facing the viewer instead of spinning edge-on;
     // the weight blends continuously during transitions so the motion never jumps.
-    const FLAT = new Set<ShapeId>(["device", "badge"]);
-    const flat = (FLAT.has(ORDER[k]) ? 1 - e : 0) + (FLAT.has(ORDER[k + 1]) ? e : 0);
-    const turn = spin + s * 0.9, sway = 0.45 * Math.sin(spin * 1.5);
+    // Flat or long structures sway facing the viewer at a readable angle instead of turning edge-on;
+    // the weight blends continuously during transitions so the motion never jumps.
+    const FACING: Partial<Record<ShapeId, number>> = { device: 0, badge: 0, timeline: 0.35, flow: 0.3, pipeline: 0.25, constellation: 0 };
+    const wA = ORDER[k] in FACING ? 1 - e : 0, wB = ORDER[k + 1] in FACING ? e : 0, flat = wA + wB;
+    const base = (FACING[ORDER[k]] ?? 0) * wA + (FACING[ORDER[k + 1]] ?? 0) * wB;
+    const turn = spin + s * 0.9, sway = base + 0.4 * Math.sin(spin * 1.5);
     const ry = turn * (1 - flat) + sway * flat + px * 0.3, rx = mA.tilt + (mB.tilt - mA.tilt) * e + py * 0.15;
     const cy = Math.cos(ry), sy = Math.sin(ry), cx = Math.cos(rx), sx = Math.sin(rx);
     const project = (p: V) => {
@@ -347,7 +360,8 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
     }
     const P = cur.map(project);
     ctx!.clearRect(0, 0, W, H);
-    ctx!.globalAlpha = LA.a + (LB.a - LA.a) * e;
+    ctx!.globalAlpha = (LA.a + (LB.a - LA.a) * e) * end;
+    track.dataset.pose = `${lx.toFixed(1)},${ly.toFixed(1)},${R.toFixed(1)},${ctx!.globalAlpha.toFixed(3)}`; // inspectable
 
     for (const d of dust) {
       if (!reduced) { d.y -= d.s; if (d.y < -1.4) d.y = 1.4; }
@@ -360,8 +374,8 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
       for (const [i, j] of edges) {
         const a = P[i], b = P[j]; if (!a || !b) continue;
         const depth = 1 - ((a.z + b.z) / 2 + 1) / 2;
-        ctx!.strokeStyle = shade(depth, (0.16 + 0.44 * depth) * w);
-        ctx!.lineWidth = 0.7 + 0.9 * depth;
+        ctx!.strokeStyle = shade(depth, (0.32 + 0.48 * depth) * w);
+        ctx!.lineWidth = 0.8 + 0.9 * depth;
         ctx!.beginPath(); ctx!.moveTo(a.x, a.y); ctx!.lineTo(b.x, b.y); ctx!.stroke();
       }
     };
@@ -435,14 +449,15 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
     const activeStage = id === "pipeline" && to.stages && strength > 0.85 ? new Set(to.stages[Math.min(5, Math.floor(thr * 6))]) : null;
     P.map((_, i) => i).sort((a, b) => P[b].z - P[a].z).forEach((i) => {
       const p = P[i], depth = 1 - (p.z + 1) / 2;
-      const hub = (A.hubs[i] ? 1 - e : 0) + (B.hubs[i] ? e : 0) > 0.5, lit = activeStage?.has(i);
-      const r = Math.max(0, (hub ? 3 : 1.8) * p.f * (lit ? 1.4 : 1));
-      if (hub) {
-        glow(p.x, p.y, 0.22 + 0.25 * depth, r * 5); // soft highlight on key nodes
-        ctx!.fillStyle = rgba(CORE, 0.95); ctx!.beginPath(); ctx!.arc(p.x, p.y, r + 2.4, 0, 7); ctx!.fill();
+      const hub = (A.hubs[i] ? 1 - e : 0) + (B.hubs[i] ? e : 0), lit = activeStage?.has(i);
+      const r = Math.max(0, (1.8 + 1.2 * hub) * p.f * (lit ? 1.4 : 1));
+      if (hub > 0.01) {
+        glow(p.x, p.y, (0.22 + 0.25 * depth) * hub, r * 5); // soft highlight on key nodes
+        ctx!.fillStyle = rgba(CORE, 0.95 * hub); ctx!.beginPath(); ctx!.arc(p.x, p.y, r + 2.4 * hub, 0, 7); ctx!.fill();
       }
-      ctx!.fillStyle = shade(depth, (0.45 + 0.55 * depth) * (activeStage && !lit ? 0.6 : 1));
+      ctx!.fillStyle = shade(depth, (0.7 + 0.3 * depth) * (activeStage && !lit ? 0.6 : 1));
       ctx!.beginPath(); ctx!.arc(p.x, p.y, r, 0, 7); ctx!.fill();
+      if (hub > 0.5) { ctx!.fillStyle = `rgba(241,246,247,${0.85 * hub})`; ctx!.beginPath(); ctx!.arc(p.x, p.y, r * 0.45, 0, 7); ctx!.fill(); } // #F1F6F7 centre
     });
     ctx!.globalAlpha = 1;
   }
@@ -457,7 +472,7 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
   const onVis = () => (document.hidden ? stop() : start());
   const onMove = (ev: PointerEvent) => { tx = (ev.clientX / window.innerWidth) * 2 - 1; ty = (ev.clientY / window.innerHeight) * 2 - 1; };
   const onPreview = (ev: Event) => { enabled = (ev as CustomEvent<boolean>).detail; apply(); };
-  const onScroll = () => { if (reduced && visible && enabled) draw(); }; // reduced motion: follow scroll, no autonomous motion
+  const onScroll = () => { if (reduced && visible && enabled) draw(); }; // reduced motion: redraw the static structure for the current section
   const onCategory = (ev: Event) => {
     swap = { from: shapes[3], start: reduced ? -1e9 : performance.now() };
     shapes[3] = build("matrix", N, (ev as CustomEvent<number>).detail);
