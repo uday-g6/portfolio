@@ -222,7 +222,11 @@ function build(id: ShapeId, N: number, variant = 0): Shape {
       b.knn(2, shell); shell.forEach((i, n) => { if (n % 5 === 0) b.link(c, i); }); break;
     }
   }
-  return finalize(b, N, r);
+  const shape = finalize(b, N, r);
+  // Same visual size for every structure: scale to a unit bounding radius.
+  const m = Math.max(...shape.pts.map((p) => Math.hypot(p.x, p.y, p.z))) || 1;
+  shape.pts = shape.pts.map((p) => ({ x: p.x / m, y: p.y / m, z: p.z / m }));
+  return shape;
 }
 
 const MOTION: Record<ShapeId, { spin: number; tilt: number; scale: number }> = {
@@ -262,6 +266,8 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
   const pulses: { i: number; a: number }[] = [];
   const assessed = new Map<number, number>();
   const rgba = (c: string, a: number) => `rgba(${c},${clamp(a)})`;
+  // Depth shading inside the palette: back = #006466, front = #7FD6D2.
+  const shade = (d: number, a: number) => { d = clamp(d); return `rgba(${Math.round(127 * d)},${Math.round(100 + 114 * d)},${Math.round(102 + 108 * d)},${clamp(a)})`; };
 
   const resize = () => {
     const dpr = Math.min(window.devicePixelRatio || 1, small ? 1.5 : 2);
@@ -294,13 +300,13 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
   // Where the structure sits (and how strong it is) for each state.
   function layout(k: number) {
     if (k === 0) {
-      if (W >= 1280) { const w = W * 0.46, h = Math.min(H * 0.78, 680); return { x: W * 1.06 - w / 2, y: 64 + h / 2, R: Math.min(w, h) * 0.42, a: 1 }; }
-      const h = H * 0.46; return { x: W / 2, y: 64 + h / 2, R: Math.min(W, h) * 0.42, a: 0.45 };
+      if (W >= 1280) { const w = W * 0.46, h = Math.min(H * 0.78, 680); return { x: W * 1.06 - w / 2, y: 64 + h / 2, R: Math.min(w, h) * 0.38, a: 1 }; }
+      const h = H * 0.46; return { x: W / 2, y: 64 + h / 2, R: Math.min(W, h) * 0.42, a: 0.6 };
     }
-    // Centred on the section number's zone at the edge, not the middle of the screen.
-    const sc = MOTION[ORDER[k]].scale, right = SIDE[k] === "R";
-    if (W >= 1024) return { x: W * (right ? 0.86 : 0.14), y: H / 2, R: Math.min(W * 0.3, H) * sc, a: 0.7 };
-    return { x: W * (right ? 0.8 : 0.2), y: H / 2, R: Math.min(W * 0.45, H * 0.4) * sc, a: 0.45 };
+    // Centred on the section number's zone at the edge; the same screen-based size for every section.
+    const right = SIDE[k] === "R";
+    if (W >= 1024) return { x: W * (right ? 0.85 : 0.15), y: H / 2, R: Math.min(W * 0.16, H * 0.38), a: 1 };
+    return { x: W * (right ? 0.8 : 0.2), y: H / 2, R: Math.min(W * 0.34, H * 0.3), a: 0.6 };
   }
 
   function pointsOf(k: number): V[] {
@@ -321,7 +327,12 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
     const lx = LA.x + (LB.x - LA.x) * e, ly = LA.y + (LB.y - LA.y) * e, R = LA.R + (LB.R - LA.R) * e;
     if (!reduced) spin += mA.spin + (mB.spin - mA.spin) * e;
     px += (tx - px) * 0.04; py += (ty - py) * 0.04;
-    const ry = spin + s * 0.9 + px * 0.3, rx = mA.tilt + (mB.tilt - mA.tilt) * e + py * 0.15;
+    // Flat structures (device, badge) sway gently facing the viewer instead of spinning edge-on;
+    // the weight blends continuously during transitions so the motion never jumps.
+    const FLAT = new Set<ShapeId>(["device", "badge"]);
+    const flat = (FLAT.has(ORDER[k]) ? 1 - e : 0) + (FLAT.has(ORDER[k + 1]) ? e : 0);
+    const turn = spin + s * 0.9, sway = 0.45 * Math.sin(spin * 1.5);
+    const ry = turn * (1 - flat) + sway * flat + px * 0.3, rx = mA.tilt + (mB.tilt - mA.tilt) * e + py * 0.15;
     const cy = Math.cos(ry), sy = Math.sin(ry), cx = Math.cos(rx), sx = Math.sin(rx);
     const project = (p: V) => {
       const x = p.x * cy - p.z * sy; let z = p.x * sy + p.z * cy;
@@ -349,8 +360,8 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
       for (const [i, j] of edges) {
         const a = P[i], b = P[j]; if (!a || !b) continue;
         const depth = 1 - ((a.z + b.z) / 2 + 1) / 2;
-        ctx!.strokeStyle = rgba(LINE, (0.05 + 0.22 * depth) * w);
-        ctx!.lineWidth = 0.6 + 0.6 * depth;
+        ctx!.strokeStyle = shade(depth, (0.16 + 0.44 * depth) * w);
+        ctx!.lineWidth = 0.7 + 0.9 * depth;
         ctx!.beginPath(); ctx!.moveTo(a.x, a.y); ctx!.lineTo(b.x, b.y); ctx!.stroke();
       }
     };
@@ -425,9 +436,12 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
     P.map((_, i) => i).sort((a, b) => P[b].z - P[a].z).forEach((i) => {
       const p = P[i], depth = 1 - (p.z + 1) / 2;
       const hub = (A.hubs[i] ? 1 - e : 0) + (B.hubs[i] ? e : 0) > 0.5, lit = activeStage?.has(i);
-      const r = Math.max(0, (hub ? 2.6 : 1.5) * p.f * (lit ? 1.4 : 1));
-      if (hub) { ctx!.fillStyle = rgba(CORE, 0.9); ctx!.beginPath(); ctx!.arc(p.x, p.y, r + 2.2, 0, 7); ctx!.fill(); }
-      ctx!.fillStyle = rgba(LINE, (0.25 + 0.6 * depth) * (activeStage && !lit ? 0.6 : 1));
+      const r = Math.max(0, (hub ? 3 : 1.8) * p.f * (lit ? 1.4 : 1));
+      if (hub) {
+        glow(p.x, p.y, 0.22 + 0.25 * depth, r * 5); // soft highlight on key nodes
+        ctx!.fillStyle = rgba(CORE, 0.95); ctx!.beginPath(); ctx!.arc(p.x, p.y, r + 2.4, 0, 7); ctx!.fill();
+      }
+      ctx!.fillStyle = shade(depth, (0.45 + 0.55 * depth) * (activeStage && !lit ? 0.6 : 1));
       ctx!.beginPath(); ctx!.arc(p.x, p.y, r, 0, 7); ctx!.fill();
     });
     ctx!.globalAlpha = 1;

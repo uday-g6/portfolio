@@ -78,9 +78,9 @@
   /* ============================================================
      TYPOGRAPHY
      ============================================================ */
-  --font-display: 'Merriweather', Georgia, serif;  /* Headings */
-  --font-body: 'Merriweather', Georgia, serif;     /* Body text */
-  --font-mono: 'Merriweather', Georgia, serif;     /* Labels (was mono) */
+  --font-display: 'Jost', system-ui, sans-serif;  /* Headings */
+  --font-body: 'Jost', system-ui, sans-serif;     /* Body text */
+  --font-mono: 'Jost', system-ui, sans-serif;     /* Labels */
 
   /* Radius — minimal, technical */
   --radius: 0px;
