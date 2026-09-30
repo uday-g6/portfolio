@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import { SquareTerminal } from "lucide-react";
+import SectionIcon from "./section-icon";
 
 const SKILL_TIPS: Record<string, string> = {
   "Android APK Security Testing": "Full-lifecycle security testing of production Android apps — static, dynamic, runtime, and API layers",
@@ -180,6 +182,7 @@ export default function Skills() {
     >
       <div className={pinned ? "sticky top-0 z-10 h-screen overflow-hidden flex items-center" : "contents"}>
       <div className="absolute right-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-white/[0.03] leading-none select-none pointer-events-none" aria-hidden="true">03</div>
+      <SectionIcon icon={SquareTerminal} />
 
       <div className="relative z-10 w-full px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto lg:pr-[max(4rem,calc(28vw_-_max(0px,(100vw_-_80rem)/2)))]">
         <motion.div

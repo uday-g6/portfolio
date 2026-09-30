@@ -1,3 +1,5 @@
+import { FolderLock, ScanSearch, type LucideIcon } from "lucide-react";
+import SectionIcon from "./section-icon";
 import { motion } from "framer-motion";
 
 type Project = { num: string; title: string; context: string; desc: string; tools: string[]; coverage: string[] };
@@ -32,12 +34,13 @@ const LAB_PROJECTS: Project[] = [
   },
 ];
 
-type SectionProps = { id: string; num: string; label: string; side: "left" | "right"; bg: string; items: Project[] };
+type SectionProps = { id: string; num: string; label: string; side: "left" | "right"; bg: string; items: Project[]; icon: LucideIcon };
 
-function ProjectSection({ id, num, label, side, bg, items }: SectionProps) {
+function ProjectSection({ id, num, label, side, bg, items, icon }: SectionProps) {
   return (
     <section id={id} className={`relative overflow-hidden ${bg}`}>
       <div className={`absolute ${side === "left" ? "left-[-1rem]" : "right-[-1rem]"} top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[var(--text-ink)]/[0.05] leading-none select-none pointer-events-none`} aria-hidden="true">{num}</div>
+      <SectionIcon icon={icon} />
 
       <div className={`relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto ${side === "left" ? "lg:pl-[max(4rem,calc(28vw_-_max(0px,(100vw_-_80rem)/2)))]" : "lg:pr-[max(4rem,calc(28vw_-_max(0px,(100vw_-_80rem)/2)))]"}`}>
         <motion.div
@@ -103,9 +106,9 @@ function ProjectSection({ id, num, label, side, bg, items }: SectionProps) {
 }
 
 export default function Projects() {
-  return <ProjectSection id="assessments" num="06" label="Security Assessments (VAPT)" side="left" bg="bg-[var(--bg-paper)]" items={ASSESSMENTS} />;
+  return <ProjectSection id="assessments" num="06" label="Security Assessments (VAPT)" side="left" bg="bg-[var(--bg-paper)]" items={ASSESSMENTS} icon={ScanSearch} />;
 }
 
 export function LabProjects() {
-  return <ProjectSection id="projects" num="08" label="Projects" side="left" bg="bg-[var(--bg-paper)]" items={LAB_PROJECTS} />;
+  return <ProjectSection id="projects" num="08" label="Projects" side="left" bg="bg-[var(--bg-paper)]" items={LAB_PROJECTS} icon={FolderLock} />;
 }

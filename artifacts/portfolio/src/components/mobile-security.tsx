@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { Smartphone } from "lucide-react";
+import SectionIcon from "./section-icon";
 
 const TOPICS = [
   "Android APK Security Testing",
@@ -17,6 +19,7 @@ export default function MobileSecurity() {
   return (
     <section id="mobile-security" className="relative overflow-hidden bg-[var(--bg-paper)]">
       <div className="absolute left-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[var(--text-ink)]/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">04</div>
+      <SectionIcon icon={Smartphone} />
 
       <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto lg:pl-[max(4rem,calc(28vw_-_max(0px,(100vw_-_80rem)/2)))]">
         <motion.div

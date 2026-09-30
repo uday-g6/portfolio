@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { BadgeCheck } from "lucide-react";
+import SectionIcon from "./section-icon";
 
 const CERTS = [
   { title: "Ethical Hacking & CTF", issuer: "IIT (ISM) Dhanbad — ChES", year: "2024" },
@@ -15,6 +17,7 @@ export default function Certifications() {
   return (
     <section id="certifications" className="relative overflow-hidden bg-[var(--bg-paper-darker)]">
       <div className="absolute right-[-1rem] top-1/2 -translate-y-1/2 serif text-[28vw] font-bold text-[var(--text-ink)]/[0.04] leading-none select-none pointer-events-none" aria-hidden="true">09</div>
+      <SectionIcon icon={BadgeCheck} />
 
       <div className="relative z-10 px-6 md:px-16 py-24 md:py-36 max-w-7xl mx-auto lg:pr-[max(4rem,calc(28vw_-_max(0px,(100vw_-_80rem)/2)))]">
         <motion.div
