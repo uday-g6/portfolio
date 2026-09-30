@@ -20,16 +20,6 @@ type Shape = { pts: V[]; edges: [number, number][]; hubs: boolean[]; lanes?: num
 const LINE = "127,214,210"; // #7FD6D2
 const CORE = "0,100,102"; // #006466
 
-// ---------- preview toggle (demo control) ----------
-const PREVIEW_EVENT = "preview3d";
-export function preview3dEnabled() {
-  try { return localStorage.getItem("preview3d") !== "off"; } catch { return true; }
-}
-export function setPreview3d(on: boolean) {
-  try { localStorage.setItem("preview3d", on ? "on" : "off"); } catch { /* storage unavailable */ }
-  window.dispatchEvent(new CustomEvent(PREVIEW_EVENT, { detail: on }));
-}
-
 // ---------- geometry helpers ----------
 function rng(seed: number) {
   return () => {
@@ -259,7 +249,7 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
   const shapes: Shape[] = ORDER.map((id) => build(id, N));
   let swap: { from: Shape; start: number } | null = null; // Skills category change
   const cur: V[] = shapes[0].pts.map((p) => ({ ...p }));
-  let W = 0, H = 0, raf = 0, visible = false, enabled = preview3dEnabled(), t = 0, spin = 0;
+  let W = 0, H = 0, raf = 0, visible = false, t = 0, spin = 0;
   let px = 0, py = 0, tx = 0, ty = 0, lastDominant = -1;
   const packets = Array.from({ length: small ? 5 : 12 }, () => ({ e: 0, u: Math.random(), v: 0.004 + Math.random() * 0.006, dir: Math.random() < 0.5 ? 1 : -1, lane: 0 }));
   const dust = Array.from({ length: small ? 18 : 48 }, () => ({ x: (Math.random() * 2 - 1) * 1.8, y: (Math.random() * 2 - 1) * 1.4, z: (Math.random() * 2 - 1) * 1.5, s: 0.0006 + Math.random() * 0.0012 }));
@@ -463,34 +453,30 @@ function mount(track: HTMLDivElement, canvas: HTMLCanvasElement) {
   }
 
   const loop = () => { draw(); raf = requestAnimationFrame(loop); };
-  const start = () => { if (enabled && visible && !document.hidden && !raf) { if (reduced) draw(); else raf = requestAnimationFrame(loop); } };
+  const start = () => { if (visible && !document.hidden && !raf) { if (reduced) draw(); else raf = requestAnimationFrame(loop); } };
   const stop = () => { cancelAnimationFrame(raf); raf = 0; };
-  const apply = () => { track.style.display = enabled ? "" : "none"; if (enabled) { resize(); start(); } else stop(); };
 
   const io = new IntersectionObserver(([en]) => { visible = en.isIntersecting; if (visible) start(); else stop(); });
   const ro = new ResizeObserver(resize);
   const onVis = () => (document.hidden ? stop() : start());
   const onMove = (ev: PointerEvent) => { tx = (ev.clientX / window.innerWidth) * 2 - 1; ty = (ev.clientY / window.innerHeight) * 2 - 1; };
-  const onPreview = (ev: Event) => { enabled = (ev as CustomEvent<boolean>).detail; apply(); };
-  const onScroll = () => { if (reduced && visible && enabled) draw(); }; // reduced motion: redraw the static structure for the current section
+  const onScroll = () => { if (reduced && visible) draw(); }; // reduced motion: redraw the static structure for the current section
   const onCategory = (ev: Event) => {
     swap = { from: shapes[3], start: reduced ? -1e9 : performance.now() };
     shapes[3] = build("matrix", N, (ev as CustomEvent<number>).detail);
     if (reduced) draw();
   };
 
-  apply();
+  resize();
   io.observe(track); ro.observe(canvas);
   window.addEventListener("pointermove", onMove, { passive: true });
   window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener(PREVIEW_EVENT, onPreview);
   window.addEventListener("skills:category", onCategory);
   document.addEventListener("visibilitychange", onVis);
   return () => {
     stop(); io.disconnect(); ro.disconnect();
     window.removeEventListener("pointermove", onMove);
     window.removeEventListener("scroll", onScroll);
-    window.removeEventListener(PREVIEW_EVENT, onPreview);
     window.removeEventListener("skills:category", onCategory);
     document.removeEventListener("visibilitychange", onVis);
   };
@@ -506,26 +492,5 @@ export default function Journey3D() {
     <div ref={track} data-3d-track aria-hidden="true" className="pointer-events-none absolute inset-0 z-[5]">
       <canvas ref={canvas} className="sticky top-0 block h-[100svh] w-full" />
     </div>
-  );
-}
-
-export function Preview3DToggle() {
-  const ref = useRef<HTMLButtonElement>(null);
-  useEffect(() => {
-    const b = ref.current!;
-    const paint = () => { const on = preview3dEnabled(); b.textContent = `3D Preview: ${on ? "ON" : "OFF"}`; b.setAttribute("aria-pressed", String(on)); };
-    paint(); window.addEventListener(PREVIEW_EVENT, paint);
-    return () => window.removeEventListener(PREVIEW_EVENT, paint);
-  }, []);
-  return (
-    <button
-      ref={ref}
-      type="button"
-      data-preview-3d-toggle
-      onClick={() => setPreview3d(!preview3dEnabled())}
-      className="fixed bottom-5 left-5 z-[60] border border-[var(--accent-gold)] bg-[var(--bg-dark)]/90 px-4 py-2 text-label text-[var(--accent-gold)] backdrop-blur-sm hover:bg-[var(--accent-gold)] hover:text-white transition-colors"
-    >
-      3D Preview: ON
-    </button>
   );
 }
